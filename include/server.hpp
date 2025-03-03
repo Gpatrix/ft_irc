@@ -13,6 +13,8 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 
+#include <cstring>
+
 class server
 {
 	private:
