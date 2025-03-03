@@ -3,6 +3,7 @@
 #include <map>
 
 #define PASSWORD_SIZE_LIMIT 50
+#define CHANNEL_NAME_SIZE_LIMIT 200
 
 // https://modern.ircdocs.horse/
 // https://www.rfc-editor.org/rfc/rfc1459.html
