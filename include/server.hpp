@@ -15,6 +15,7 @@
 
 #include <cstring>
 #include <cstdlib>
+#include <cstdio> // for debug erno
 
 class server
 {

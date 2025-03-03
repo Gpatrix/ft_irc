@@ -11,13 +11,14 @@ server::server(char* port, char* password)
 	if (this->sockfd < 0)
 		throw std::runtime_error("error: init socket");
 
-	rc = setsockopt(this->sockfd, IPPROTO_TCP, SO_REUSEADDR | SO_REUSEPORT, NULL, 0);
+	int buffer;
+	rc = setsockopt(this->sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &buffer, sizeof(buffer));
 	if (rc < 0)
 		throw std::runtime_error("error: setsockopt() failed");
-	struct sockaddr_in6   addr;
 	
+	struct sockaddr_in6   addr;
 	memset(&addr, 0, sizeof(addr));
-	addr.sin6_family      = AF_INET6;
+	addr.sin6_family = AF_INET6;
 	memcpy(&addr.sin6_addr, &in6addr_any, sizeof(in6addr_any));
 
 	char*	end;
@@ -29,6 +30,10 @@ server::server(char* port, char* password)
 	rc = bind(this->sockfd, (struct sockaddr *)&addr, sizeof(addr));
 	if (rc < 0)
 		throw std::runtime_error("error: bind() failed");
+
+	rc = listen(this->sockfd, 1024);
+	if (rc < 0)
+		throw std::runtime_error("error: listen() failed");
 }
 
 server::~server(void) {}
