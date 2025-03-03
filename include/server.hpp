@@ -14,6 +14,7 @@
 #include <sys/types.h>
 
 #include <cstring>
+#include <cstdlib>
 
 class server
 {
