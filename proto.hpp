@@ -4,6 +4,9 @@
 
 #define PASSWORD_SIZE_LIMIT 50
 
+// https://modern.ircdocs.horse/
+// https://www.rfc-editor.org/rfc/rfc1459.html
+
 class user
 {
 	private:
