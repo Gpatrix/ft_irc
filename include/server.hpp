@@ -24,7 +24,6 @@ class server
 		std::map<std::string&, channel&>	channels;
 		std::vector<user*>					user;
 		int									sockfd;
-		std::vector<pollfd>					pollfds;
 		std::string							password;
 
 	public:
