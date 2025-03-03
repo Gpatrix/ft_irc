@@ -1,20 +1,27 @@
 #pragma once
 
+#include <iostream>
+
 #include "user.hpp"
 #include "channel.hpp"
-#include <iostream>
+
 #include <vector>
 #include <map>
 
+#include <sys/poll.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/types.h>
 
 class server
 {
 	private:
 		std::map<std::string&, channel&>	channels;
 		std::vector<user*>					user;
+		int									sockfd;
 		std::string							password;
 
 	public:
-		server(void);
+		server(char* port, char* password);
 		~server(void);
 };
