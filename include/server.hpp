@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
+#include <poll.h>
 
 #include <cstring>
 #include <cstdlib>
@@ -23,6 +24,7 @@ class server
 		std::map<std::string&, channel&>	channels;
 		std::vector<user*>					user;
 		int									sockfd;
+		std::vector<pollfd>					pollfds;
 		std::string							password;
 
 	public:
