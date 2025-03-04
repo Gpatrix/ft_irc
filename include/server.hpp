@@ -17,7 +17,7 @@
 
 #include <cstring>
 #include <cstdlib>
-#include <cstdio> // for debug erno
+#include <cstdio> // for debug perror
 
 #include <unistd.h>
 

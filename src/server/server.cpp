@@ -26,14 +26,11 @@ void	server::init_socket(char* &port)
 	long	port_nb = strtol(port, &end, 10);
 	if (*end != '\0' || port_nb < 0)
 		throw std::runtime_error("bad port");
-	
+
 	addr.sin6_port = htons(static_cast<uint16_t>(port_nb));
 	rc = bind(this->sockfd, (struct sockaddr *)&addr, sizeof(addr));
 	if (rc < 0)
-	{
-		perror("bind");
 		throw std::runtime_error("error: bind() failed");
-	}
 
 	rc = listen(this->sockfd, 1024);
 	if (rc < 0)
@@ -67,8 +64,6 @@ server::server(char* port, char* password): password(password)
 			exit(0); // TODO a changer
 		}
 
-		std::cout << rc << " internet\n";
-
 		int current_size = nfds;
 		for (short index = 0; index < current_size; index++)
 		{
@@ -93,7 +88,7 @@ server::server(char* port, char* password): password(password)
 						break;
 					}
 
-					printf("  New incoming connection - %d\n", new_sd);
+					std::cout << "\tNew incoming connection - "<< new_sd << '\n';
 
 					this->fds[nfds].fd = new_sd;
 					this->fds[nfds].events = POLLIN;
@@ -103,7 +98,7 @@ server::server(char* port, char* password): password(password)
 			}
 			else
 			{
-				printf("  Descriptor %d is readable\n", this->fds[index].fd);
+				std::cout << "reading  Descriptor "<< this->fds[index].fd << '\n';
 				close_conn = false;
 				while (true)
 				{
@@ -120,12 +115,12 @@ server::server(char* port, char* password): password(password)
 
 					if (rc == 0)
 					{
-						printf("  Connection closed\n");
+						std::cout << "\tConnection closed\n";
 						close_conn = true;
 						break;
 					}
 
-					printf("  %d bytes received\n", rc);
+					std::cout << '\t' << rc << " bytes received\n";
 
 					rc = send(this->fds[index].fd, buffer, rc, 0);
 					if (rc < 0)
