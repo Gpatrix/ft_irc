@@ -9,12 +9,10 @@
 #include <map>
 
 #include <sys/poll.h>
-
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
-#include <poll.h>
 
 #include <cstring>
 #include <cstdlib>
@@ -37,7 +35,7 @@ class server
 		pollfd	fds[200];
 		short	nfds;
 
-		void	init_socket(char* &port);
+		void		init_socket(char* &port);
 		inline void	accept_new_user(void);
 		inline void	recv_data(short& index, bool& compress_array);
 

@@ -140,8 +140,7 @@ inline void	server::accept_new_user(void)
 		{
 			if (errno != EWOULDBLOCK)
 			{
-				perror("  accept() failed");
-				// end_server = true;
+				perror("\taccept() failed");
 			}
 			break;
 		}
@@ -164,11 +163,6 @@ inline void	server::recv_data(short& index, bool& compress_array)
 
 	std::cout << "Reading descriptor "<< this->fds[index].fd << '\n';
 
-	// data.clear();
-	// std::cout << data.size() << '\n';
-	// data.erase(data.begin(), data.end());
-	// std::cout << data.size() << '\n';
-	// memset(buffer, 0, sizeof(buffer));
 	data.clear();
 	while (true)
 	{
