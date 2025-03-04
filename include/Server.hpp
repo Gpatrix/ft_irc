@@ -2,8 +2,8 @@
 
 #include <iostream>
 
-#include "user.hpp"
-#include "channel.hpp"
+#include "User.hpp"
+#include "Channel.hpp"
 
 #include <vector>
 #include <map>
@@ -24,13 +24,13 @@
 
 #include <errno.h>
 
-class server
+class Server
 {
 	private:
-		std::map<std::string&, channel&>	channels;
-		std::vector<user*>					user;
-		int									sockfd;
-		std::string							password;
+		std::map<std::string&, Channel&>	Channels;
+		std::vector<User*>					User;
+		int									Sockfd;
+		std::string							Password;
 
 		pollfd	fds[200];
 		short	nfds;
@@ -40,9 +40,9 @@ class server
 		inline void	recv_data(short& index, bool& compress_array);
 
 	public:
-		server(void);
+		Server(void);
 
-		~server(void);
+		~Server(void);
 		void	init(char* port, char* password);
 		void	run(void);
 };

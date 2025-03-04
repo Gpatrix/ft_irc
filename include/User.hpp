@@ -3,7 +3,7 @@
 #include <iostream>
 #include <sys/types.h>
 
-class user
+class User
 {
 	private:
 		id_t		_id;
@@ -11,6 +11,6 @@ class user
 		std::string	_name;
 
 	public:
-		user(id_t id, int fd, std::string name);
-		~user(void);
+		User(id_t id, int fd, std::string name);
+		~User(void);
 };

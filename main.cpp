@@ -1,4 +1,4 @@
-#include "server.hpp"
+#include "Server.hpp"
 
 // https://modern.ircdocs.horse/
 // https://www.rfc-editor.org/rfc/rfc1459.html
@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 		return (1);
 	}
 
-	server	the_server;
+	Server	the_server;
 
 	try
 	{

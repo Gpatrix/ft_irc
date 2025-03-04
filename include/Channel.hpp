@@ -9,7 +9,7 @@
 #define CHANNEL_NAME_SIZE_LIMIT 200
 
 
-class channel
+class Channel
 {
 	private:
 		std::string			_Name;
@@ -23,6 +23,6 @@ class channel
 		unsigned int	user_limit;
 	
 	public:
-		channel(std::string	Name, id_t owner);
-		~channel(void);
+		Channel(std::string	Name, id_t owner);
+		~Channel(void);
 };

@@ -1,18 +1,18 @@
-#include "server.hpp"
+#include "Server.hpp"
 
 // https://www.ibm.com/docs/fr/i/7.5?topic=designs-using-poll-instead-select
 // https://tala-informatique.fr/index.php?title=C_socket
 
-void	server::init_socket(char* &port)
+void	Server::init_socket(char* &port)
 {
 	int		rc;
 
-	this->sockfd = socket(AF_INET6, SOCK_STREAM | SOCK_NONBLOCK, 0);
-	if (this->sockfd < 0)
+	this->Sockfd = socket(AF_INET6, SOCK_STREAM | SOCK_NONBLOCK, 0);
+	if (this->Sockfd < 0)
 		throw std::runtime_error("Error: init socket");
 
 	int on = 0;
-	rc = setsockopt(this->sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+	rc = setsockopt(this->Sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 	if (rc < 0)
 	{
 		throw std::runtime_error("Error: setsockopt() failed");
@@ -30,35 +30,35 @@ void	server::init_socket(char* &port)
 		throw std::runtime_error("Error: bad port");
 
 	addr.sin6_port = htons(static_cast<uint16_t>(port_nb));
-	rc = bind(this->sockfd, (struct sockaddr *)&addr, sizeof(addr));
+	rc = bind(this->Sockfd, (struct sockaddr *)&addr, sizeof(addr));
 	if (rc < 0)
 		throw std::runtime_error("Error: bind() failed");
 
-	rc = listen(this->sockfd, 1024);
+	rc = listen(this->Sockfd, 1024);
 	if (rc < 0)
 		throw std::runtime_error("Error: listen() failed");
 
-	this->fds[0].fd = this->sockfd;
+	this->fds[0].fd = this->Sockfd;
 	this->fds[0].events = POLLIN;
 	this->fds[0].revents = 0;
 }
 
 void sigint_handler(int)
 {
-	std::cout << '\n' << "closing server" << '\n';
+	std::cout << '\n' << "closing Server" << '\n';
 }
 
-server::server(void): nfds(1) {}
+Server::Server(void): nfds(1) {}
 
-void server::init(char* port, char* password)
+void Server::init(char* port, char* password)
 {
 	int		rc;
 	int		new_sd = -1;
 	bool	close_conn = false;
 	bool	compress_array = false;
 
-	this->password = password;
-	this->sockfd = -1;
+	this->Password = password;
+	this->Sockfd = -1;
 
 	struct sigaction sa;
 	sa.sa_handler = sigint_handler;
@@ -68,10 +68,10 @@ void server::init(char* port, char* password)
 
 	init_socket(port);
 
-	std::cout <<"server ready\n";
+	std::cout <<"Server ready\n";
 }
 
-void server::run(void)
+void Server::run(void)
 {
 	int		rc;
 	bool	compress_array = false;
@@ -100,7 +100,7 @@ void server::run(void)
 			if (this->fds[index].revents == 0)
 				continue ;
 
-			if (this->fds[index].fd == this->sockfd)
+			if (this->fds[index].fd == this->Sockfd)
 			{
 				this->accept_new_user();
 			}
@@ -128,14 +128,14 @@ void server::run(void)
 	}
 }
 
-inline void	server::accept_new_user(void)
+inline void	Server::accept_new_user(void)
 {
 	static int	new_sd = -1;
 
-	std::cout << "reading server socket\n";
+	std::cout << "reading Server socket\n";
 	do
 	{
-		new_sd = accept(this->sockfd, NULL, NULL);
+		new_sd = accept(this->Sockfd, NULL, NULL);
 		if (new_sd < 0)
 		{
 			if (errno != EWOULDBLOCK)
@@ -153,7 +153,7 @@ inline void	server::accept_new_user(void)
 	} while (new_sd != -1);
 }
 
-inline void	server::recv_data(short& index, bool& compress_array)
+inline void	Server::recv_data(short& index, bool& compress_array)
 {
 	static std::string	data;
 	static char			buffer[500];
@@ -204,10 +204,10 @@ inline void	server::recv_data(short& index, bool& compress_array)
 	}
 }
 
-server::~server(void)
+Server::~Server(void)
 {
-	if (this->sockfd > -1)
-		close(this->sockfd);
+	if (this->Sockfd > -1)
+		close(this->Sockfd);
 	
 	for (short index = 1; index < this->nfds; index++)
 	{
