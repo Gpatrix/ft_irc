@@ -12,11 +12,16 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
+#include <sys/ioctl.h>
 #include <poll.h>
 
 #include <cstring>
 #include <cstdlib>
 #include <cstdio> // for debug erno
+
+#include <unistd.h>
+
+#include <errno.h>
 
 class server
 {
@@ -25,6 +30,12 @@ class server
 		std::vector<user*>					user;
 		int									sockfd;
 		std::string							password;
+
+		pollfd	fds[200];
+		short	nfds;
+
+		void	init_socket(char* &port);
+
 
 	public:
 		server(char* port, char* password);
