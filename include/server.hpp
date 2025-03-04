@@ -8,7 +8,12 @@
 #include <vector>
 #include <map>
 
+#ifndef _GNU_SOURCE
+ #define _GNU_SOURCE
+#endif
+
 #include <sys/poll.h>
+
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
@@ -21,6 +26,8 @@
 
 #include <unistd.h>
 
+#include <signal.h>
+
 #include <errno.h>
 
 class server
@@ -31,6 +38,7 @@ class server
 		int									sockfd;
 		std::string							password;
 
+		static	bool test;
 		pollfd	fds[200];
 		short	nfds;
 

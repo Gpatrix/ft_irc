@@ -122,6 +122,13 @@ inline void	server::recv_data(short& index, bool& compress_array)
 	}
 }
 
+bool got_sigint = 0;
+
+void sigint_handler(int signal) {
+    got_sigint = 1;  // Set flag when SIGINT is received
+	std::cout << "asd\n";
+}
+
 server::server(char* port, char* password): password(password)
 {
 	int		rc;
@@ -129,18 +136,34 @@ server::server(char* port, char* password): password(password)
 	bool	close_conn = false;
 	bool	compress_array = false;
 
+	struct sigaction sa;
+	sa.sa_handler = sigint_handler;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+
+	sigset_t mask;
+	sigemptyset(&mask);
+	sigaddset(&mask, SIGINT);  // Block SIGINT while polling
+
 	init_socket(port);
 
 	std::cout <<"server ready\n";
-	while (1)
+	while (!got_sigint)
 	{
-
-		rc = poll(this->fds, this->nfds, -1);
+		// rc = poll(this->fds, this->nfds, -1);
+		rc = ppoll(this->fds, this->nfds, NULL, &mask);
 		if (rc < 0)
 		{
 			perror("poll() failed");
 			exit(0); // TODO a changer
 		}
+
+		if (rc == 0)
+		{
+			break;
+		}
+		
 
 		int current_size = this->nfds;
 		for (short index = 0; index < current_size; index++)
@@ -174,6 +197,7 @@ server::server(char* port, char* password): password(password)
 				}
 			}
 	}
+	std::cout << "closing server" << '\n';
 }
 
 server::~server(void)
