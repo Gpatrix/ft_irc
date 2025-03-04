@@ -4,8 +4,6 @@
 // https://www.rfc-editor.org/rfc/rfc1459.html
 
 
-// TODO delet errno
-// TODO bind: Address already in use | avec nc toujour connecter 
 int main(int argc, char** argv)
 {
 	if (argc != 3)
@@ -14,9 +12,12 @@ int main(int argc, char** argv)
 		return (1);
 	}
 
+	server	the_server;
+
 	try
 	{
-		server(argv[1], argv[2]);
+		the_server.init(argv[1], argv[2]);
+		the_server.run();
 	}
 	catch(const std::exception& e)
 	{

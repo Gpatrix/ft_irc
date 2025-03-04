@@ -9,12 +9,14 @@ void	server::init_socket(char* &port)
 
 	this->sockfd = socket(AF_INET6, SOCK_STREAM | SOCK_NONBLOCK, 0);
 	if (this->sockfd < 0)
-		throw std::runtime_error("error: init socket");
+		throw std::runtime_error("Error: init socket");
 
 	int on = 0;
 	rc = setsockopt(this->sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 	if (rc < 0)
-		throw std::runtime_error("error: setsockopt() failed");
+	{
+		throw std::runtime_error("Error: setsockopt() failed");
+	}
 	
 
 	struct sockaddr_in6	addr;
@@ -25,22 +27,109 @@ void	server::init_socket(char* &port)
 	char*	end;
 	long	port_nb = strtol(port, &end, 10);
 	if (*end != '\0' || port_nb < 0)
-		throw std::runtime_error("bad port");
+		throw std::runtime_error("Error: bad port");
 
 	addr.sin6_port = htons(static_cast<uint16_t>(port_nb));
 	rc = bind(this->sockfd, (struct sockaddr *)&addr, sizeof(addr));
 	if (rc < 0)
-		throw std::runtime_error("error: bind() failed");
+		throw std::runtime_error("Error: bind() failed");
 
 	rc = listen(this->sockfd, 1024);
 	if (rc < 0)
-		throw std::runtime_error("error: listen() failed");
+		throw std::runtime_error("Error: listen() failed");
 
 	this->fds[0].fd = this->sockfd;
 	this->fds[0].events = POLLIN;
 	this->fds[0].revents = 0;
 	this->nfds = 1;
 }
+
+void sigint_handler(int)
+{
+	std::cout << '\n' << "closing server" << '\n';
+}
+
+server::server(void) {}
+
+void server::init(char* port, char* password)
+{
+	int		rc;
+	int		new_sd = -1;
+	bool	close_conn = false;
+	bool	compress_array = false;
+
+	this->password = password;
+	this->sockfd = -1;
+
+	struct sigaction sa;
+	sa.sa_handler = sigint_handler;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+
+	init_socket(port);
+
+	std::cout <<"server ready\n";
+}
+
+
+void server::run(void)
+{
+	int		rc;
+	bool	compress_array = false;
+
+	while (true)
+	{
+		rc = poll(this->fds, this->nfds, -1);
+		if (rc < 0)
+		{
+			if (errno != EINTR)
+			{
+				perror("poll() failed");
+			}
+			break;
+		}
+
+		if (rc == 0)
+		{
+			break;
+		}
+		
+
+		int current_size = this->nfds;
+		for (short index = 0; index < current_size; index++)
+		{
+			if (this->fds[index].revents == 0)
+				continue ;
+
+			if (this->fds[index].fd == this->sockfd)
+			{
+				this->accept_new_user();
+			}
+			else
+			{
+				recv_data(index, compress_array);
+			}
+		}
+		if (compress_array)
+			{
+				compress_array = false;
+				for (int i = 0; i < this->nfds; i++)
+				{
+					if (this->fds[i].fd == -1)
+					{
+						for(int j = i; j < this->nfds-1; j++)
+						{
+							this->fds[j].fd = this->fds[j+1].fd;
+						}
+						i--;
+						this->nfds--;
+					}
+				}
+			}
+	}
+}
+
 
 inline void	server::accept_new_user(void)
 {
@@ -122,87 +211,14 @@ inline void	server::recv_data(short& index, bool& compress_array)
 	}
 }
 
-volatile bool got_sigint = 0;
-
-void sigint_handler(int signal) {
-    got_sigint = 1;  // Set flag when SIGINT is received
-	std::cout << "asd\n";
-}
-
-server::server(char* port, char* password): password(password)
-{
-	int		rc;
-	int		new_sd = -1;
-	bool	close_conn = false;
-	bool	compress_array = false;
-
-	struct sigaction sa;
-	sa.sa_handler = sigint_handler;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGINT, &sa, NULL);
-
-	sigset_t mask;
-	sigemptyset(&mask);
-	// sigaddset(&mask, SIGINT);  // Block SIGINT while polling
-
-	init_socket(port);
-
-	std::cout <<"server ready\n";
-	while (!got_sigint)
-	{
-		// rc = poll(this->fds, this->nfds, -1);
-		rc = ppoll(this->fds, this->nfds, NULL, &mask);
-		if (rc < 0)
-		{
-			perror("poll() failed");
-			exit(0); // TODO a changer
-		}
-
-		if (rc == 0)
-		{
-			break;
-		}
-		
-
-		int current_size = this->nfds;
-		for (short index = 0; index < current_size; index++)
-		{
-			if (this->fds[index].revents == 0)
-				continue ;
-
-			if (this->fds[index].fd == this->sockfd)
-			{
-				this->accept_new_user();
-			}
-			else
-			{
-				recv_data(index, compress_array);
-			}
-		}
-		if (compress_array)
-			{
-				compress_array = false;
-				for (int i = 0; i < this->nfds; i++)
-				{
-					if (this->fds[i].fd == -1)
-					{
-						for(int j = i; j < this->nfds-1; j++)
-						{
-							this->fds[j].fd = this->fds[j+1].fd;
-						}
-						i--;
-						this->nfds--;
-					}
-				}
-			}
-	}
-	std::cout << "closing server" << '\n';
-}
-
 server::~server(void)
 {
-	for (short index = 0; index < this->nfds; index++)
+	std::cout << "Destructor called" << '\n';
+
+	if (this->sockfd > -1)
+		close(this->sockfd);
+	
+	for (short index = 1; index < this->nfds; index++)
 	{
 		close(this->fds[index].fd);
 	}

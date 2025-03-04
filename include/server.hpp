@@ -38,7 +38,6 @@ class server
 		int									sockfd;
 		std::string							password;
 
-		static	bool test;
 		pollfd	fds[200];
 		short	nfds;
 
@@ -46,8 +45,10 @@ class server
 		inline void	accept_new_user(void);
 		inline void	recv_data(short& index, bool& compress_array);
 
-
 	public:
-		server(char* port, char* password);
+		server(void);
+
 		~server(void);
+		void	init(char* port, char* password);
+		void	run(void);
 };
