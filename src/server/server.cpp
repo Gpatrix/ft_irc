@@ -42,29 +42,107 @@ void	server::init_socket(char* &port)
 	this->nfds = 1;
 }
 
+inline void	server::accept_new_user(void)
+{
+	static int	new_sd = -1;
+
+	std::cout << "reading server socket\n";
+	do
+	{
+		// TODO a optie
+		new_sd = accept(this->sockfd, NULL, NULL);
+		if (new_sd < 0)
+		{
+			if (errno != EWOULDBLOCK)
+			{
+				perror("  accept() failed");
+				// end_server = true;
+			}
+			break;
+		}
+
+		std::cout << "\tNew incoming connection - "<< new_sd << '\n';
+
+		this->fds[this->nfds].fd = new_sd;
+		this->fds[this->nfds].events = POLLIN;
+		this->nfds++;
+	} while (new_sd != -1);
+}
+
+inline void	server::recv_data(short& index, bool& compress_array)
+{
+	static char	buffer[500];
+	static bool	close_conn = false;
+	static int		rc;
+
+
+	std::cout << "reading  Descriptor "<< this->fds[index].fd << '\n';
+	close_conn = false;
+	while (true)
+	{
+		rc = recv(this->fds[index].fd, buffer, sizeof(buffer), 0);
+		if (rc < 0)
+		{
+			if (errno != EWOULDBLOCK)
+			{
+				perror("  recv() failed");
+				close_conn = true;
+			}
+			break;
+		}
+
+		if (rc == 0)
+		{
+			std::cout << "\tConnection closed\n";
+			close_conn = true;
+			break;
+		}
+
+		std::cout << '\t' << rc << " bytes received\n";
+
+		rc = send(this->fds[index].fd, buffer, rc, 0);
+		if (rc < 0)
+		{
+			perror("  send() failed");
+			close_conn = true;
+			break;
+		}
+
+		if (rc < static_cast<int>(sizeof(buffer)))
+		{
+			break;
+		}
+
+	}
+	if (close_conn)
+	{
+		close(this->fds[index].fd);
+		this->fds[index].fd = -1;
+		compress_array = true;
+	}
+}
 
 server::server(char* port, char* password): password(password)
 {
 	int		rc;
 	int		new_sd = -1;
-	char	buffer[80];
 	bool	close_conn = false;
 	bool	compress_array = false;
 
 	init_socket(port);
 
-	std::cout << "server ready\n";
+	std::cout <<"server ready\n";
 	while (1)
 	{
 
-		rc = poll(this->fds, nfds, -1);
+		rc = poll(this->fds, this->nfds, -1);
 		if (rc < 0)
 		{
 			perror("poll() failed");
 			exit(0); // TODO a changer
 		}
 
-		int current_size = nfds;
+		int current_size = this->nfds;
 		for (short index = 0; index < current_size; index++)
 		{
 			if (this->fds[index].revents == 0)
@@ -72,94 +150,28 @@ server::server(char* port, char* password): password(password)
 
 			if (this->fds[index].fd == this->sockfd)
 			{
-				std::cout << "reading server socket\n";
-
-				do
-				{
-					// a optie
-					new_sd = accept(this->sockfd, NULL, NULL);
-					if (new_sd < 0)
-					{
-						if (errno != EWOULDBLOCK)
-						{
-							perror("  accept() failed");
-							// end_server = true;
-						}
-						break;
-					}
-
-					std::cout << "\tNew incoming connection - "<< new_sd << '\n';
-
-					this->fds[nfds].fd = new_sd;
-					this->fds[nfds].events = POLLIN;
-					nfds++;
-					
-				} while (new_sd != -1);
+				this->accept_new_user();
 			}
 			else
 			{
-				std::cout << "reading  Descriptor "<< this->fds[index].fd << '\n';
-				close_conn = false;
-				while (true)
-				{
-					rc = recv(this->fds[index].fd, buffer, sizeof(buffer), 0);
-					if (rc < 0)
-					{
-						if (errno != EWOULDBLOCK)
-						{
-							perror("  recv() failed");
-							close_conn = true;
-						}
-						break;
-					}
-
-					if (rc == 0)
-					{
-						std::cout << "\tConnection closed\n";
-						close_conn = true;
-						break;
-					}
-
-					std::cout << '\t' << rc << " bytes received\n";
-
-					rc = send(this->fds[index].fd, buffer, rc, 0);
-					if (rc < 0)
-					{
-						perror("  send() failed");
-						close_conn = true;
-						break;
-					}
-					if (rc < static_cast<int>(sizeof(buffer)))
-					{
-						break;
-					}
-
-				}
-
-				if (close_conn)
-				{
-					close(this->fds[index].fd);
-					this->fds[index].fd = -1;
-					compress_array = true;
-				}
+				recv_data(index, compress_array);
 			}
-
-			if (compress_array)
+		}
+		if (compress_array)
 			{
 				compress_array = false;
-				for (int i = 0; i < nfds; i++)
+				for (int i = 0; i < this->nfds; i++)
 				{
 					if (this->fds[i].fd == -1)
 					{
-						for(int j = i; j < nfds-1; j++)
+						for(int j = i; j < this->nfds-1; j++)
 						{
 							this->fds[j].fd = this->fds[j+1].fd;
 						}
 						i--;
-						nfds--;
+						this->nfds--;
 					}
 				}
-			}
 			}
 	}
 }
