@@ -122,7 +122,7 @@ inline void	server::recv_data(short& index, bool& compress_array)
 	}
 }
 
-bool got_sigint = 0;
+volatile bool got_sigint = 0;
 
 void sigint_handler(int signal) {
     got_sigint = 1;  // Set flag when SIGINT is received
@@ -144,7 +144,7 @@ server::server(char* port, char* password): password(password)
 
 	sigset_t mask;
 	sigemptyset(&mask);
-	sigaddset(&mask, SIGINT);  // Block SIGINT while polling
+	// sigaddset(&mask, SIGINT);  // Block SIGINT while polling
 
 	init_socket(port);
 
