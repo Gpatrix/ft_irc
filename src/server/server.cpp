@@ -41,7 +41,6 @@ void	server::init_socket(char* &port)
 	this->fds[0].fd = this->sockfd;
 	this->fds[0].events = POLLIN;
 	this->fds[0].revents = 0;
-	this->nfds = 1;
 }
 
 void sigint_handler(int)
@@ -49,7 +48,7 @@ void sigint_handler(int)
 	std::cout << '\n' << "closing server" << '\n';
 }
 
-server::server(void) {}
+server::server(void): nfds(1) {}
 
 void server::init(char* port, char* password)
 {
@@ -71,7 +70,6 @@ void server::init(char* port, char* password)
 
 	std::cout <<"server ready\n";
 }
-
 
 void server::run(void)
 {
@@ -130,7 +128,6 @@ void server::run(void)
 	}
 }
 
-
 inline void	server::accept_new_user(void)
 {
 	static int	new_sd = -1;
@@ -138,7 +135,6 @@ inline void	server::accept_new_user(void)
 	std::cout << "reading server socket\n";
 	do
 	{
-		// TODO a optie
 		new_sd = accept(this->sockfd, NULL, NULL);
 		if (new_sd < 0)
 		{
@@ -160,13 +156,20 @@ inline void	server::accept_new_user(void)
 
 inline void	server::recv_data(short& index, bool& compress_array)
 {
-	static char	buffer[500];
-	static bool	close_conn = false;
-	static int		rc;
+	static std::string	data;
+	static char			buffer[500];
+	static bool			close_conn = false;
+	static int			rc;
 
 
-	std::cout << "reading  Descriptor "<< this->fds[index].fd << '\n';
-	close_conn = false;
+	std::cout << "Reading descriptor "<< this->fds[index].fd << '\n';
+
+	// data.clear();
+	// std::cout << data.size() << '\n';
+	// data.erase(data.begin(), data.end());
+	// std::cout << data.size() << '\n';
+	// memset(buffer, 0, sizeof(buffer));
+	data.clear();
 	while (true)
 	{
 		rc = recv(this->fds[index].fd, buffer, sizeof(buffer), 0);
@@ -174,7 +177,7 @@ inline void	server::recv_data(short& index, bool& compress_array)
 		{
 			if (errno != EWOULDBLOCK)
 			{
-				perror("  recv() failed");
+				perror("\trecv() failed");
 				close_conn = true;
 			}
 			break;
@@ -187,34 +190,28 @@ inline void	server::recv_data(short& index, bool& compress_array)
 			break;
 		}
 
-		std::cout << '\t' << rc << " bytes received\n";
-
-		rc = send(this->fds[index].fd, buffer, rc, 0);
-		if (rc < 0)
-		{
-			perror("  send() failed");
-			close_conn = true;
-			break;
-		}
+		data.insert(data.end(), buffer, buffer + rc);
 
 		if (rc < static_cast<int>(sizeof(buffer)))
 		{
+			std::cout << this->fds[index].fd << ": " << data.c_str() << '\n';
 			break;
 		}
-
 	}
+
 	if (close_conn)
 	{
 		close(this->fds[index].fd);
 		this->fds[index].fd = -1;
+
+		close_conn = false;
+
 		compress_array = true;
 	}
 }
 
 server::~server(void)
 {
-	std::cout << "Destructor called" << '\n';
-
 	if (this->sockfd > -1)
 		close(this->sockfd);
 	

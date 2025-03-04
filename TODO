@@ -1,3 +1,4 @@
 TODO faire class Array pour avoire un tableau de FD variable
-TODO delet errno
+TODO delet perror
 TODO bind: Address already in use | avec nc toujour connecter 
+TODO gerer requete partiel avec ctrl+D

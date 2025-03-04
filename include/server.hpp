@@ -8,10 +8,6 @@
 #include <vector>
 #include <map>
 
-#ifndef _GNU_SOURCE
- #define _GNU_SOURCE
-#endif
-
 #include <sys/poll.h>
 
 #include <sys/socket.h>
