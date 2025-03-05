@@ -5,7 +5,7 @@ RM		= rm -f
 
 NAME	= ircserv
 
-FILE	:= main.cpp src/Server/Server.cpp src/User/User.cpp src/Channel/Channel.cpp
+FILE	:= main.cpp src/Server/Server.cpp src/User/User.cpp src/Channel/Channel.cpp src/Server/parser.cpp
 
 OBJS	= $(FILE:%.cpp=%.o)
 

@@ -9,5 +9,9 @@ TODO gerer requete partiel avec ctrl+D
 https://modern.ircdocs.horse/#message-format
 
 
+TODO gere max msg size
+<combined_max> (8191)  :: '@' <tag_data 4094> ';' <tag_data 4094> ' '
+https://ircv3.net/specs/extensions/message-tags.html#size-limit
+
 reponse serveur:
 https://modern.ircdocs.horse/#numerics

@@ -27,7 +27,6 @@
 
 // clock_t	_start_time = clock();
 
-
 // std::cout << std::fixed << std::setprecision(10) <<
 // static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
 
@@ -58,3 +57,5 @@ class Server
 		void	init(char* port, char* password);
 		void	run(void);
 };
+
+void	parser(std::string& data);

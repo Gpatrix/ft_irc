@@ -211,11 +211,12 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 
 		if (rc < static_cast<int>(sizeof(buffer)))
 		{
-			if (this->data_buffer[index - 1].find_first_of("\r\n") != std::string::npos)
-			{
-				std::cout << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
-				// parse data
-			}
+			std::cout << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
+			parser(this->data_buffer[index - 1]);
+			// if (this->data_buffer[index - 1].find_first_of("\r\n") != std::string::npos)
+			// {
+			// 	// parse data
+			// }
 			break;
 		}
 	}
