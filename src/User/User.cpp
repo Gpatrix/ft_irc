@@ -17,6 +17,4 @@ void	User::set_name(std::string& new_name)
 	this->_name = new_name;
 }
 
-
-// TODO fermer proprement la connection
 User::~User(void) {}
