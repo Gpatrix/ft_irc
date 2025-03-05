@@ -38,9 +38,13 @@ void	Server::init_socket(char* &port)
 	if (rc < 0)
 		throw std::runtime_error("Error: listen() failed");
 
-	this->fds[0].fd = this->Sockfd;
-	this->fds[0].events = POLLIN;
-	this->fds[0].revents = 0;
+	pollfd	sockfd;
+
+	sockfd.fd = this->Sockfd;
+	sockfd.events = POLLIN;
+	sockfd.revents = 0;
+
+	this->fds.push_back(sockfd);
 }
 
 void sigint_handler(int)
@@ -48,14 +52,14 @@ void sigint_handler(int)
 	std::cout << '\n' << "closing Server" << '\n';
 }
 
-Server::Server(void): nfds(1) {}
+Server::Server(void) {}
 
 void Server::init(char* port, char* password)
 {
 	int		rc;
 	int		new_sd = -1;
 	bool	close_conn = false;
-	bool	compress_array = false;
+	bool	need_compress_fds = false;
 
 	this->Password = password;
 	this->Sockfd = -1;
@@ -74,11 +78,11 @@ void Server::init(char* port, char* password)
 void Server::run(void)
 {
 	int		rc;
-	bool	compress_array = false;
+	bool	need_compress_fds = false;
 
 	while (true)
 	{
-		rc = poll(this->fds, this->nfds, -1);
+		rc = poll(this->fds.data(), this->fds.size(), -1);
 		if (rc < 0)
 		{
 			if (errno != EINTR)
@@ -89,12 +93,9 @@ void Server::run(void)
 		}
 
 		if (rc == 0)
-		{
 			break;
-		}
-		
 
-		int current_size = this->nfds;
+		int current_size = static_cast<int>(this->fds.size());
 		for (short index = 0; index < current_size; index++)
 		{
 			if (this->fds[index].revents == 0)
@@ -106,37 +107,48 @@ void Server::run(void)
 			}
 			else
 			{
-				recv_data(index, compress_array);
+				recv_data(index, need_compress_fds);
 			}
 		}
-		if (compress_array)
-			{
-				compress_array = false;
-				for (int i = 0; i < this->nfds; i++)
-				{
-					if (this->fds[i].fd == -1)
-					{
-						for(int j = i; j < this->nfds-1; j++)
-						{
-							this->fds[j].fd = this->fds[j+1].fd;
-						}
-						i--;
-						this->nfds--;
-					}
-				}
-			}
+		if (need_compress_fds)
+		{
+			need_compress_fds = false;
+			
+			compress_fds();
+		}
 	}
 }
 
+inline void	Server::compress_fds(void)
+{
+	std::vector<pollfd>::iterator it = this->fds.begin();
+	while (it != this->fds.end())
+	{
+		if ((*it).fd == -1)
+		{
+			this->fds.erase(it);
+		}
+
+		if (it == this->fds.end())
+		{
+			break;
+		}
+
+		it++;
+	}
+}
+
+
 inline void	Server::accept_new_user(void)
 {
-	static int	new_sd = -1;
+	static pollfd	new_user_pollfd;
+	static int	new_fd = -1;
 
 	std::cout << "reading Server socket\n";
 	do
 	{
-		new_sd = accept(this->Sockfd, NULL, NULL);
-		if (new_sd < 0)
+		new_fd = accept(this->Sockfd, NULL, NULL);
+		if (new_fd < 0)
 		{
 			if (errno != EWOULDBLOCK)
 			{
@@ -145,18 +157,19 @@ inline void	Server::accept_new_user(void)
 			break;
 		}
 
-		std::cout << "\tNew incoming connection - "<< new_sd << '\n';
+		std::cout << "\tNew incoming connection - "<< new_fd << '\n';
 
-		this->fds[this->nfds].fd = new_sd;
-		this->fds[this->nfds].events = POLLIN;
-		this->nfds++;
-	} while (new_sd != -1);
+		new_user_pollfd.fd = new_fd;
+		new_user_pollfd.events = POLLIN;
+
+		this->fds.push_back(new_user_pollfd);
+	} while (new_fd != -1);
 }
 
-inline void	Server::recv_data(short& index, bool& compress_array)
+inline void	Server::recv_data(short& index, bool& need_compress_fds)
 {
 	static std::string	data;
-	static char			buffer[500];
+	static char			buffer[500];// TODO metre limit de bits
 	static bool			close_conn = false;
 	static int			rc;
 
@@ -200,7 +213,7 @@ inline void	Server::recv_data(short& index, bool& compress_array)
 
 		close_conn = false;
 
-		compress_array = true;
+		need_compress_fds = true;
 	}
 }
 
@@ -209,8 +222,12 @@ Server::~Server(void)
 	if (this->Sockfd > -1)
 		close(this->Sockfd);
 	
-	for (short index = 1; index < this->nfds; index++)
+	if (this->fds.size() > 1)
 	{
-		close(this->fds[index].fd);
+		for (std::vector<pollfd>::iterator it = this->fds.begin() + 1;
+		it != this->fds.end(); it++)
+		{
+			close((*it).fd);
+		}
 	}
 }

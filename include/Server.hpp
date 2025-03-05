@@ -28,16 +28,16 @@ class Server
 {
 	private:
 		std::map<std::string&, Channel&>	Channels;
-		std::vector<User*>					User;
+		std::vector<User*>					Users;
 		int									Sockfd;
 		std::string							Password;
 
-		pollfd	fds[200];
-		short	nfds;
+		std::vector<pollfd>	fds;
 
 		void		init_socket(char* &port);
 		inline void	accept_new_user(void);
 		inline void	recv_data(short& index, bool& compress_array);
+		inline void	compress_fds(void);
 
 	public:
 		Server(void);

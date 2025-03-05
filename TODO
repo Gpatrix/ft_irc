@@ -1,13 +1,10 @@
+
+Client IRC irssi en ligne de comande
+
+
 TODO faire class Array pour avoire un tableau de FD variable
 TODO convet perror
 TODO bind: Address already in use | avec nc toujour connecter 
-
-
-
-
-
-
-
 
 
 TODO gerer requete partiel avec ctrl+D
