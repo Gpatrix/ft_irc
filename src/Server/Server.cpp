@@ -52,7 +52,7 @@ void sigint_handler(int)
 	std::cout << '\n' << "closing Server" << '\n';
 }
 
-Server::Server(void) {}
+Server::Server(void): Users_id(0) {}
 
 void Server::init(char* port, char* password)
 {
@@ -102,13 +102,9 @@ void Server::run(void)
 				continue ;
 
 			if (this->fds[index].fd == this->Sockfd)
-			{
 				this->accept_new_user();
-			}
 			else
-			{
 				recv_data(index, need_compress_fds);
-			}
 		}
 		if (need_compress_fds)
 		{
@@ -145,7 +141,7 @@ inline void	Server::accept_new_user(void)
 	static int	new_fd = -1;
 
 	std::cout << "reading Server socket\n";
-	do
+	while (true)
 	{
 		new_fd = accept(this->Sockfd, NULL, NULL);
 		if (new_fd < 0)
@@ -163,7 +159,7 @@ inline void	Server::accept_new_user(void)
 		new_user_pollfd.events = POLLIN;
 
 		this->fds.push_back(new_user_pollfd);
-	} while (new_fd != -1);
+	}
 }
 
 inline void	Server::recv_data(short& index, bool& need_compress_fds)
