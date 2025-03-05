@@ -22,6 +22,16 @@
 
 #include <signal.h>
 
+#include "time.h" // TODO remove
+#include <iomanip> // TODO remove
+
+// clock_t	_start_time = clock();
+
+
+// std::cout << std::fixed << std::setprecision(10) <<
+// static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
+
+
 #include <errno.h>
 
 class Server

@@ -109,7 +109,6 @@ void Server::run(void)
 		if (need_compress_fds)
 		{
 			need_compress_fds = false;
-			
 			compress_fds();
 		}
 	}
@@ -180,7 +179,6 @@ inline void	Server::accept_new_user(void)
 
 inline void	Server::recv_data(short& index, bool& need_compress_fds)
 {
-	static std::string	data;
 	static char			buffer[500];// TODO metre limit de bits
 	static bool			close_conn = false;
 	static int			rc;
@@ -188,7 +186,7 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 
 	std::cout << "Reading descriptor "<< this->fds[index].fd << '\n';
 
-	data.clear();
+	this->data_buffer[index - 1].clear();
 	while (true)
 	{
 		rc = recv(this->fds[index].fd, buffer, sizeof(buffer), 0);
@@ -209,11 +207,11 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 			break;
 		}
 
-		data.insert(data.end(), buffer, buffer + rc);
+		this->data_buffer[index - 1].insert(this->data_buffer[index - 1].end(), buffer, buffer + rc);
 
 		if (rc < static_cast<int>(sizeof(buffer)))
 		{
-			std::cout << this->fds[index].fd << ": " << data.c_str() << '\n';
+			std::cout << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
 			break;
 		}
 	}

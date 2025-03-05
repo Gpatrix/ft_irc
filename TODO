@@ -1,9 +1,7 @@
 
 Client IRC irssi en ligne de comande
 
-
-TODO faire class Array pour avoire un tableau de FD variable
-TODO convet perror
+TODO convert perror
 TODO bind: Address already in use | avec nc toujour connecter 
 
 
@@ -11,6 +9,5 @@ TODO gerer requete partiel avec ctrl+D
 https://modern.ircdocs.horse/#message-format
 
 
-color.hpp pour optimisation du code possible
 reponse serveur:
 https://modern.ircdocs.horse/#numerics
