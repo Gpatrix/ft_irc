@@ -11,6 +11,10 @@ class User
 		std::string	_name;
 
 	public:
-		User(id_t id, int fd, std::string name);
+		User(id_t& new_id, int& new_fd);
 		~User(void);
+
+		void	set_id(id_t& new_id);
+		void	set_fd(int& new_fd);
+		void	set_name(std::string& new_name);
 };

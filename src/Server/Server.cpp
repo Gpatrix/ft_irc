@@ -117,27 +117,37 @@ void Server::run(void)
 
 inline void	Server::compress_fds(void)
 {
-	std::vector<pollfd>::iterator it = this->fds.begin();
-	while (it != this->fds.end())
+	static std::vector<pollfd>::iterator it_fd;
+	static std::vector<User *>::iterator it_User;
+	static std::vector<std::string>::iterator it_string;
+	
+	it_fd = this->fds.begin() + 1;
+	it_User = this->Users.begin();
+	it_string = this->data_buffer.begin();
+
+	while (it_User != this->Users.end())
 	{
-		if ((*it).fd == -1)
+		if ((*it_fd).fd == -1)
 		{
-			this->fds.erase(it);
+			this->fds.erase(it_fd);
+			delete *it_User;
+			this->Users.erase(it_User);
+			this->data_buffer.erase(it_string);
 		}
 
-		if (it == this->fds.end())
-		{
+		if (it_User == this->Users.end())
 			break;
-		}
 
-		it++;
+		it_fd++;
+		it_User++;
+		it_string++;
 	}
 }
 
-
 inline void	Server::accept_new_user(void)
 {
-	static pollfd	new_user_pollfd;
+	static pollfd	new_User_pollfd;
+	static User*	new_User;
 	static int	new_fd = -1;
 
 	std::cout << "reading Server socket\n";
@@ -155,10 +165,16 @@ inline void	Server::accept_new_user(void)
 
 		std::cout << "\tNew incoming connection - "<< new_fd << '\n';
 
-		new_user_pollfd.fd = new_fd;
-		new_user_pollfd.events = POLLIN;
+		new_User_pollfd.fd = new_fd;
+		new_User_pollfd.events = POLLIN;
 
-		this->fds.push_back(new_user_pollfd);
+		new_User = new User(this->Users_id, new_fd);
+		this->Users_id++;
+
+
+		this->Users.push_back(new_User);
+		this->fds.push_back(new_User_pollfd);
+		this->data_buffer.push_back(std::string(""));
 	}
 }
 
@@ -215,15 +231,21 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 
 Server::~Server(void)
 {
+	size_t	size;
+	size_t	index = 0;
+
 	if (this->Sockfd > -1)
-		close(this->Sockfd);
-	
-	if (this->fds.size() > 1)
 	{
-		for (std::vector<pollfd>::iterator it = this->fds.begin() + 1;
-		it != this->fds.end(); it++)
-		{
-			close((*it).fd);
-		}
+		close(this->Sockfd);
+	}
+	
+	size = this->Users.size();
+	
+	// TODO pas ouf
+	while (index < size)
+	{
+		delete this->Users[index];
+		close(this->fds[index + 1].fd);
+		index++;
 	}
 }
