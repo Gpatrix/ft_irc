@@ -11,7 +11,7 @@ void	Server::init_socket(char* &port)
 	if (this->Sockfd < 0)
 		throw std::runtime_error("Error: init socket");
 
-	int on = 0;
+	int on = 1;
 	rc = setsockopt(this->Sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 	if (rc < 0)
 	{
