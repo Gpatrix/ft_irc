@@ -61,7 +61,11 @@ class Server
 typedef struct s_parser_data
 {
 	std::vector<std::string> tag;
-	std::vector<std::string> source;
+
+	std::string nickname;
+	std::string user;
+	std::string host;
+
 	std::vector<std::string> cmd;
 }              t_parser_data;
 

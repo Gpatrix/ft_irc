@@ -80,9 +80,7 @@ void Server::run(void)
 		if (rc < 0)
 		{
 			if (errno != EINTR)
-			{
 				perror("poll() failed");
-			}
 			break;
 		}
 
@@ -163,7 +161,6 @@ inline void	Server::accept_new_user(void)
 
 		new_User = new User(this->Users_id, new_fd);
 		this->Users_id++;
-
 
 		this->Users.push_back(new_User);
 		this->fds.push_back(new_User_pollfd);
