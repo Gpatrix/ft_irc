@@ -133,6 +133,10 @@ void	Server::parser(std::string& str, User* &user)
 
 	std::string	tmp_str;
 
+	pos_end = str.find_first_of("\r\n", pos_begin);
+	if (pos_end == std::string::npos)
+		return;
+
 	// TODO only work on perfect separator not single '\r' or '\n'
 	while (1)
 	{
@@ -147,7 +151,7 @@ void	Server::parser(std::string& str, User* &user)
 		if (pos_end == std::string::npos)
 		{
 			str = str.substr(pos_begin, str.size());
-			return;
+			break;
 		}
 
 		tmp_str = str.substr(pos_begin, pos_end - pos_begin);

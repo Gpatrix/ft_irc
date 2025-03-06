@@ -190,7 +190,7 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 
 		if (rc == 0)
 		{
-			std::cout << "\tConnection closed\n";
+			std::cout << "\tConnection closed - " << this->fds[index].fd << '\n';
 			close_conn = true;
 			break;
 		}
