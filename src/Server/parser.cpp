@@ -38,15 +38,42 @@ static void get_source(s_parser_data& source, std::string& data)
 
 void	get_cmd(std::vector<std::string>&cmd, const std::string& str)
 {
-	cmd.push_back(str);
-}
+	size_t	str_size = str.size();
+	size_t	index = 0;
+	size_t	pos_start = 0;
 
+	while (true)
+	{
+		while (index < str_size && str[index] == ' ')
+			index++;
+
+		pos_start = index;
+		
+		while (index < str_size && str[index] != ' ')
+			index++;
+
+		if (index >= str_size)
+		{
+			if (index - pos_start != 1)
+				cmd.push_back(str.substr(pos_start, str_size));
+			return;
+		}
+
+		if (str[pos_start] == ':')
+		{
+			cmd.push_back(str.substr(pos_start + 1, str_size));
+			return;
+		}
+		
+		cmd.push_back(str.substr(pos_start, index - pos_start));
+		index++;
+	}
+}
 
 inline void	get_data(t_parser_data& data, std::string str)
 {
 	size_t	pos = 0;
 	size_t	index = 0;
-
 
 	std::string	tmp_part;
 
@@ -86,6 +113,11 @@ inline void	get_data(t_parser_data& data, std::string str)
 	while (str[index] == ' ')
 	{
 		index++;
+	}
+
+	if (str[index] == *(str.end() - 1))
+	{
+		throw std::runtime_error("Syntaxe error");
 	}
 
 	get_cmd(data.cmd, str.substr(index, str.size()));
@@ -134,9 +166,10 @@ void	parser(std::string& str)
 			<< "host    : " << data.host << '\n';
 		}
 
-		for (std::vector<std::string>::iterator it = data.cmd.begin(); it < data.cmd.end(); it++)
+		std::cout << "cmd: " << data.cmd[0] << '\n';
+		for (std::vector<std::string>::iterator it = data.cmd.begin() + 1; it < data.cmd.end(); it++)
 		{
-			std::cout << "cmd: " << *it << '\n';
+			std::cout << "option: " << '\'' << *it << "\'\n";
 		}
 	}
 
