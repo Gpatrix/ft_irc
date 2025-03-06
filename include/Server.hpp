@@ -30,8 +30,20 @@
 // std::cout << std::fixed << std::setprecision(10) <<
 // static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
 
-
 #include <errno.h>
+
+
+typedef struct s_parser_data
+{
+	std::vector<std::string> tag;
+
+	std::string nickname;
+	std::string user;
+	std::string host;
+
+	std::vector<std::string> cmd;
+}			t_parser_data;
+
 
 class Server
 {
@@ -49,6 +61,13 @@ class Server
 		inline void	accept_new_user(void);
 		inline void	recv_data(short& index, bool& compress_array);
 		inline void	compress_fds(void);
+		void		exec_cmd(t_parser_data& data,User* &user);
+		void		parser(std::string& data, User* &user);
+
+		void	CAP(t_parser_data& data,User* &user);
+		
+
+
 
 	public:
 		Server(void);
@@ -58,16 +77,3 @@ class Server
 		void	run(void);
 };
 
-typedef struct s_parser_data
-{
-	std::vector<std::string> tag;
-
-	std::string nickname;
-	std::string user;
-	std::string host;
-
-	std::vector<std::string> cmd;
-}			t_parser_data;
-
-void	parser(std::string& data, User* &user);
-void	exec_cmd(t_parser_data& data,User* &user);
