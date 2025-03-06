@@ -67,6 +67,7 @@ typedef struct s_parser_data
 	std::string host;
 
 	std::vector<std::string> cmd;
-}              t_parser_data;
+}			t_parser_data;
 
-void	parser(std::string& data);
+void	parser(std::string& data, User* &user);
+void	exec_cmd(t_parser_data& data,User* &user);

@@ -141,7 +141,6 @@ inline void	Server::accept_new_user(void)
 	static User*	new_User;
 	static int	new_fd = -1;
 
-	std::cout << "reading Server socket\n";
 	while (true)
 	{
 		new_fd = accept(this->Sockfd, NULL, NULL);
@@ -154,7 +153,7 @@ inline void	Server::accept_new_user(void)
 			break;
 		}
 
-		std::cout << "\tNew incoming connection - "<< new_fd << '\n';
+		std::cout << "New incoming connection - "<< new_fd << '\n';
 
 		new_User_pollfd.fd = new_fd;
 		new_User_pollfd.events = POLLIN;
@@ -170,12 +169,10 @@ inline void	Server::accept_new_user(void)
 
 inline void	Server::recv_data(short& index, bool& need_compress_fds)
 {
-	static char			buffer[500];// TODO metre limit de bits
+	static char			buffer[500];
 	static bool			close_conn = false;
 	static int			rc;
 
-
-	std::cout << "Reading descriptor "<< this->fds[index].fd << '\n';
 
 	this->data_buffer[index - 1].clear();
 	while (true)
@@ -205,7 +202,7 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 			std::cout << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
 			try
 			{
-				parser(this->data_buffer[index - 1]);
+				parser(this->data_buffer[index - 1], this->Users[index - 1]);
 			}
 			catch(const std::exception& e)
 			{

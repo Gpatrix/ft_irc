@@ -123,7 +123,7 @@ inline void	get_data(t_parser_data& data, std::string str)
 	get_cmd(data.cmd, str.substr(index, str.size()));
 }
 
-void	parser(std::string& str)
+void	parser(std::string& str, User* &user)
 {
 	static t_parser_data data;
 
@@ -173,4 +173,5 @@ void	parser(std::string& str)
 		}
 	}
 
+	exec_cmd(data, user);
 }
