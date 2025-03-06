@@ -40,12 +40,12 @@ void	User::set_realname(std::string& new_realname)
 	this->_realname = new_realname;
 }
 
-id_t		User::get_id(id_t& new_id) const
+id_t		User::get_id() const
 {
 	return (this->_id);
 }
 
-int			User::get_fd(int& new_fd) const
+int			User::get_fd() const
 {
 	return (this->_fd);
 }
