@@ -70,6 +70,7 @@
 		"__locale": "cpp",
 		"locale": "cpp",
 		"iomanip": "cpp",
-		"__split_buffer": "cpp"
+		"__split_buffer": "cpp",
+		"__threading_support": "cpp"
 	}
 }

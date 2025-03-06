@@ -1,7 +1,5 @@
 #include "Server.hpp"
 
-
-
 void	Server::exec_cmd(t_parser_data& data,User* &user)
 {
 	static void	(Server::*fonctPTR[4])(t_parser_data& data,User* &user) = {&Server::CAP};
