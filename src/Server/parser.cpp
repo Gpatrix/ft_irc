@@ -1,51 +1,45 @@
 #include "Server.hpp"
 
 
-static std::vector<std::string>& get_source(std::string& data)
+static void get_source(std::vector<std::string>& source, std::string& data)
 {
 	// TODO only work when perfect data
-	static std::vector<std::string> source(3);
-	size_t	my_index = 0;
 
 	size_t	pos1;
 	size_t	pos2;
 
-	source.clear();
-
-	pos1 = data.find_first_of("!@", my_index, data.size());
+	pos1 = data.find_first_of("!@");
 	if (pos1 == std::string::npos)
 	{
-		source[0] = data.substr(my_index, data.size());
+		source[0] = data;
 	}
 	else
 	{
-		source[0] = data.substr(my_index, pos1);
+		source[0] = data.substr(0, pos1);
 		if (data[pos1] == '!')
 		{
-			pos2 = data.find("@", pos1 + 1, data.size());
+			pos2 = data.find("@", pos1 + 1);
 			if (pos2 == std::string::npos)
 			{
-				source[1] = data.substr(pos1, data.size());
+				source[1] = data.substr(pos1 + 1, data.size());
 			}
 			else
 			{
-				source[1] = data.substr(pos1, pos2);
-				source[2] = data.substr(pos2, data.size());
+				source[1] = data.substr(pos1 + 1, pos2 - pos1 - 1);
+				source[2] = data.substr(pos2 + 1, data.size());
 			}
-			
 		}
 		else if (data[pos1] == '@')
 		{
-			source[2] = data.substr(pos1, data.size());
+			source[2] = data.substr(pos1 + 1, data.size());
 		}
 	}
-	return (source);
 }
 
 void	parser(std::string& data)
 {
 	std::vector<std::string> tag;
-	std::vector<std::string> source; /* <nickname> [ "!" <user> ] [ "@" <host> ] */
+	std::vector<std::string> source(3); /* <nickname> [ "!" <user> ] [ "@" <host> ] */
 	std::vector<std::string> cmd;
 
 
@@ -77,23 +71,30 @@ void	parser(std::string& data)
 	}
 	if (data[index] == ':')// source
 	{
-		pos = data.find_first_of(' ', index);
-		std::clog << "DEBUG: not cut  source: " << &data[index] << '\n';
+		pos = data.find(' ', index);
 		if (pos == std::string::npos)
 		{
 			throw std::runtime_error("Syntaxe error");
 		}
 		else
 		{
-			std::string cut = data.substr(index, pos - 1);
-			std::clog << "DEBUG: not cut  source: " << &data[index] << '\n';
-			std::clog << "DEBUG: cut source     : " << cut << '\n';
-			source = get_source(cut);
-			index += cut.size();
+			std::string cut = data.substr(index + 1, pos - index - 1);
+			std::cout << "cut: " << cut << '\n';
+			get_source(source, cut);
+			index += cut.size() + 1;
 		}
 	}
-
+	while (data[index] == ' ')
+	{
+		index++;
+	}
 	cmd.push_back(data.substr(index, data.size()));
+
+	std::cout
+	<< "nickname: " << source[0] << '\n'
+	<< "user    : " << source[1] << '\n'
+	<< "host    : " << source[2] << '\n';
+
 
 	for (std::vector<std::string>::iterator it = cmd.begin(); it < cmd.end(); it++)
 	{
