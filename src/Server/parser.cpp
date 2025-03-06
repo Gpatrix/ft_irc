@@ -36,70 +36,87 @@ static void get_source(std::vector<std::string>& source, std::string& data)
 	}
 }
 
-void	parser(std::string& data)
+inline void	get_data(t_parser_data& data, std::string str)
 {
-	std::vector<std::string> tag;
-	std::vector<std::string> source(3); /* <nickname> [ "!" <user> ] [ "@" <host> ] */
-	std::vector<std::string> cmd;
-
-
-	// TODO split par separateur '\r\n'
-	// si pas ne pas parse
-
-	// size_t	size  = data.size();
 	size_t	pos = 0;
 	size_t	index = 0;
+
+
+	std::string	tmp_part;
 
 	//TODO veif size limit
 
 	// for better parsing split with SPACE ' '
 
-	while (data[index] == ' ')
+	while (str[index] == ' ')
 	{
 		index++;
 	}
-	if (data[index] == '@')// tage
+	if (str[index] == '@')// tage
 	{
-		while (data[index] != ' ')
+		while (str[index] != ' ')
 		{
 			index++;
 		}
 	}
-	while (data[index] == ' ')
+	while (str[index] == ' ')
 	{
 		index++;
 	}
-	if (data[index] == ':')// source
+	if (str[index] == ':')// source
 	{
-		pos = data.find(' ', index);
+		pos = str.find(' ', index);
 		if (pos == std::string::npos)
 		{
 			throw std::runtime_error("Syntaxe error");
 		}
 		else
 		{
-			std::string cut = data.substr(index + 1, pos - index - 1);
-			std::cout << "cut: " << cut << '\n';
-			get_source(source, cut);
+			std::string cut = str.substr(index + 1, pos - index - 1);
+			get_source(data.source, cut);
 			index += cut.size() + 1;
 		}
 	}
-	while (data[index] == ' ')
+	while (str[index] == ' ')
 	{
 		index++;
 	}
-	cmd.push_back(data.substr(index, data.size()));
+	data.cmd.push_back(str.substr(index, str.size()));
 
-	std::cout
-	<< "nickname: " << source[0] << '\n'
-	<< "user    : " << source[1] << '\n'
-	<< "host    : " << source[2] << '\n';
+	
+}
 
+void	parser(std::string& str)
+{
+	t_parser_data data;
 
-	for (std::vector<std::string>::iterator it = cmd.begin(); it < cmd.end(); it++)
-	{
-		std::cout << "cmd: " << *it << '\n';
-	}
+	// TODO dégueulasse
+	data.source.push_back("");
+	data.source.push_back("");
+	data.source.push_back("");
+
+	// size_t	size  = data.size();
+	// size_t	pos = 0;
+	// size_t	index = 0;
+
+	// TODO split par separateur '\r\n'
+	// pos = data.find_first_of("\r\n");
+	
+
+	// while (pos != std::string::npos)
+	// {
+		get_data(data, str);
+
+		std::cout
+		<< "nickname: " << data.source[0] << '\n'
+		<< "user    : " << data.source[1] << '\n'
+		<< "host    : " << data.source[2] << '\n';
+
+		for (std::vector<std::string>::iterator it = data.cmd.begin(); it < data.cmd.end(); it++)
+		{
+			std::cout << "cmd: " << *it << '\n';
+		}
+	// }
 	
 	// data.find(' ', index);
 

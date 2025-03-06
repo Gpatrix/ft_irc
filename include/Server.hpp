@@ -58,4 +58,12 @@ class Server
 		void	run(void);
 };
 
+typedef struct s_parser_data
+{
+	std::vector<std::string> tag;
+	std::vector<std::string> source;
+	std::vector<std::string> cmd;
+}              t_parser_data;
+
+
 void	parser(std::string& data);
