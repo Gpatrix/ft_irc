@@ -18,7 +18,6 @@ void	Server::init_socket(char* &port)
 		throw std::runtime_error("Error: setsockopt() failed");
 	}
 	
-
 	struct sockaddr_in6	addr;
 	memset(&addr, 0, sizeof(addr));
 	addr.sin6_family = AF_INET6;
@@ -56,11 +55,6 @@ Server::Server(void): Users_id(0) {}
 
 void Server::init(char* port, char* password)
 {
-	int		rc;
-	int		new_sd = -1;
-	bool	close_conn = false;
-	bool	need_compress_fds = false;
-
 	this->Password = password;
 	this->Sockfd = -1;
 
@@ -212,11 +206,14 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 		if (rc < static_cast<int>(sizeof(buffer)))
 		{
 			std::cout << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
-			parser(this->data_buffer[index - 1]);
-			// if (this->data_buffer[index - 1].find_first_of("\r\n") != std::string::npos)
-			// {
-			// 	// parse data
-			// }
+			try
+			{
+				parser(this->data_buffer[index - 1]);
+			}
+			catch(const std::exception& e)
+			{
+				std::cerr << e.what() << '\n';
+			}
 			break;
 		}
 	}

@@ -18,9 +18,9 @@ class Channel
 		std::vector<id_t>	_Operators;
 		std::string			_Password;
 	
-		bool			invitation_only;
-		bool			protected_topic;
-		unsigned int	user_limit;
+		// bool			invitation_only;
+		// bool			protected_topic;
+		// unsigned int	user_limit;
 	
 	public:
 		Channel(std::string	Name, id_t owner);
