@@ -15,3 +15,9 @@ https://ircv3.net/specs/extensions/message-tags.html#size-limit
 reponse serveur:
 https://modern.ircdocs.horse/#client-messages
 https://modern.ircdocs.horse/#numerics
+
+les message  sont finit par \r\n
+
+ctr+v ctr+m = \r
+
+donc avec nc tu doit fair "test (ctr+v ctr+m)" + ENTER

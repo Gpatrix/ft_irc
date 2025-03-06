@@ -36,6 +36,12 @@ static void get_source(s_parser_data& source, std::string& data)
 	}
 }
 
+void	get_cmd(std::vector<std::string>&cmd, const std::string& str)
+{
+	cmd.push_back(str);
+}
+
+
 inline void	get_data(t_parser_data& data, std::string str)
 {
 	size_t	pos = 0;
@@ -82,7 +88,7 @@ inline void	get_data(t_parser_data& data, std::string str)
 		index++;
 	}
 
-	data.cmd.push_back(str.substr(index, str.size()));
+	get_cmd(data.cmd, str.substr(index, str.size()));
 }
 
 void	parser(std::string& str)

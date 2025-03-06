@@ -52,8 +52,8 @@ class Server
 
 	public:
 		Server(void);
-
 		~Server(void);
+
 		void	init(char* port, char* password);
 		void	run(void);
 };
@@ -68,6 +68,5 @@ typedef struct s_parser_data
 
 	std::vector<std::string> cmd;
 }              t_parser_data;
-
 
 void	parser(std::string& data);
