@@ -95,31 +95,46 @@ void	parser(std::string& str)
 	data.source.push_back("");
 	data.source.push_back("");
 
-	// size_t	size  = data.size();
-	// size_t	pos = 0;
-	// size_t	index = 0;
+	size_t	pos_begin = 0;
+	size_t	pos_end   = 0;
 
-	// TODO split par separateur '\r\n'
-	// pos = data.find_first_of("\r\n");
-	
+	std::string	tmp_str;
 
-	// while (pos != std::string::npos)
-	// {
-		get_data(data, str);
+	// TODO only work on perfect separator not single '\r' or '\n'
+	while (1)
+	{
+		data.tag.clear();
+		data.source.clear();
+		data.cmd.clear();
 
-		std::cout
-		<< "nickname: " << data.source[0] << '\n'
-		<< "user    : " << data.source[1] << '\n'
-		<< "host    : " << data.source[2] << '\n';
+		pos_end = str.find_first_of("\r\n", pos_begin);
+		
+		if (pos_end == std::string::npos)
+		{
+			str = str.substr(pos_begin, str.size());
+			return;
+		}
+
+		tmp_str = str.substr(pos_begin, pos_end - pos_begin);
+
+		std::cout << '\'' << tmp_str << "\'\n";
+
+		get_data(data, tmp_str);
+
+		pos_begin = pos_end + 2;
+
+		if (!data.source.empty())
+		{
+			std::cout
+			<< "nickname: " << data.source[0] << '\n'
+			<< "user    : " << data.source[1] << '\n'
+			<< "host    : " << data.source[2] << '\n';
+		}
+		
 
 		for (std::vector<std::string>::iterator it = data.cmd.begin(); it < data.cmd.end(); it++)
 		{
 			std::cout << "cmd: " << *it << '\n';
 		}
-	// }
-	
-	// data.find(' ', index);
-
-
-	// take cmd + para
+	}
 }
