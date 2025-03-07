@@ -3,6 +3,10 @@
 // https://ircv3.net/specs/extensions/capability-negotiation.html
 void	Server::CAP(t_parser_data& data,User* &user)
 {
+	return;
+
+	// TODO pas besoin de gerer
+
 	if (data.cmd.size() == 1)
 	{
 		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());

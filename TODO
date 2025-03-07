@@ -1,12 +1,25 @@
 
-Client IRC irssi en ligne de comande
-
-reponse serveur:
-https://modern.ircdocs.horse/#client-messages
-https://modern.ircdocs.horse/#numerics
-
 les message  sont finit par \r\n
 
 ctr+v ctr+m = \r
 
 donc avec nc tu doit fair "test (ctr+v ctr+m)" + ENTER
+
+
+cmd: MODE
+option: 'lchauvet'
+option: '+i'
+executing
+command not found
+4: PING localhost
+
+cmd: PING
+option: 'localhost'
+executing
+command not found
+4: QUIT :leaving
+
+cmd: QUIT
+option: 'leaving'
+executing
+command not found
