@@ -67,12 +67,10 @@ void	get_cmd(std::vector<std::string>&cmd, const std::string& str)
 	}
 }
 
-inline void	get_data(t_parser_data& data, std::string str)
+inline void	get_data(t_parser_data& data, std::string& str)
 {
 	size_t	pos = 0;
 	size_t	index = 0;
-
-	std::string	tmp_part;
 
 	//TODO veif size limit
 
@@ -111,10 +109,6 @@ inline void	get_data(t_parser_data& data, std::string str)
 	{
 		index++;
 	}
-	if (str[index] == *(str.end() - 1))
-	{
-		throw std::runtime_error("Syntaxe error");
-	}
 
 	get_cmd(data.cmd, str.substr(index, str.size()));
 }
@@ -122,6 +116,7 @@ inline void	get_data(t_parser_data& data, std::string str)
 void	Server::parser(std::string& str, User* &user)
 {
 	static t_parser_data data;
+	static std::vector<std::string>::iterator it;
 
 
 	size_t	pos_begin = 0;
@@ -140,6 +135,9 @@ void	Server::parser(std::string& str, User* &user)
 		data.nickname.clear();
 		data.user.clear();
 		data.host.clear();
+		it = data.cmd.begin();
+		for (; it != data.cmd.end(); it++)
+			(*it).clear();
 		data.cmd.clear();
 
 		pos_end = str.find_first_of("\r\n", pos_begin);
@@ -151,8 +149,6 @@ void	Server::parser(std::string& str, User* &user)
 		}
 
 		tmp_str = str.substr(pos_begin, pos_end - pos_begin);
-
-		// std::cout << '\'' << tmp_str << "\'\n";
 
 		get_data(data, tmp_str);
 
