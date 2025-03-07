@@ -1,20 +1,6 @@
 #include "User.hpp"
 
-User::User(id_t& new_id, int& new_fd): _id(new_id), _fd(new_fd), is_register(false) {}
-
-void	User::do_registration
-(
-	std::string& new_username,
-	std::string& new_nickname,
-	std::string& new_realname
-)
-{
-	this->is_register = false;
-	this->have_valid_password = false;
-	this->_username = new_username;
-	this->_nickname = new_nickname;
-	this->_realname = new_realname;
-}
+User::User(id_t& new_id, int& new_fd): _id(new_id), _fd(new_fd), is_register(false), have_valid_password(false) {}
 
 void	User::set_id(id_t& new_id)
 {

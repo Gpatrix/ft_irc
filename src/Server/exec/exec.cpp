@@ -2,6 +2,7 @@
 
 void	Server::exec_cmd(t_parser_data& data,User* &user)
 {
+	std::clog << "executing\n";
 	static void	(Server::*fonctPTR[4])(t_parser_data& data,User* &user) = 
 	{&Server::CAP, &Server::NICK, &Server::USER};
 	static std::string	fonctName[] = 
@@ -19,20 +20,23 @@ void	Server::exec_cmd(t_parser_data& data,User* &user)
 			return;
 		}
 	}
+	std::clog << "command not found\n";
+	// TODO CMD not found
 }
 
 void	Server::try_register(User* &user)
 {
 	if (!user->get_have_valid_password())
 	{
-		// https://modern.ircdocs.horse/#errpasswdmismatch-464
-		std::clog << "pasword not set\n";
+		Numerics::_464_ERR_PASSWDMISMATCH(user->get_fd());
+		std::clog << "ERROR: Pasword not valid\n";
 		return;
 	}
 	
 	if (!user->get_nickname().empty())
 	{
 		// https://modern.ircdocs.horse/#errnonicknamegiven-431
+		std::clog << "Nick not set\n";
 		return;
 	}
 	

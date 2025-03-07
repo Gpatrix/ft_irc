@@ -7,7 +7,6 @@ void	Server::USER(t_parser_data& data, User* &user)
 	if (data.cmd.size() != 5)
 	{
 		// https://modern.ircdocs.horse/#errneedmoreparams-461
-		return;
 	}
 	else if (user->get_is_register() == true)
 	{
@@ -19,6 +18,7 @@ void	Server::USER(t_parser_data& data, User* &user)
 		if (data.cmd[1].size() < 1)
 		{
 			// https://modern.ircdocs.horse/#errneedmoreparams-461
+			std::clog <<  "nick too short\n";
 			return;
 		}
 		user->set_username("~" + data.cmd[1]);

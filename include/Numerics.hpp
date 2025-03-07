@@ -11,4 +11,6 @@ class Numerics
 
 	public:
 		static void	_001_RPL_WELCOME(const int& fd, const std::string& nick);
+		
+		static void	_464_ERR_PASSWDMISMATCH(const int& fd);
 };
