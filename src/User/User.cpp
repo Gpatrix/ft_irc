@@ -9,7 +9,8 @@ void	User::do_registration
 	std::string& new_realname
 )
 {
-	this->is_register = true;
+	this->is_register = false;
+	this->have_valid_password = false;
 	this->_username = new_username;
 	this->_nickname = new_nickname;
 	this->_realname = new_realname;
@@ -40,6 +41,16 @@ void	User::set_realname(std::string& new_realname)
 	this->_realname = new_realname;
 }
 
+void	User::set_is_register(bool& value)
+{
+	this->is_register = value;
+}
+
+void	User::set_have_valid_password(bool& value)
+{
+	this->have_valid_password = value;
+}
+
 id_t		User::get_id() const
 {
 	return (this->_id);
@@ -63,6 +74,16 @@ std::string	User::get_nickname() const
 std::string	User::get_realname() const
 {
 	return (this->_realname);
+}
+
+bool		User::get_is_register(void) const
+{
+	return (this->is_register);
+}
+
+bool		User::get_have_valid_password(void) const
+{
+	return (this->have_valid_password);
 }
 
 
