@@ -65,6 +65,7 @@ class Server
 		void		parser(std::string& data, User* &user);
 
 		void	CAP(t_parser_data& data,User* &user);
+		void	NICK(t_parser_data& data,User* &user);
 		
 
 

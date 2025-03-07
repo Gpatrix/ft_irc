@@ -86,5 +86,4 @@ bool		User::get_have_valid_password(void) const
 	return (this->have_valid_password);
 }
 
-
 User::~User(void) {}

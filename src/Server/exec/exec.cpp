@@ -2,8 +2,10 @@
 
 void	Server::exec_cmd(t_parser_data& data,User* &user)
 {
-	static void	(Server::*fonctPTR[4])(t_parser_data& data,User* &user) = {&Server::CAP};
-	static std::string	fonctName[] = {"CAP"};
+	static void	(Server::*fonctPTR[4])(t_parser_data& data,User* &user) = 
+	{&Server::CAP};
+	static std::string	fonctName[] = 
+	{"CAP"};
 
 	static size_t	fonct_size = sizeof(fonctName) / sizeof(std::string);
 
