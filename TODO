@@ -13,12 +13,6 @@ executing
 command not found
 4: PING localhost
 
-cmd: PING
-option: 'localhost'
-executing
-command not found
-4: QUIT :leaving
-
 cmd: QUIT
 option: 'leaving'
 executing
