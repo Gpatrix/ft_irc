@@ -31,7 +31,7 @@
 // std::cout << std::fixed << std::setprecision(10) <<
 // static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
 
-#define SERVER_NAME "chorizo.fr"
+#define SERVER_NAME "chorizo.42"
 
 #include <errno.h>
 
