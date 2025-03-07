@@ -10,7 +10,7 @@ void	Server::PING(t_parser_data& data,User* &user)
 	}
 	else
 	{
-		std::string msg = ":" SERVER_NAME " :PONG " SERVER_NAME " :" + data.cmd[1] + "\r\n";
+		std::string msg = ":" SERVER_NAME " PONG " SERVER_NAME " :" + data.cmd[1] + "\r\n";
 		send(user->get_fd(), msg.c_str(), msg.size(), 0);
 	}
 }
