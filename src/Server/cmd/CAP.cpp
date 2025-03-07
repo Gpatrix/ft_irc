@@ -16,7 +16,7 @@ void	Server::CAP(t_parser_data& data,User* &user)
 	{
 		if (data.cmd[1] == "LS")
 		{
-			send(user->get_fd(), "CAP * LS:\r\n", 12, 0);
+			send(user->get_fd(), ":" SERVER_NAME " CAP * LS:\r\n", 12, 0);
 			// https://ircv3.net/specs/extensions/capability-negotiation.html#cap-ls-version
 		}
 	}

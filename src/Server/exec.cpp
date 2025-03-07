@@ -2,11 +2,13 @@
 
 void	Server::exec_cmd(t_parser_data& data,User* &user)
 {
+	// TODO touver une meilleur facon de la faire
+
 	std::clog << "executing\n";
-	static void	(Server::*fonctPTR[4])(t_parser_data& data,User* &user) = 
-	{&Server::CAP, &Server::NICK, &Server::USER, &Server::PASS};
+	static void	(Server::*fonctPTR[])(t_parser_data& data,User* &user) = 
+	{&Server::CAP, &Server::NICK, &Server::USER, &Server::PASS, &Server::PING};
 	static std::string	fonctName[] = 
-	{"CAP", "NICK", "USER", "PASS"};
+	{"CAP", "NICK", "USER", "PASS", "PING"};
 
 	static size_t	fonct_size = sizeof(fonctName) / sizeof(std::string);
 

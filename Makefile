@@ -8,9 +8,15 @@ NAME	= ircserv
 FILE	:= main.cpp src/Server/Server.cpp src/User/User.cpp src/Channel/Channel.cpp src/Server/parser.cpp \
 			src/Server/exec.cpp
 
-FILE += src/Server/cmd/CAP.cpp src/Server/cmd/NICK.cpp src/Server/cmd/USER.cpp src/Server/cmd/PASS.cpp
+FILE += src/Server/cmd/CAP.cpp  \
+		src/Server/cmd/NICK.cpp \
+		src/Server/cmd/USER.cpp \
+		src/Server/cmd/PASS.cpp \
+		src/Server/cmd/PING.cpp
 
-FILE += src/Numerics/_001_RPL_WELCOME.cpp src/Numerics/_464_ERR_PASSWDMISMATCH.cpp src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp
+FILE += src/Numerics/_001_RPL_WELCOME.cpp \
+		src/Numerics/_464_ERR_PASSWDMISMATCH.cpp \
+		src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp
 
 OBJS	= $(FILE:%.cpp=%.o)
 

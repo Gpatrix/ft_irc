@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <sys/socket.h>
+#include "Server.hpp"
 
 class Numerics
 {
