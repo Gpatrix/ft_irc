@@ -26,6 +26,7 @@ void	Server::exec_cmd(t_parser_data& data,User* &user)
 
 void	Server::try_register(User* &user)
 {
+	std::clog << "Registering: ";
 	if (!user->get_have_valid_password())
 	{
 		Numerics::_464_ERR_PASSWDMISMATCH(user->get_fd());
