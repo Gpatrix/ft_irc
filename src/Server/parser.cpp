@@ -44,6 +44,9 @@ void	get_cmd(std::vector<std::string>&cmd, const std::string& str)
 
 	while (true)
 	{
+		if (index >= str_size)
+			return;
+
 		while (index < str_size && str[index] == ' ')
 			index++;
 
@@ -52,12 +55,6 @@ void	get_cmd(std::vector<std::string>&cmd, const std::string& str)
 		while (index < str_size && str[index] != ' ')
 			index++;
 
-		if (index >= str_size)
-		{
-			if (index - pos_start != 0)
-				cmd.push_back(str.substr(pos_start, str_size));
-			return;
-		}
 
 		if (str[pos_start] == ':')
 		{
