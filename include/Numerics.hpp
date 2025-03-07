@@ -13,4 +13,6 @@ class Numerics
 		static void	_001_RPL_WELCOME(const int& fd, const std::string& nick);
 		
 		static void	_464_ERR_PASSWDMISMATCH(const int& fd);
+		static void	_461_ERR_NEEDMOREPARAMS(const std::string& cmd, const int& fd);
+
 };

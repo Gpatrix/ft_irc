@@ -5,7 +5,7 @@ void	Server::CAP(t_parser_data& data,User* &user)
 {
 	if (data.cmd.size() == 1)
 	{
-		// TODO see error return;
+		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 		return;
 	}
 	else

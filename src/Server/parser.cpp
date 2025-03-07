@@ -54,7 +54,7 @@ void	get_cmd(std::vector<std::string>&cmd, const std::string& str)
 
 		if (index >= str_size)
 		{
-			if (index - pos_start != 1)
+			if (index - pos_start != 0)
 				cmd.push_back(str.substr(pos_start, str_size));
 			return;
 		}
@@ -114,7 +114,6 @@ inline void	get_data(t_parser_data& data, std::string str)
 	{
 		index++;
 	}
-
 	if (str[index] == *(str.end() - 1))
 	{
 		throw std::runtime_error("Syntaxe error");

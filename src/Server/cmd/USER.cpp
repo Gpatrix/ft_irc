@@ -6,7 +6,7 @@ void	Server::USER(t_parser_data& data, User* &user)
 
 	if (data.cmd.size() != 5)
 	{
-		// https://modern.ircdocs.horse/#errneedmoreparams-461
+		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 		std::clog << "ERROR: need mor param" << '\n';
 	}
 	else if (user->get_is_register() == true)

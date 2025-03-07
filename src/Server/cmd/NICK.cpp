@@ -5,7 +5,7 @@ void	Server::NICK(t_parser_data& data,User* &user)
 {
 	if (data.cmd.size() == 1)
 	{
-		// TODO https://modern.ircdocs.horse/#errnonicknamegiven-431
+		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 		return;
 	}
 	else if (data.cmd.size() == 2) 

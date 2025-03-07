@@ -1,5 +1,5 @@
 CC		= c++
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -O3
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -O0
 
 RM		= rm -f
 
@@ -10,7 +10,7 @@ FILE	:= main.cpp src/Server/Server.cpp src/User/User.cpp src/Channel/Channel.cpp
 
 FILE += src/Server/cmd/CAP.cpp src/Server/cmd/NICK.cpp src/Server/cmd/USER.cpp src/Server/cmd/PASS.cpp
 
-FILE += src/Numerics/_001_RPL_WELCOME.cpp src/Numerics/_464_ERR_PASSWDMISMATCH.cpp
+FILE += src/Numerics/_001_RPL_WELCOME.cpp src/Numerics/_464_ERR_PASSWDMISMATCH.cpp src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp
 
 OBJS	= $(FILE:%.cpp=%.o)
 

@@ -5,8 +5,7 @@ void	Server::PASS(t_parser_data& data,User* &user)
 {
 	if (data.cmd.size() != 2)
 	{
-		// https://modern.ircdocs.horse/#errneedmoreparams-461
-		std::clog << "ERROR: need mor param" << '\n';
+		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 		return;
 	}
 	else

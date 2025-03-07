@@ -1,0 +1,42 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+	  {
+		"name": "(gdb) Launch",  // Name that will appear in the debug configuration list
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/ircserv",  // Replace with the path to your executable
+		"args": [
+			"5000",
+			"1234"
+		],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}",
+		"environment": [],
+		"externalConsole": true,
+		"MIMode": "gdb",  // Tells VS Code to use GDB
+		"miDebuggerPath": "/usr/bin/gdb",  // Adjust the path to your GDB binary if needed
+		"preLaunchTask": "Build with Makefile",  // The task to build before launching the debugger
+		"setupCommands": [
+		  {
+			"description": "Enable pretty-printing for gdb",
+			"text": "-enable-pretty-printing",
+			"ignoreFailures": true
+		  }
+		],
+		"linux": {
+		  "MIMode": "gdb",
+		  "miDebuggerPath": "/usr/bin/gdb"  // Adjust if needed
+		},
+		"osx": {
+		  "MIMode": "lldb",
+		  "miDebuggerPath": "/usr/bin/lldb"  // Adjust if needed
+		},
+		"windows": {
+		  "MIMode": "gdb",
+		  "miDebuggerPath": "C:/mingw/bin/gdb.exe"  // Adjust if needed
+		}
+	  }
+	]
+  }
+  
