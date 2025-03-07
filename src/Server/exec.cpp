@@ -34,7 +34,7 @@ void	Server::try_register(User* &user)
 		return;
 	}
 	
-	if (!user->get_nickname().empty())
+	if (user->get_nickname().empty())
 	{
 		// https://modern.ircdocs.horse/#errnonicknamegiven-431
 		std::clog << "Nick not set\n";
