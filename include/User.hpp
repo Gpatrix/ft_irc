@@ -13,7 +13,9 @@ class User
 		std::string	_realname;
 
 		bool		is_register;
+		bool		is_invisible; // Not shown in searches /WHO
 		bool		have_valid_password;
+
 
 	public:
 		User(id_t& new_id, int& new_fd);
@@ -25,6 +27,7 @@ class User
 		void	set_nickname(const std::string& new_nickname);
 		void	set_realname(const std::string& new_realname);
 		void	set_is_register(bool value);
+		void	set_is_invisible(bool value);
 		void	set_have_valid_password(bool value);
 
 		id_t		get_id() const;
@@ -33,6 +36,7 @@ class User
 		std::string	get_nickname() const;
 		std::string	get_realname() const;
 		bool		get_is_register(void) const;
+		bool		get_is_invisible(void) const;
 		bool		get_have_valid_password(void) const;
 
 

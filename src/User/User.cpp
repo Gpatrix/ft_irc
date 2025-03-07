@@ -1,6 +1,8 @@
 #include "User.hpp"
 
-User::User(id_t& new_id, int& new_fd): _id(new_id), _fd(new_fd), is_register(false), have_valid_password(false) {}
+User::User(id_t& new_id, int& new_fd)
+: _id(new_id), _fd(new_fd), is_register(false), have_valid_password(false)
+ , is_invisible(false) {}
 
 void	User::set_id(id_t& new_id)
 {
@@ -30,6 +32,11 @@ void	User::set_realname(const std::string& new_realname)
 void	User::set_is_register(bool value)
 {
 	this->is_register = value;
+}
+
+void	User::set_is_invisible(bool value)
+{
+	this->is_invisible = value;
 }
 
 void	User::set_have_valid_password(bool value)
@@ -65,6 +72,11 @@ std::string	User::get_realname() const
 bool		User::get_is_register(void) const
 {
 	return (this->is_register);
+}
+
+bool		User::get_is_invisible(void) const
+{
+	return (this->is_invisible);
 }
 
 bool		User::get_have_valid_password(void) const
