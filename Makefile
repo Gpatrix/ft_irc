@@ -8,7 +8,7 @@ NAME	= ircserv
 FILE	:= main.cpp src/Server/Server.cpp src/User/User.cpp src/Channel/Channel.cpp src/Server/parser.cpp \
 			src/Server/exec/exec.cpp
 
-FILE += src/Server/exec/CAP.cpp src/Server/exec/NICK.cpp
+FILE += src/Server/exec/CAP.cpp src/Server/exec/NICK.cpp src/Server/exec/USER.cpp
 
 OBJS	= $(FILE:%.cpp=%.o)
 

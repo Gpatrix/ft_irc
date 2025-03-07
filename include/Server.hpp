@@ -66,6 +66,8 @@ class Server
 
 		void	CAP(t_parser_data& data,User* &user);
 		void	NICK(t_parser_data& data,User* &user);
+		void	USER(t_parser_data& data,User* &user);
+
 		
 
 

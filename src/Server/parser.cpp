@@ -177,5 +177,7 @@ void	Server::parser(std::string& str, User* &user)
 		}
 	}
 
-	exec_cmd(data, user);
+	if (data.cmd.size() != 0)
+		exec_cmd(data, user);
+	
 }
