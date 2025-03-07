@@ -1,8 +1,8 @@
 #include "User.hpp"
 
 User::User(id_t& new_id, int& new_fd)
-: _id(new_id), _fd(new_fd), is_register(false), have_valid_password(false)
- , is_invisible(false) {}
+: _id(new_id), _fd(new_fd), is_register(false), is_invisible(false),
+ have_valid_password(false) {}
 
 void	User::set_id(id_t& new_id)
 {
