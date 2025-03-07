@@ -26,27 +26,27 @@ void	User::set_fd(int& new_fd)
 	this->_fd = new_fd;
 }
 
-void	User::set_username(std::string new_username)
+void	User::set_username(const std::string& new_username)
 {
 	this->_username = new_username;
 }
 
-void	User::set_nickname(std::string& new_nickname)
+void	User::set_nickname(const std::string& new_nickname)
 {
 	this->_nickname = new_nickname;
 }
 
-void	User::set_realname(std::string new_realname)
+void	User::set_realname(const std::string& new_realname)
 {
 	this->_realname = new_realname;
 }
 
-void	User::set_is_register(bool& value)
+void	User::set_is_register(bool value)
 {
 	this->is_register = value;
 }
 
-void	User::set_have_valid_password(bool& value)
+void	User::set_have_valid_password(bool value)
 {
 	this->have_valid_password = value;
 }

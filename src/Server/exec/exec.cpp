@@ -21,5 +21,23 @@ void	Server::exec_cmd(t_parser_data& data,User* &user)
 	}
 }
 
+void	Server::try_register(User* &user)
+{
+	if (!user->get_have_valid_password())
+	{
+		// https://modern.ircdocs.horse/#errpasswdmismatch-464
+		std::clog << "pasword not set\n";
+		return;
+	}
+	
+	if (!user->get_nickname().empty())
+	{
+		// https://modern.ircdocs.horse/#errnonicknamegiven-431
+		return;
+	}
+	
+	user->set_is_register(true);
+	Numerics::_001_RPL_WELCOME(user->get_fd(), user->get_nickname());
+}
 
 // https://ircv3.net/specs/extensions/capability-negotiation.html

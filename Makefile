@@ -10,6 +10,8 @@ FILE	:= main.cpp src/Server/Server.cpp src/User/User.cpp src/Channel/Channel.cpp
 
 FILE += src/Server/exec/CAP.cpp src/Server/exec/NICK.cpp src/Server/exec/USER.cpp
 
+FILE += src/Numerics/_001_RPL_WELCOME.cpp
+
 OBJS	= $(FILE:%.cpp=%.o)
 
 all: $(NAME)

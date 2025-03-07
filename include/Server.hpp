@@ -4,6 +4,7 @@
 
 #include "User.hpp"
 #include "Channel.hpp"
+#include "Numerics.hpp"
 
 #include <vector>
 #include <map>
@@ -69,8 +70,7 @@ class Server
 		void	USER(t_parser_data& data,User* &user);
 
 		
-
-
+		void	try_register(User* &user);
 
 	public:
 		Server(void);

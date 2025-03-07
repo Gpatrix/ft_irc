@@ -2,7 +2,7 @@
 
 // https://modern.ircdocs.horse/
 // https://www.rfc-editor.org/rfc/rfc1459.html
-
+// https://dd.ircdocs.horse/
 
 int main(int argc, char** argv)
 {

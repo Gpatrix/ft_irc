@@ -21,11 +21,11 @@ class User
 
 		void	set_id(id_t& new_id);
 		void	set_fd(int& new_fd);
-		void	set_username(std::string new_username);
-		void	set_nickname(std::string& new_nickname);
-		void	set_realname(std::string new_realname);
-		void	set_is_register(bool& value);
-		void	set_have_valid_password(bool& value);
+		void	set_username(const std::string& new_username);
+		void	set_nickname(const std::string& new_nickname);
+		void	set_realname(const std::string& new_realname);
+		void	set_is_register(bool value);
+		void	set_have_valid_password(bool value);
 
 		id_t		get_id() const;
 		int			get_fd() const;

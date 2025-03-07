@@ -1,7 +1,7 @@
 #include "Server.hpp"
 
 // https://modern.ircdocs.horse/#nick-message
-void	Server::USER(t_parser_data& data,User* &user)
+void	Server::USER(t_parser_data& data, User* &user)
 {
 
 	if (data.cmd.size() != 5)
@@ -23,5 +23,7 @@ void	Server::USER(t_parser_data& data,User* &user)
 		}
 		user->set_username("~" + data.cmd[1]);
 		user->set_realname(data.cmd[3]);
+
+		try_register(user);
 	}
 }
