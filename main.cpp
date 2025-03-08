@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
 	if (argc != 3)
 	{
-		std::cout << "usage: ./ircserv <port> <password>";
+		std::cout << "usage: ./ircserv <port> <password>" << std::endl;
 		return (1);
 	}
 
@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what() << std::endl;
 	}
 	return (0);
 }
