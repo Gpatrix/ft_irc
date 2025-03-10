@@ -25,7 +25,6 @@ void	Server::try_register(User* &user)
 	if (!user->get_have_valid_password())
 	{
 		Numerics::_464_ERR_PASSWDMISMATCH(user->get_fd());
-		std::clog << "ERROR: Pasword not valid\n";
 		return;
 	}
 	
