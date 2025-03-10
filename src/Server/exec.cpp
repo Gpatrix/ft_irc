@@ -4,7 +4,6 @@ void	Server::exec_cmd(t_parser_data& data,User* &user)
 {
 	// TODO touver une meilleur facon de la faire
 
-	std::clog << "executing\n";
 	static void	(Server::*fonctPTR[])(t_parser_data& data,User* &user) = 
 	{&Server::CAP, &Server::NICK, &Server::USER, &Server::PASS, &Server::PING};
 	static std::string	fonctName[] = 
@@ -22,8 +21,7 @@ void	Server::exec_cmd(t_parser_data& data,User* &user)
 			return;
 		}
 	}
-	std::clog << "command not found\n";
-	// TODO CMD not found
+	Numerics::_421_ERR_UNKNOWNCOMMAND(data.cmd[0], user->get_fd());
 }
 
 void	Server::try_register(User* &user)

@@ -38,8 +38,4 @@ class User
 		bool		get_is_register(void) const;
 		bool		get_is_invisible(void) const;
 		bool		get_have_valid_password(void) const;
-
-
-		void	do_registration(std::string& new_username, std::string& new_nickname, std::string& new_realname);
-
 };
