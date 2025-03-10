@@ -47,7 +47,7 @@ TERM_CLEAR_LINE     =   \033[2K\r
 #                                   Sources                                    #
 # **************************************************************************** #
 
-SRC = ./src/Server/Server.cpp ./src/Server/cmd/CAP.cpp ./src/Server/cmd/NICK.cpp ./src/Server/cmd/USER.cpp ./src/Server/cmd/PASS.cpp ./src/Server/cmd/PING.cpp ./src/Server/exec.cpp ./src/Server/parser.cpp ./src/Channel/Channel.cpp ./src/Numerics/_001_RPL_WELCOME.cpp ./src/Numerics/_464_ERR_PASSWDMISMATCH.cpp ./src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp ./src/Numerics/_421_ERR_UNKNOWNCOMMAND.cpp ./src/User/User.cpp ./main.cpp 
+SRC = ./main.cpp ./src/Channel/Channel.cpp ./src/Numerics/_001_RPL_WELCOME.cpp ./src/Numerics/_421_ERR_UNKNOWNCOMMAND.cpp ./src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp ./src/Numerics/_464_ERR_PASSWDMISMATCH.cpp ./src/Numerics/_475_ERR_BADCHANNELKEY.cpp ./src/Numerics/_332_RPL_TOPIC.cpp ./src/Numerics/_366_RPL_ENDOFNAMES.cpp ./src/Numerics/_353_RPL_NAMREPLY.cpp ./src/Server/Server.cpp ./src/Server/cmd/CAP.cpp ./src/Server/cmd/NICK.cpp ./src/Server/cmd/PASS.cpp ./src/Server/cmd/PING.cpp ./src/Server/cmd/USER.cpp ./src/Server/cmd/JOIN.cpp ./src/Server/exec.cpp ./src/Server/parser.cpp ./src/User/User.cpp 
 
 
 

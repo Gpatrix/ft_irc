@@ -1,3 +1,4 @@
+
 #include "Numerics.hpp"
 
 void	Numerics::_001_RPL_WELCOME(const int& fd, const std::string& nick)

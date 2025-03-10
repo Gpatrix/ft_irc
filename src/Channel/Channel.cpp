@@ -27,6 +27,7 @@ std::string Channel::getPasword(void) const {return _Password;}
 bool Channel::isInvitationOnly(void) const {return _invitationOnly;}
 bool Channel::isProtectedTopic(void) const {return _protectedTopic;}
 size_t Channel::getUserLimit(void) const {return _userLimit;}
+std::vector<id_t> Channel::getUser(void) const { return _Users;}
 
 // Setters
 void Channel::setTopic(std::string topic) {_Topic = topic;}
@@ -92,4 +93,40 @@ void Channel::removeOperator(id_t user)
 			return;
 		}
 	}
+}
+
+std::string Channel::getChannelSymbol() const
+{
+	if (_invitationOnly)
+		return "@";
+	if (_protectedTopic)
+		return "+";
+	return "";
+}
+
+std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
+{
+	std::vector<std::string> userList; 
+	for (size_t i = 0; i < _Users.size(); ++i)
+	{
+		std::ostringstream user;
+		bool isOperator = false;
+		for (size_t j = 0; j < _Operators.size(); ++j)
+		{
+			if (_Users[i] == _Operators[j])
+			{
+				isOperator = true;
+				break;
+			}
+		}
+		if (isOperator)
+			user << "@";
+
+		user << Vuser[_Users[i]]->get_nickname();
+
+		userList.push_back(user.str());
+		
+	}
+
+	return userList;
 }

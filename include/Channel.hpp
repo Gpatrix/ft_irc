@@ -1,8 +1,9 @@
 #pragma once
-
+#include "User.hpp"
 #include <iostream>
 #include <sys/types.h>
 #include <vector>
+#include <sstream> 
 #include <map>
 
 #define CHANNEL_PASSWORD_SIZE_LIMIT 50
@@ -20,7 +21,7 @@ class Channel
 		std::string			_Password;
 	
 		bool				_invitationOnly;
-		bool				_protectedTopic;
+		bool				_protectedTopic;	
 		size_t				_userLimit;
 
 	public:
@@ -28,12 +29,13 @@ class Channel
 		~Channel(void);
 
 		// Getters
-		std::string	getName(void) const;
-		std::string	getTopic(void) const;
-		std::string getPasword(void) const;
-		bool		isInvitationOnly(void) const;
-		bool		isProtectedTopic(void) const;
-		size_t		getUserLimit(void) const;
+		std::string			getName(void) const;
+		std::string			getTopic(void) const;
+		std::string 		getPasword(void) const;
+		std::vector<id_t> 	getUser(void) const;
+		bool				isInvitationOnly(void) const;
+		bool				isProtectedTopic(void) const;
+		size_t				getUserLimit(void) const;
 
 		// Setters
 		void	setTopic(std::string topic);
@@ -48,4 +50,7 @@ class Channel
 		bool	isOperator(id_t user) const;
 		void	addOperator(id_t user);
 		void	removeOperator(id_t user);
+
+		std::string getChannelSymbol() const;
+		std::vector<std::string> getUserList(std::vector<User*>& user);
 };
