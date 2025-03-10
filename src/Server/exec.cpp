@@ -2,23 +2,22 @@
 
 void Server::exec_cmd(t_parser_data& data, User* &user)
 {
-    static std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)> commandMap;
-    if (commandMap.empty()) {
-        commandMap["CAP"] = &Server::CAP;
-        commandMap["NICK"] = &Server::NICK;
-        commandMap["USER"] = &Server::USER;
-        commandMap["PASS"] = &Server::PASS;
-        commandMap["PING"] = &Server::PING;
-    }
+	static std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)> commandMap;
+	if (commandMap.empty()) {
+		commandMap["CAP"] = &Server::CAP;
+		commandMap["NICK"] = &Server::NICK;
+		commandMap["USER"] = &Server::USER;
+		commandMap["PASS"] = &Server::PASS;
+		commandMap["PING"] = &Server::PING;
+	}
 
-    // Look for the command in the map
-    std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);
+	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);
 
-    if (it != commandMap.end()) {
-        (this->*(it->second))(data, user);
-    } else {
-        Numerics::_421_ERR_UNKNOWNCOMMAND(data.cmd[0], user->get_fd());
-    }
+	if (it != commandMap.end()) {
+		(this->*(it->second))(data, user);
+	} else {
+		Numerics::_421_ERR_UNKNOWNCOMMAND(data.cmd[0], user->get_fd());
+	}
 }
 
 void	Server::try_register(User* &user)
