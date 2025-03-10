@@ -1,27 +1,23 @@
 #include "Server.hpp"
 
-void	Server::exec_cmd(t_parser_data& data,User* &user)
+void Server::exec_cmd(t_parser_data& data, User* &user)
 {
-	// TODO touver une meilleur facon de la faire
-
-	static void	(Server::*fonctPTR[])(t_parser_data& data,User* &user) = 
-	{&Server::CAP, &Server::NICK, &Server::USER, &Server::PASS, &Server::PING};
-	static std::string	fonctName[] = 
-	{"CAP", "NICK", "USER", "PASS", "PING"};
-
-	static size_t	fonct_size = sizeof(fonctName) / sizeof(std::string);
-
-	static size_t index;
-
-	for (index = 0; index < fonct_size; index++)
-	{
-		if (data.cmd[0] == fonctName[index])
-		{
-			(this->*fonctPTR[index])(data, user);
-			return;
-		}
+	static std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)> commandMap;
+	if (commandMap.empty()) {
+		commandMap["CAP"] = &Server::CAP;
+		commandMap["NICK"] = &Server::NICK;
+		commandMap["USER"] = &Server::USER;
+		commandMap["PASS"] = &Server::PASS;
+		commandMap["PING"] = &Server::PING;
 	}
-	Numerics::_421_ERR_UNKNOWNCOMMAND(data.cmd[0], user->get_fd());
+
+	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);
+
+	if (it != commandMap.end()) {
+		(this->*(it->second))(data, user);
+	} else {
+		Numerics::_421_ERR_UNKNOWNCOMMAND(data.cmd[0], user->get_fd());
+	}
 }
 
 void	Server::try_register(User* &user)
