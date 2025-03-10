@@ -9,6 +9,7 @@ void Server::exec_cmd(t_parser_data& data, User* &user)
 		commandMap["USER"] = &Server::USER;
 		commandMap["PASS"] = &Server::PASS;
 		commandMap["PING"] = &Server::PING;
+		commandMap["JOIN"] = &Server::JOIN;
 	}
 
 	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);

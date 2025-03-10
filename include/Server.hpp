@@ -72,6 +72,7 @@ class Server
 		void	USER(t_parser_data& data,User* &user);
 		void	PASS(t_parser_data& data,User* &user);
 		void	PING(t_parser_data& data,User* &user);
+		void	JOIN(t_parser_data& data,User* &user);
 
 		void	try_register(User* &user);
 
