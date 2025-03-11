@@ -13,3 +13,29 @@ std::vector<std::string> Server::split(const std::string &str, char delimiter)
 	result.push_back(str.substr(pos_begin));
 	return result;
 }
+
+bool Server::isValidNickname(const std::string &nickname)
+{
+    if (nickname.empty() || nickname.length() > 30)
+        return false;
+
+    if (!std::isalpha(nickname[0]))
+        return false;
+
+    for (size_t i = 1; i < nickname.length(); i++)
+    {
+        if (!std::isalnum(nickname[i]) && nickname[i] != '-' && nickname[i] != '_')
+            return false;
+    }
+    return true;
+}
+
+bool Server::isNicknameTaken(const std::string &nickname)
+{
+    for (size_t i = 0; i < Users.size(); i++)
+    {
+        if (Users[i]->get_nickname() == nickname)
+            return true;
+    }
+    return false;
+}

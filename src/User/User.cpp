@@ -61,6 +61,8 @@ std::string	User::get_username() const
 
 std::string	User::get_nickname() const
 {
+	if (this->_nickname.empty())
+		return ("unknown");
 	return (this->_nickname);
 }
 
