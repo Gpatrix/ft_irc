@@ -33,11 +33,10 @@ void Server::JOIN(t_parser_data& data, User* &user)
 			Numerics::_405_ERR_TOOMANYCHANNELS(user->get_nickname(),channelName, user->get_fd());
 			continue;
 		}
-		
+
 		// TODO remplacer par PRIVMSG
 		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
-		// Envoyer le sujet et la liste des utilisateurs
 		if (!channel.getTopic().empty())
 			Numerics::_332_RPL_TOPIC(user->get_nickname(), \
 										channelName, \

@@ -17,6 +17,10 @@ class Numerics
 		static void _353_RPL_NAMREPLY(const std::string& client, const std::string& symbol, const std::string& channel, const std::vector<std::string>& users, const int& fd);
 		static void _366_RPL_ENDOFNAMES(const std::string& client, const std::string& channel, const int& fd);
 		
+		static void _401_ERR_NOSUCHNICK(const std::string& nick, const int& fd);
+		static void _403_ERR_NOSUCHCHANNEL(const std::string& channel, const int& fd);
+		static void _404_ERR_CANNOTSENDTOCHAN(const std::string& channel, const int& fd);
+
 		static void _405_ERR_TOOMANYCHANNELS(const std::string& client, const std::string& channel, const int& fd);
 		static void _432_ERR_ERRONEUSNICKNAME(const std::string& client, const std::string& nickname, const int& fd);
 		static void _433_ERR_NICKNAMEINUSE(const std::string& client, const std::string& nickname, const int& fd);
@@ -24,4 +28,5 @@ class Numerics
 		static void	_461_ERR_NEEDMOREPARAMS(const std::string& cmd, const int& fd);
 		static void	_421_ERR_UNKNOWNCOMMAND(const std::string& cmd, const int& fd);
 		static void _475_ERR_BADCHANNELKEY(const std::string& cmd, const int& fd);
+
 };

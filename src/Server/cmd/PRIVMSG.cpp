@@ -5,14 +5,8 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() != 3)
 	{
-		if (data.cmd.size() == 1)
-		{
-			// https://modern.ircdocs.horse/#errcannotsendtochan-404
-		}
-		else if (data.cmd.size() == 2)
-		{
-			// https://modern.ircdocs.horse/#errnotexttosend-412
-		}
+		if (data.cmd.size() == 2)
+			Numerics::_412_ERR_NOTEXTTOSEND(user->get_fd());
 		else
 			Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 
@@ -20,8 +14,9 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 	}
 
 	int	index;
-	std::vector<std::string> target = this->split(data.cmd[1]);
-	std::map<std::string, Channel *>::iterator it;
+	User*	target_user;
+	std::string	msg;
+	std::vector<std::string>	target = this->split(data.cmd[1]);
 	for (size_t i = 0; i < target.size(); i++)
 	{
 		index = 0;
@@ -29,30 +24,45 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 			index++;
 		if (target[i][index] == '%')
 			index++;
+
+		msg = ":" + user->get_nickname() + " PRIVMSG " + &target[i][index] + " :" + data.cmd[2] + "\r\n";
+
 		if (target[i][index] == '#')
 		{
-			// if no acces to chanel https://modern.ircdocs.horse/#errcannotsendtochan-404
-			// Channel &channel = find_channel(&target[i][index + 1]);
-
-			Channel* channel = this->Channels[&target[i][index + 1]];
-			
+			// TODO if no acces to chanel https://modern.ircdocs.horse/#errcannotsendtochan-404
+			Channel* channel = this->Channels[&target[i][index]];
 
 			if (!channel)
 			{
-				// https://modern.ircdocs.horse/#errnosuchchannel-403
+				Numerics::_403_ERR_NOSUCHCHANNEL(&target[i][index], user->get_fd());
 				continue;
 			}
-			sendToAll(*channel, data.cmd[2]);
+
+			sendToAll(*channel, msg, user->get_id());
+			std::clog << msg;
 		}
 		else
 		{
-			// find target
-			// send msg to target
+			target_user = find_user(&target[i][index]);
+			if (user == NULL)
+			{
+				Numerics::_401_ERR_NOSUCHNICK(&target[i][index], user->get_fd());
+				continue;
+			}
+			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
 		}
-		
-		
 	}
-	
+}
+
+User*	Server::find_user(const std::string& user_name)
+{
+	std::vector<User *>::iterator it = this->Users.begin();
+	for (; it != this->Users.end(); it++)
+	{
+		if ((*it)->get_nickname() == user_name)
+			return (*it);
+	}
+	return (NULL);
 }
 
 void Server::sendToAll(Channel &channel, const std::string &message)
@@ -61,4 +71,19 @@ void Server::sendToAll(Channel &channel, const std::string &message)
 
 	for (size_t i = 0; i < users.size(); i++)
 		send(this->Users[users[i]]->get_fd(), message.c_str(), message.length(), 0);
+}
+
+void Server::sendToAll(Channel &channel, const std::string &message, const id_t& exeption)
+{
+	const std::vector<id_t> &users = channel.getUser();
+	User	*tmp_user;
+
+	for (size_t i = 0; i < users.size(); i++)
+	{
+		tmp_user = this->Users[users[i]];
+		if (tmp_user->get_id() == exeption)
+			continue;
+
+		send(tmp_user->get_fd(), message.c_str(), message.length(), 0);
+	}
 }
