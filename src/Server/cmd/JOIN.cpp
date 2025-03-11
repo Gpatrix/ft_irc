@@ -28,7 +28,6 @@ void Server::JOIN(t_parser_data& data, User* &user)
 			continue;
 		}
 
-
 		if (channel.addUser(user->get_id()))
 		{
 			Numerics::_405_ERR_TOOMANYCHANNELS(user->get_nickname(),channelName, user->get_fd());
