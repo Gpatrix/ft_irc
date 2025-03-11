@@ -43,16 +43,28 @@ void Channel::setKey(std::string key)
 		std::cerr << "Key exceeds size limit." << std::endl;
 }
 
+static bool isInVector(const std::vector<id_t>& vec, int value)
+{
+    for (size_t i = 0; i < vec.size(); i++)
+    {
+        if (vec[i] == value)
+            return true;
+    }
+    return false;
+}
+
 // User management
 bool Channel::addUser(id_t user)
 {
 	if (_Users.size() < _userLimit)
 	{
-		_Users.push_back(user);
+		if (isInVector(_Users, user))
+			_Users.push_back(user);
 		return true;
 	}
 	return false;
 }
+
 
 bool Channel::removeUser(id_t user)
 {
@@ -130,3 +142,5 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 
 	return userList;
 }
+
+
