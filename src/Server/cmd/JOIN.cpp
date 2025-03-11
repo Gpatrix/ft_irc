@@ -1,21 +1,5 @@
 #include "Server.hpp"
 
-
-static std::vector<std::string> split(const std::string &str, char delimiter = ',')
-{
-	std::vector<std::string> result;
-	size_t pos_begin = 0, pos_end = 0;
-
-	while ((pos_end = str.find(delimiter, pos_begin)) != std::string::npos)
-	{
-		result.push_back(str.substr(pos_begin, pos_end - pos_begin));
-		pos_begin = pos_end + 1;
-	}
-	result.push_back(str.substr(pos_begin));
-	return result;
-}
-
-
 void Server::JOIN(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() < 2)
@@ -25,7 +9,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 	}
 
 	// Séparer les canaux et les clés
-	std::vector<std::string> channels = split(data.cmd[1]);
+	std::vector<std::string> channels = this->split(data.cmd[1]);
 	std::vector<std::string> keys;
 	if (data.cmd.size() > 2)
 		keys = split(data.cmd[2]);
@@ -51,7 +35,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 		if (channel.getUser().empty())
 			channel.addOperator(user->get_id());
 		channel.addUser(user->get_id());
-		
+
 		// TODO remplacer par PRIVMSG
 		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName);
 
