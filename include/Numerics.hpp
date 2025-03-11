@@ -18,6 +18,7 @@ class Numerics
 		static void _366_RPL_ENDOFNAMES(const std::string& client, const std::string& channel, const int& fd);
 		
 		static void _403_ERR_NOSUCHCHANNEL(const std::string& channel, const int& fd);
+		static void _401_ERR_NOSUCHNICK(const std::string& nick, const int& fd);
 		static void _405_ERR_TOOMANYCHANNELS(const std::string& client, const std::string& channel, const int& fd);
 		static void _464_ERR_PASSWDMISMATCH(const int& fd);
 		static void _461_ERR_NEEDMOREPARAMS(const std::string& cmd, const int& fd);

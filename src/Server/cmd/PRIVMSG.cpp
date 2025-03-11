@@ -35,9 +35,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 
 		if (target[i][index] == '#')
 		{
-			// if no acces to chanel https://modern.ircdocs.horse/#errcannotsendtochan-404
-			// Channel &channel = find_channel(&target[i][index + 1]);
-
+			// TODO if no acces to chanel https://modern.ircdocs.horse/#errcannotsendtochan-404
 			Channel* channel = this->Channels[&target[i][index]];
 
 			if (!channel)
@@ -54,7 +52,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 			target_user = find_user(&target[i][index]);
 			if (user == NULL)
 			{
-				// https://modern.ircdocs.horse/#errnosuchnick-401
+				Numerics::_401_ERR_NOSUCHNICK(&target[i][index], user->get_fd());
 				continue;
 			}
 			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
