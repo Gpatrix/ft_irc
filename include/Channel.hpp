@@ -6,7 +6,7 @@
 #include <sstream> 
 #include <map>
 
-#define CHANNEL_PASSWORD_SIZE_LIMIT 50
+#define CHANNEL_KEY_SIZE_LIMIT 50
 #define CHANNEL_NAME_SIZE_LIMIT 200
 
 
@@ -18,7 +18,7 @@ class Channel
 		std::string			_Topic;
 		std::vector<id_t>	_Users;
 		std::vector<id_t>	_Operators;
-		std::string			_Password;
+		std::string			_Key;
 	
 		bool				_invitationOnly;
 		bool				_protectedTopic;	
@@ -39,7 +39,7 @@ class Channel
 
 		// Setters
 		void	setTopic(std::string topic);
-		void	setPassword(std::string password);
+		void	setKey(std::string Key);
 		void	setInvitationOnly(bool mode);
 		void	setProtectedTopic(bool mode);
 		void	setUserLimit(size_t limit);

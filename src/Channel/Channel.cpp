@@ -21,26 +21,26 @@ Channel::Channel(std::string Name, id_t owner)
 Channel::~Channel(void) {}
 
 // Getters
-std::string Channel::getName(void) const {return _Name;}
-std::string Channel::getTopic(void) const {return _Topic;}
-std::string Channel::getPasword(void) const {return _Password;}
-bool Channel::isInvitationOnly(void) const {return _invitationOnly;}
-bool Channel::isProtectedTopic(void) const {return _protectedTopic;}
-size_t Channel::getUserLimit(void) const {return _userLimit;}
-std::vector<id_t> Channel::getUser(void) const { return _Users;}
+std::string			Channel::getName(void) const			{return (this->_Name);}
+std::string			Channel::getTopic(void) const			{return (this->_Topic);}
+std::string			Channel::getPasword(void) const			{return (this->_Key);}
+bool				Channel::isInvitationOnly(void) const	{return (this->_invitationOnly);}
+bool				Channel::isProtectedTopic(void) const	{return (this->_protectedTopic);}
+size_t				Channel::getUserLimit(void) const		{return (this->_userLimit);}
+std::vector<id_t>	Channel::getUser(void) const			{return (this->_Users);}
 
 // Setters
-void Channel::setTopic(std::string topic) {_Topic = topic;}
-void Channel::setInvitationOnly(bool mode) { _invitationOnly = mode;}
-void Channel::setProtectedTopic(bool mode) {_protectedTopic = mode;}
-void Channel::setUserLimit(size_t limit) {_userLimit = limit;}
+void	Channel::setTopic(std::string topic)	{this->_Topic = topic;}
+void	Channel::setInvitationOnly(bool mode)	{this->_invitationOnly = mode;}
+void	Channel::setProtectedTopic(bool mode)	{this->_protectedTopic = mode;}
+void	Channel::setUserLimit(size_t limit)		{this->_userLimit = limit;}
 
-void Channel::setPassword(std::string password)
+void Channel::setKey(std::string key)
 {
-	if (password.size() <= CHANNEL_PASSWORD_SIZE_LIMIT)
-		_Password = password;
+	if (key.size() <= CHANNEL_KEY_SIZE_LIMIT)
+		_Key = key;
 	else
-		std::cerr << "Password exceeds size limit." << std::endl;
+		std::cerr << "Key exceeds size limit." << std::endl;
 }
 
 // User management

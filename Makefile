@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mgendrot <mgendrot@student.42.fr>          +#+  +:+       +#+         #
+#    By: lchauvet <lchauvet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/06 10:15:47 by max               #+#    #+#              #
-#    Updated: 2025/03/08 04:24:09 by mgendrot         ###   ########.fr        #
+#    Updated: 2025/03/11 09:21:47 by lchauvet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ endef
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -lreadline  $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@printf "$(GREEN)%s compiled!\n$(DEF_COLOR)" $(NAME)
 	@if [ -e .compiled_count ] ; then \
         $(RM) .compiled_count ;\

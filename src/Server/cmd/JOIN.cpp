@@ -30,24 +30,29 @@ void Server::JOIN(t_parser_data& data, User* &user)
 	if (data.cmd.size() > 2)
 		keys = split(data.cmd[2]);
 
+
+	std::string channelName, key;
 	for (size_t i = 0; i < channels.size(); i++)
 	{
-		std::string channelName = channels[i];
-		std::string key = (i < keys.size()) ? keys[i] : "";
+		channelName = channels[i];
+		key = (i < keys.size()) ? keys[i] : "";
 
 		if (Channels.find(channelName) == Channels.end())
-		   Channels[channelName] = new Channel(channelName, user->get_id());
-;
+			Channels[channelName] = new Channel(channelName, user->get_id());
 
 		Channel &channel = *Channels[channelName];
 
-		if (!key.empty() && channel.getPasword() != key)
+		if (channel.getPasword() != key)
 		{
 			Numerics::_475_ERR_BADCHANNELKEY(channelName, user->get_fd());
 			continue;
 		}
 
+		if (channel.getUser().empty())
+			channel.addOperator(user->get_id());
 		channel.addUser(user->get_id());
+		
+		// TODO remplacer par PRIVMSG
 		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName);
 
 		// Envoyer le sujet et la liste des utilisateurs
@@ -62,6 +67,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 									channelName, \
 									channel.getUserList(this->Users), \
 									user->get_fd());
+
 		Numerics::_366_RPL_ENDOFNAMES(user->get_nickname(), channelName, user->get_fd());
 	}
 }
