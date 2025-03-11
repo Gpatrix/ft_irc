@@ -32,12 +32,13 @@ void Server::JOIN(t_parser_data& data, User* &user)
 			continue;
 		}
 
-		if (channel.getUser().empty())
-			channel.addOperator(user->get_id());
-		channel.addUser(user->get_id());
+		// TODO verif restiction
+
+		if (!channel.getUser().empty())
+			channel.addUser(user->get_id());
 
 		// TODO remplacer par PRIVMSG
-		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName);
+		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
 		// Envoyer le sujet et la liste des utilisateurs
 		if (!channel.getTopic().empty())

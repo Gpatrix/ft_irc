@@ -51,7 +51,7 @@ typedef struct s_parser_data
 class Server
 {
 	private:
-		std::map<std::string, Channel*>	Channels;
+		std::map<std::string, Channel*>		Channels;
 		int									Sockfd;
 		std::string							Password;
 

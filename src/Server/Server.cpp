@@ -223,14 +223,6 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 	}
 }
 
-void Server::sendToAll(Channel &channel, const std::string &message)
-{
-	const std::vector<id_t> &users = channel.getUser();
-
-	for (size_t i = 0; i < users.size(); i++)
-		send(this->Users[users[i]]->get_fd(), message.c_str(), message.length(), 0);
-}
-
 Server::~Server(void)
 {
 	size_t	size;
