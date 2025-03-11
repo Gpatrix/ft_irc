@@ -85,6 +85,9 @@ class Server
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
+		bool 	isValidNickname(const std::string &nickname);
+		bool	isNicknameTaken(const std::string &nickname);
+		
 	public:
 		Server(void);
 		~Server(void);
