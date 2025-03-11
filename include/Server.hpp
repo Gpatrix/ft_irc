@@ -74,9 +74,13 @@ class Server
 		void	PASS(t_parser_data& data,User* &user);
 		void	PING(t_parser_data& data,User* &user);
 		void	JOIN(t_parser_data& data,User* &user);
+		void	PRIVMSG(t_parser_data& data, User* &user);
+
 
 		void	try_register(User* &user);
 		void	sendToAll(Channel &channel, const std::string &message);
+
+		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
 	public:
 		Server(void);
