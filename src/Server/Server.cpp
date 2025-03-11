@@ -72,7 +72,6 @@ void Server::init(char* port, char* password)
 void Server::run(void)
 {
 	int		rc;
-	bool	need_compress_fds = false;
 
 	while (true)
 	{
@@ -96,11 +95,11 @@ void Server::run(void)
 			if (this->fds[index].fd == this->Sockfd)
 				this->accept_new_user();
 			else
-				recv_data(index, need_compress_fds);
+				recv_data(index);
 		}
-		if (need_compress_fds)
+		if (this->need_compress_fds == true)
 		{
-			need_compress_fds = false;
+			this->need_compress_fds = false;
 			compress_fds();
 		}
 	}
@@ -138,7 +137,7 @@ inline void	Server::accept_new_user(void)
 	}
 }
 
-inline void	Server::recv_data(short& index, bool& need_compress_fds)
+inline void	Server::recv_data(short& index)
 {
 	static char			buffer[500];
 	static bool			close_conn = false;
@@ -162,7 +161,7 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 		if (rc == 0)
 		{
 			std::cout << "\tConnection closed - " << this->fds[index].fd << '\n';
-			close_conn = true;
+			close_connection(this->fds[index].fd);
 			break;
 		}
 
@@ -181,16 +180,6 @@ inline void	Server::recv_data(short& index, bool& need_compress_fds)
 			}
 			break;
 		}
-	}
-
-	if (close_conn)
-	{
-		close(this->fds[index].fd);
-		this->fds[index].fd = -1;
-
-		close_conn = false;
-
-		need_compress_fds = true;
 	}
 }
 

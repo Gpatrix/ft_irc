@@ -66,7 +66,7 @@ class Server
 
 		void		init_socket(char* &port);
 		inline void	accept_new_user(void);
-		inline void	recv_data(short& index, bool& compress_array);
+		inline void	recv_data(short& index);
 		void		compress_fds(void);
 		void		exec_cmd(t_parser_data& data,User* &user);
 		void		parser(std::string& data, User* &user);
