@@ -33,6 +33,7 @@ class Channel
 		std::string			getTopic(void) const;
 		std::string 		getPasword(void) const;
 		std::vector<id_t> 	getUser(void) const;
+		std::vector<id_t> 	getUserOP(void) const;
 		bool				isInvitationOnly(void) const;
 		bool				isProtectedTopic(void) const;
 		size_t				getUserLimit(void) const;
