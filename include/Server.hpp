@@ -51,7 +51,7 @@ typedef struct s_parser_data
 class Server
 {
 	private:
-		std::map<std::string, Channel*>	Channels;
+		std::map<std::string, Channel*>		Channels;
 		int									Sockfd;
 		std::string							Password;
 
@@ -79,6 +79,9 @@ class Server
 
 		void	try_register(User* &user);
 		void	sendToAll(Channel &channel, const std::string &message);
+		void 	sendToAll(Channel &channel, const std::string &message, const id_t& exeption);
+
+		User*	find_user(const std::string& user_name);
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 

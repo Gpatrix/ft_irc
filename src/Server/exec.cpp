@@ -2,6 +2,8 @@
 
 void Server::exec_cmd(t_parser_data& data, User* &user)
 {
+	// TODO refuse action if not connceted exeption: CAP NICK USER PASS
+
 	static std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)> commandMap;
 	if (commandMap.empty()) {
 		commandMap["CAP"] = &Server::CAP;
@@ -10,6 +12,7 @@ void Server::exec_cmd(t_parser_data& data, User* &user)
 		commandMap["PASS"] = &Server::PASS;
 		commandMap["PING"] = &Server::PING;
 		commandMap["JOIN"] = &Server::JOIN;
+		commandMap["PRIVMSG"] = &Server::PRIVMSG;
 	}
 
 	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);

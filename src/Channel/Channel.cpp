@@ -13,7 +13,6 @@ Channel::Channel(std::string Name, id_t owner)
 	_userLimit = 0;
 
 	_Operators.push_back(owner);
-	_Users.push_back(owner);
 }
 
 // Destructeur
@@ -43,26 +42,26 @@ void Channel::setKey(std::string key)
 		std::cerr << "Key exceeds size limit." << std::endl;
 }
 
-static bool isInVector(const std::vector<id_t>& vec, int value)
+static bool isInVector(const std::vector<id_t>& vec, id_t value)
 {
-    for (size_t i = 0; i < vec.size(); i++)
-    {
-        if (vec[i] == value)
-            return true;
-    }
-    return false;
+	for (size_t i = 0; i < vec.size(); i++)
+	{
+		if (vec[i] == value)
+			return (true);
+	}
+	return (false);
 }
 
 // User management
 bool Channel::addUser(id_t user)
 {
-	if (_Users.size() < _userLimit)
+	if (_Users.size() < _userLimit || this->_userLimit == 0)
 	{
-		if (isInVector(_Users, user))
+		if (!isInVector(_Users, user))
 			_Users.push_back(user);
-		return true;
+		return (false);
 	}
-	return false;
+	return (true);
 }
 
 
