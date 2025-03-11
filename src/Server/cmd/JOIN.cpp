@@ -28,8 +28,6 @@ void Server::JOIN(t_parser_data& data, User* &user)
 			continue;
 		}
 
-		if (channel.getUserOP().empty())
-			channel.addOperator(user->get_id());
 
 		if (channel.addUser(user->get_id()))
 		{
