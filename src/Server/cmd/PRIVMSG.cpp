@@ -5,14 +5,8 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() != 3)
 	{
-		if (data.cmd.size() == 1)
-		{
-			// https://modern.ircdocs.horse/#errcannotsendtochan-404
-		}
-		else if (data.cmd.size() == 2)
-		{
-			// https://modern.ircdocs.horse/#errnotexttosend-412
-		}
+		if (data.cmd.size() == 2)
+			Numerics::_412_ERR_NOTEXTTOSEND(user->get_fd());
 		else
 			Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 
