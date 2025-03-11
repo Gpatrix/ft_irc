@@ -241,4 +241,6 @@ Server::~Server(void)
 		close(this->fds[index + 1].fd);
 		index++;
 	}
+	for (std::map<std::string, Channel*>::iterator it = Channels.begin(); it != Channels.end(); ++it)
+		delete it->second;
 }

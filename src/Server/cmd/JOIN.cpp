@@ -7,15 +7,11 @@ void Server::JOIN(t_parser_data& data, User* &user)
 		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 		return;
 	}
-
 	// Séparer les canaux et les clés
 	std::vector<std::string> channels = this->split(data.cmd[1]);
-	std::vector<std::string> keys;
-	if (data.cmd.size() > 2)
-		keys = split(data.cmd[2]);
-
-
+	std::vector<std::string> keys = (data.cmd.size() > 2) ? split(data.cmd[2]) : std::vector<std::string>();
 	std::string channelName, key;
+	
 	for (size_t i = 0; i < channels.size(); i++)
 	{
 		channelName = channels[i];
@@ -32,11 +28,13 @@ void Server::JOIN(t_parser_data& data, User* &user)
 			continue;
 		}
 
-		// TODO verif restiction
 
-		if (!channel.getUser().empty())
-			channel.addUser(user->get_id());
-
+		if (channel.addUser(user->get_id()))
+		{
+			Numerics::_405_ERR_TOOMANYCHANNELS(user->get_nickname(),channelName, user->get_fd());
+			continue;
+		}
+		
 		// TODO remplacer par PRIVMSG
 		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
