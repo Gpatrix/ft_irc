@@ -39,12 +39,10 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 			// Channel &channel = find_channel(&target[i][index + 1]);
 
 			Channel* channel = this->Channels[&target[i][index]];
-			
 
 			if (!channel)
 			{
-				std::clog << "no chanel found" << '\n';
-				// https://modern.ircdocs.horse/#errnosuchchannel-403
+				Numerics::_403_ERR_NOSUCHCHANNEL(&target[i][index], user->get_fd());
 				continue;
 			}
 
