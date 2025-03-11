@@ -1,7 +1,7 @@
 #include "Server.hpp"
 
 // https://dd.ircdocs.horse/refs/commands/pass
-void	Server::PASS(t_parser_data& data,User* &user)
+void	Server::PASS(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() != 2)
 	{

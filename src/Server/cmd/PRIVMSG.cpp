@@ -38,7 +38,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 
-			sendToAll(*channel, msg, user->get_id());
+			sendToAll((*channel).getUser(), msg, user->get_id());
 			std::clog << msg;
 		}
 		else
@@ -65,22 +65,19 @@ User*	Server::find_user(const std::string& user_name)
 	return (NULL);
 }
 
-void Server::sendToAll(Channel &channel, const std::string &message)
+void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message)
 {
-	const std::vector<id_t> &users = channel.getUser();
-
-	for (size_t i = 0; i < users.size(); i++)
-		send(this->Users[users[i]]->get_fd(), message.c_str(), message.length(), 0);
+	for (size_t i = 0; i < user_list.size(); i++)
+		send(this->Users[user_list[i]]->get_fd(), message.c_str(), message.length(), 0);
 }
 
-void Server::sendToAll(Channel &channel, const std::string &message, const id_t& exeption)
+void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption)
 {
-	const std::vector<id_t> &users = channel.getUser();
 	User	*tmp_user;
 
-	for (size_t i = 0; i < users.size(); i++)
+	for (size_t i = 0; i < user_list.size(); i++)
 	{
-		tmp_user = this->Users[users[i]];
+		tmp_user = this->Users[user_list[i]];
 		if (tmp_user->get_id() == exeption)
 			continue;
 
