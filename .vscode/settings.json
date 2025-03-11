@@ -1,6 +1,5 @@
 {
 	"files.associations": {
-		"*.tpp": "cpp",
 		"cctype": "cpp",
 		"clocale": "cpp",
 		"cmath": "cpp",
@@ -43,6 +42,7 @@
 		"type_traits": "cpp",
 		"utility": "cpp",
 		"initializer_list": "cpp",
+		"iomanip": "cpp",
 		"iosfwd": "cpp",
 		"iostream": "cpp",
 		"istream": "cpp",
@@ -60,21 +60,6 @@
 		"thread": "cpp",
 		"typeinfo": "cpp",
 		"semaphore": "cpp",
-		"__nullptr": "cpp",
-		"complex": "cpp",
-		"list": "cpp",
-		"set": "cpp",
-		"cinttypes": "cpp",
-		"typeindex": "cpp",
-		"variant": "cpp",
-		"__locale": "cpp",
-		"locale": "cpp",
-		"iomanip": "cpp",
-		"__split_buffer": "cpp",
-		"__threading_support": "cpp",
-		"_464_err_passwdmismatch": "cpp",
-		"__hash_table": "cpp",
-		"__tree": "cpp",
-		"queue": "cpp"
+		"__nullptr": "cpp"
 	}
 }
