@@ -20,8 +20,9 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 	}
 
 	int	index;
-	std::vector<std::string> target = this->split(data.cmd[1]);
-	std::string msg;
+	User*	target_user;
+	std::string	msg;
+	std::vector<std::string>	target = this->split(data.cmd[1]);
 	for (size_t i = 0; i < target.size(); i++)
 	{
 		index = 0;
@@ -29,6 +30,9 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 			index++;
 		if (target[i][index] == '%')
 			index++;
+
+		msg = ":" + user->get_nickname() + " PRIVMSG " + &target[i][index] + " :" + data.cmd[2] + "\r\n";
+
 		if (target[i][index] == '#')
 		{
 			// if no acces to chanel https://modern.ircdocs.horse/#errcannotsendtochan-404
@@ -44,21 +48,31 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 
-			// :Angel PRIVMSG Wiz :Hello are you receiving this message ?
-			msg = ":" + user->get_nickname()
-				+ " PRIVMSG " + &target[i][index] + " :" + data.cmd[2] + "\r\n";
 			sendToAll(*channel, msg, user->get_id());
 			std::clog << msg;
 		}
 		else
 		{
-			// find target
-			// send msg to target
+			target_user = find_user(&target[i][index]);
+			if (user == NULL)
+			{
+				// https://modern.ircdocs.horse/#errnosuchnick-401
+				continue;
+			}
+			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
 		}
-		
-		
 	}
-	
+}
+
+User*	Server::find_user(const std::string& user_name)
+{
+	std::vector<User *>::iterator it = this->Users.begin();
+	for (; it != this->Users.end(); it++)
+	{
+		if ((*it)->get_nickname() == user_name)
+			return (*it);
+	}
+	return (NULL);
 }
 
 void Server::sendToAll(Channel &channel, const std::string &message)

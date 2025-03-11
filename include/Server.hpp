@@ -81,6 +81,8 @@ class Server
 		void	sendToAll(Channel &channel, const std::string &message);
 		void 	sendToAll(Channel &channel, const std::string &message, const id_t& exeption);
 
+		User*	find_user(const std::string& user_name);
+
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
 	public:
