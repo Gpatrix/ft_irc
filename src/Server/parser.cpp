@@ -144,19 +144,19 @@ void	Server::parser(std::string& str, User* &user)
 
 		pos_begin = pos_end + ((str[pos_end] == '\r' || str[pos_end] == '\n') && str[pos_end + 1] != '\n' ? 1 : 2);
 
-		if (!data.nickname.empty())
-		{
-			std::cout
-			<< "nickname: " << data.nickname << '\n'
-			<< "user    : " << data.user << '\n'
-			<< "host    : " << data.host << '\n';
-		}
+		// if (!data.nickname.empty())
+		// {
+		// 	std::cout
+		// 	<< "nickname: " << data.nickname << '\n'
+		// 	<< "user    : " << data.user << '\n'
+		// 	<< "host    : " << data.host << '\n';
+		// }
 
-		std::cout << "cmd: " << data.cmd[0] << '\n';
-		for (std::vector<std::string>::iterator it = data.cmd.begin() + 1; it < data.cmd.end(); it++)
-		{
-			std::cout << "option: " << '\'' << *it << "\'\n";
-		}
+		// std::cout << "cmd: " << data.cmd[0] << '\n';
+		// for (std::vector<std::string>::iterator it = data.cmd.begin() + 1; it < data.cmd.end(); it++)
+		// {
+		// 	std::cout << "option: " << '\'' << *it << "\'\n";
+		// }
 		if (data.cmd.size() != 0)
 			exec_cmd(data, user);
 	}

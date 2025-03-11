@@ -79,6 +79,7 @@ class Server
 
 		void	try_register(User* &user);
 		void	sendToAll(Channel &channel, const std::string &message);
+		void 	sendToAll(Channel &channel, const std::string &message, const id_t& exeption);
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
