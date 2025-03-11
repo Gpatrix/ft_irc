@@ -51,7 +51,7 @@ typedef struct s_parser_data
 class Server
 {
 	private:
-		std::map<std::string&, Channel&>	Channels;
+		std::map<std::string, Channel*>	Channels;
 		int									Sockfd;
 		std::string							Password;
 
@@ -66,14 +66,17 @@ class Server
 		inline void	compress_fds(void);
 		void		exec_cmd(t_parser_data& data,User* &user);
 		void		parser(std::string& data, User* &user);
+		
 
 		void	CAP(t_parser_data& data,User* &user);
 		void	NICK(t_parser_data& data,User* &user);
 		void	USER(t_parser_data& data,User* &user);
 		void	PASS(t_parser_data& data,User* &user);
 		void	PING(t_parser_data& data,User* &user);
+		void	JOIN(t_parser_data& data,User* &user);
 
 		void	try_register(User* &user);
+		void	sendToAll(Channel &channel, const std::string &message);
 
 	public:
 		Server(void);
