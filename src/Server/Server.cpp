@@ -51,7 +51,7 @@ void sigint_handler(int)
 	std::cout << '\n' << "closing Server" << '\n';
 }
 
-Server::Server(void): Users_id(0) {}
+Server::Server(void): Users_id(0), need_compress_fds(false) {}
 
 void Server::init(char* port, char* password)
 {
@@ -103,35 +103,6 @@ void Server::run(void)
 			need_compress_fds = false;
 			compress_fds();
 		}
-	}
-}
-
-inline void	Server::compress_fds(void)
-{
-	static std::vector<pollfd>::iterator it_fd;
-	static std::vector<User *>::iterator it_User;
-	static std::vector<std::string>::iterator it_string;
-	
-	it_fd = this->fds.begin() + 1;
-	it_User = this->Users.begin();
-	it_string = this->data_buffer.begin();
-
-	while (it_User != this->Users.end())
-	{
-		if ((*it_fd).fd == -1)
-		{
-			this->fds.erase(it_fd);
-			delete *it_User;
-			this->Users.erase(it_User);
-			this->data_buffer.erase(it_string);
-		}
-
-		if (it_User == this->Users.end())
-			break;
-
-		it_fd++;
-		it_User++;
-		it_string++;
 	}
 }
 
@@ -229,16 +200,15 @@ Server::~Server(void)
 	size_t	index = 0;
 
 	if (this->Sockfd > -1)
-	{
 		close(this->Sockfd);
-	}
 	
 	size = this->Users.size();
 	
 	while (index < size)
 	{
 		delete this->Users[index];
-		close(this->fds[index + 1].fd);
+		if (this->fds[index + 1].fd > -1)
+			close(this->fds[index + 1].fd);
 		index++;
 	}
 

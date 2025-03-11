@@ -60,13 +60,19 @@ class Server
 		std::vector<pollfd>			fds;
 		std::vector<std::string>	data_buffer;
 
+		bool						need_compress_fds;
+
+		void	close_connection(const int& fd);
+
 		void		init_socket(char* &port);
 		inline void	accept_new_user(void);
 		inline void	recv_data(short& index, bool& compress_array);
-		inline void	compress_fds(void);
+		void		compress_fds(void);
 		void		exec_cmd(t_parser_data& data,User* &user);
 		void		parser(std::string& data, User* &user);
 		
+
+		void	ERROR(std::string msg, const int& fd) const;
 
 		void	CAP(t_parser_data& data,User* &user);
 		void	NICK(t_parser_data& data,User* &user);
@@ -75,11 +81,12 @@ class Server
 		void	PING(t_parser_data& data,User* &user);
 		void	JOIN(t_parser_data& data,User* &user);
 		void	PRIVMSG(t_parser_data& data, User* &user);
-
+		void	QUIT(t_parser_data& data,User* &user);
 
 		void	try_register(User* &user);
-		void	sendToAll(Channel &channel, const std::string &message);
-		void 	sendToAll(Channel &channel, const std::string &message, const id_t& exeption);
+
+		void	sendToAll(const std::vector<id_t> &user_list, const std::string &message);
+		void 	sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption);
 
 		User*	find_user(const std::string& user_name);
 

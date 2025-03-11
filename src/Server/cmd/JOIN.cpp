@@ -35,7 +35,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 		}
 
 		// TODO remplacer par PRIVMSG
-		sendToAll(channel, ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
+		sendToAll(channel.getUser(), ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
 		if (!channel.getTopic().empty())
 			Numerics::_332_RPL_TOPIC(user->get_nickname(), \
