@@ -1,23 +1,34 @@
 #include "Server.hpp"
 
-// https://ircv3.net/specs/extensions/capability-negotiation.html
-void	Server::CAP(t_parser_data& data,User* &user)
+void Server::CAP(t_parser_data& data, User*& user)
 {
-	return;
+    if (data.cmd.size() < 2)
+    {
+        std::clog << "ERROR: CAP requires at least a subcommand\n";
+        return;
+    }
 
-	// TODO pas besoin de gerer
+    std::string subcommand = data.cmd[1];
 
-	if (data.cmd.size() == 1)
-	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
-		return;
-	}
-	else
-	{
-		if (data.cmd[1] == "LS")
-		{
-			send(user->get_fd(), ":" SERVER_NAME " CAP * LS:\r\n", 12, 0);
-			// https://ircv3.net/specs/extensions/capability-negotiation.html#cap-ls-version
-		}
-	}
+    if (subcommand == "LS")
+    {
+        std::string cap_list = "multi-prefix sasl";
+        std::string response = ":server CAP " + user->get_nickname() + " LS :" + cap_list + "\r\n";
+        send(user->get_fd(), response.c_str(), response.size(), 0);
+    }
+    else if (subcommand == "REQ")
+    {
+        if (data.cmd.size() < 3)
+        {
+            std::clog << "ERROR: CAP REQ requires a capability list\n";
+            return;
+        }
+        std::string requested_caps = data.cmd[2];
+        std::string response = ":server CAP " + user->get_nickname() + " ACK :" + requested_caps + "\r\n";
+        send(user->get_fd(), response.c_str(), response.size(), 0);
+    }
+    else if (subcommand == "END")
+        std::clog << "CAP negotiation ended for " << user->get_nickname() << "\n";
+    else
+        std::clog << "ERROR: Unknown CAP subcommand: " << subcommand << "\n";
 }
