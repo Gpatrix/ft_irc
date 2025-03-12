@@ -74,15 +74,15 @@ class Server
 
 		void	ERROR(std::string msg, const int& fd) const;
 
-		void	CAP(t_parser_data& data,User* &user);
-		void	NICK(t_parser_data& data,User* &user);
-		void	USER(t_parser_data& data,User* &user);
-		void	PASS(t_parser_data& data,User* &user);
-		void	PING(t_parser_data& data,User* &user);
-		void	JOIN(t_parser_data& data,User* &user);
-		void	PRIVMSG(t_parser_data& data, User* &user);
-		void	QUIT(t_parser_data& data,User* &user);
+		void	CAP (t_parser_data& data, User* &user);
+		void	NICK(t_parser_data& data, User* &user);
+		void	USER(t_parser_data& data, User* &user);
+		void	PASS(t_parser_data& data, User* &user);
+		void	PING(t_parser_data& data, User* &user);
+		void	JOIN(t_parser_data& data, User* &user);
+		void	QUIT(t_parser_data& data, User* &user);
 		void	MODE(t_parser_data& data, User* &user);
+		void	PRIVMSG(t_parser_data& data, User* &user);
 
 
 		void	try_register(User* &user);
