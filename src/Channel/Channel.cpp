@@ -117,7 +117,7 @@ std::string Channel::getChannelSymbol() const
 
 std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 {
-	std::vector<std::string> userList;
+	std::vector<std::string> userList; 
 	for (size_t i = 0; i < this->_Users.size(); ++i)
 	{
 		std::ostringstream user;

@@ -50,3 +50,14 @@ User*	Server::find_User(const std::string& user_name)
 	}
 	return (NULL);
 }
+
+User*	Server::find_User(const id_t& user_id)
+{
+	std::vector<User *>::iterator it = this->Users.begin();
+	for (; it != this->Users.end(); it++)
+	{
+		if ((*it)->get_id() == user_id)
+			return (*it);
+	}
+	return (NULL);
+}

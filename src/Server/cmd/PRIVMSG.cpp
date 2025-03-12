@@ -63,19 +63,8 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message)
 {
-	static	std::vector<User *>::iterator it;
 	for (size_t i = 0; i < user_list.size(); i++)
-	{
-		it = this->Users.begin();
-		for (; it != this->Users.end(); it++)
-		{
-			if ((*it)->get_id() == user_list[i])
-			{
-				send((*it)->get_fd(), message.c_str(), message.length(), 0);
-				break;
-			}
-		}
-	}
+		send(find_User(user_list[i])->get_fd(), message.c_str(), message.length(), 0);
 }
 
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption)
@@ -84,7 +73,7 @@ void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &me
 
 	for (size_t i = 0; i < user_list.size(); i++)
 	{
-		tmp_user = this->Users[user_list[i]];
+		tmp_user = find_User(user_list[i]);
 		if (tmp_user->get_id() == exeption)
 			continue;
 
