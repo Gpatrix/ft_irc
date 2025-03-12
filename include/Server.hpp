@@ -82,6 +82,8 @@ class Server
 		void	JOIN(t_parser_data& data,User* &user);
 		void	PRIVMSG(t_parser_data& data, User* &user);
 		void	QUIT(t_parser_data& data,User* &user);
+		void	MODE(t_parser_data& data, User* &user);
+
 
 		void	try_register(User* &user);
 
@@ -94,6 +96,11 @@ class Server
 
 		bool 	isValidNickname(const std::string &nickname);
 		bool	isNicknameTaken(const std::string &nickname);
+
+		void	ChannelMode(t_parser_data& data,User* &user);
+		void	UserMode(t_parser_data& data,User* &user);
+		
+
 		
 	public:
 		Server(void);
