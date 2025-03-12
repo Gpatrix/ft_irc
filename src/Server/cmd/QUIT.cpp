@@ -15,7 +15,7 @@ void	Server::QUIT(t_parser_data& data, User* &user)
 	else
 		msg = data.cmd[1];
 	
-	msg = ':' + user->get_nickname() + " QUIT " + data.cmd[1];
+	msg = ':' + user->get_nickname() + " QUIT " + data.cmd[1] + "\r\n";
 
 	for (std::vector<User *>::iterator it = this->Users.begin(); it != this->Users.end(); it++)
 		send((*it)->get_fd(), msg.c_str(), msg.length(), 0);
