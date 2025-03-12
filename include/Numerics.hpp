@@ -29,6 +29,7 @@ class Numerics
 		static void _441_ERR_USERNOTINCHANNEL(const std::string& channel, const std::string& nick, const int& fd);
 		static void _442_ERR_NOTONCHANNEL(const std::string& channel, const int& fd);
 		static void _461_ERR_NEEDMOREPARAMS(const std::string& cmd, const int& fd);
+		static void _462_ERR_ALREADYREGISTERED(const std::string& client, const int& fd);
 		static void _464_ERR_PASSWDMISMATCH(const int& fd);
 		static void _475_ERR_BADCHANNELKEY(const std::string& cmd, const int& fd);
 		static void _482_ERR_CHANOPRIVSNEEDED(const std::string& channel, const int& fd);
