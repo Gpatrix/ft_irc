@@ -53,7 +53,7 @@ static bool isInVector(const std::vector<id_t>& vec, id_t value)
 }
 
 // User management
-bool Channel::addUser(id_t user)
+bool Channel::addUser(const id_t& user)
 {
 	if (_Users.size() < _userLimit || this->_userLimit == 0)
 	{
@@ -65,7 +65,7 @@ bool Channel::addUser(id_t user)
 }
 
 
-bool Channel::removeUser(id_t user)
+bool Channel::removeUser(const id_t& user)
 {
 	for (size_t i = 0; i < _Users.size(); ++i)
 	{
@@ -78,7 +78,7 @@ bool Channel::removeUser(id_t user)
 	return false;
 }
 
-bool Channel::isOperator(id_t user) const
+bool Channel::isOperator(const id_t& user) const
 {
 	for (size_t i = 0; i < _Operators.size(); ++i)
 	{
@@ -88,13 +88,13 @@ bool Channel::isOperator(id_t user) const
 	return false;
 }
 
-void Channel::addOperator(id_t user)
+void Channel::addOperator(const id_t& user)
 {
 	if (!isOperator(user))
 		_Operators.push_back(user);
 }
 
-void Channel::removeOperator(id_t user)
+void Channel::removeOperator(const id_t& user)
 {
 	for (size_t i = 0; i < _Operators.size(); ++i)
 	{

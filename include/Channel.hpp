@@ -46,11 +46,11 @@ class Channel
 		void	setUserLimit(size_t limit);
 
 		// User management
-		bool	addUser(id_t user);
-		bool	removeUser(id_t user);
-		bool	isOperator(id_t user) const;
-		void	addOperator(id_t user);
-		void	removeOperator(id_t user);
+		bool	addUser(const id_t& user);
+		bool	removeUser(const id_t& user);
+		bool	isOperator(const id_t& user) const;
+		void	addOperator(const id_t& user);
+		void	removeOperator(const id_t& user);
 
 		std::string getChannelSymbol() const;
 		std::vector<std::string> getUserList(std::vector<User*>& user);

@@ -19,11 +19,11 @@ void Server::KICK(t_parser_data& data, User* &user)
 		return;
 	}
 
-	if (!channel->isOperator(user->get_id()));
+	if (!channel->isOperator(user->get_id()))
 	{
 		Numerics::_482_ERR_CHANOPRIVSNEEDED(data.cmd[1], user->get_fd());
 		return;
 	}
 	
-	
+
 }
