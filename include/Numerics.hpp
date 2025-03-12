@@ -14,6 +14,7 @@ class Numerics
 		static void	_001_RPL_WELCOME(const int& fd, const std::string& nick);
 
 		static void _332_RPL_TOPIC(const std::string& client, const std::string& channel, const std::string& topic, const int& fd);
+		static void _341_RPL_INVITING(const std::string& client, const std::string& nick, const std::string& channel, const int& fd);
 		static void _353_RPL_NAMREPLY(const std::string& client, const std::string& symbol, const std::string& channel, const std::vector<std::string>& users, const int& fd);
 		static void _366_RPL_ENDOFNAMES(const std::string& client, const std::string& channel, const int& fd);
 		
@@ -28,6 +29,7 @@ class Numerics
 		static void _433_ERR_NICKNAMEINUSE(const std::string& new_nickname, const int& fd);
 		static void _441_ERR_USERNOTINCHANNEL(const std::string& channel, const std::string& nick, const int& fd);
 		static void _442_ERR_NOTONCHANNEL(const std::string& channel, const int& fd);
+		static void _443_ERR_USERONCHANNEL(const std::string& client, const std::string& nick, const std::string& channel, const int& fd);
 		static void _461_ERR_NEEDMOREPARAMS(const std::string& cmd, const int& fd);
 		static void _462_ERR_ALREADYREGISTERED(const std::string& client, const int& fd);
 		static void _464_ERR_PASSWDMISMATCH(const int& fd);

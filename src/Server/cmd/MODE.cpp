@@ -16,8 +16,7 @@ void Server::MODE(t_parser_data& data, User* &user)
 
 void Server::ChannelMode(t_parser_data& data, User* &user)
 {
-	std::string c = data.cmd[1].substr(1, data.cmd[1].size());
-	Channel* channel = this->Channels[c];
+	Channel* channel = this->Channels[data.cmd[1]];
 	if (!channel)
 	{
 		Numerics::_403_ERR_NOSUCHCHANNEL(data.cmd[1], user->get_fd());

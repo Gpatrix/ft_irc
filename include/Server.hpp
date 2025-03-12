@@ -83,6 +83,8 @@ class Server
 		void	QUIT(t_parser_data& data, User* &user);
 		void	MODE(t_parser_data& data, User* &user);
 		void	KICK(t_parser_data& data, User* &user);
+		void	INVITE(t_parser_data& data, User*& user);
+		void	NOTICE(t_parser_data& data, User*& user);
 
 		void	PRIVMSG(t_parser_data& data, User* &user);
 
