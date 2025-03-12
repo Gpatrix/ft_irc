@@ -117,14 +117,14 @@ std::string Channel::getChannelSymbol() const
 
 std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 {
-	std::vector<std::string> userList; 
-	for (size_t i = 0; i < _Users.size(); ++i)
+	std::vector<std::string> userList;
+	for (size_t i = 0; i < this->_Users.size(); ++i)
 	{
 		std::ostringstream user;
 		bool isOperator = false;
-		for (size_t j = 0; j < _Operators.size(); ++j)
+		for (size_t j = 0; j < this->_Operators.size(); ++j)
 		{
-			if (_Users[i] == _Operators[j])
+			if (_Users[i] == this->_Operators[j])
 			{
 				isOperator = true;
 				break;
@@ -133,13 +133,21 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 		if (isOperator)
 			user << "@";
 
-		user << Vuser[_Users[i]]->get_nickname();
+		static	std::vector<User *>::iterator it;
+		it = Vuser.begin();
+		for (; it != Vuser.end(); it++)
+		{
+			if ((*it)->get_id() == this->_Users[i])
+			{
+				userList.push_back(user.str());
+				break;
+			}
+		}
 
 		userList.push_back(user.str());
-		
 	}
 
-	return userList;
+	return (userList);
 }
 
 

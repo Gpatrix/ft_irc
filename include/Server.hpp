@@ -84,6 +84,8 @@ class Server
 		void	MODE(t_parser_data& data, User* &user);
 		void	KICK(t_parser_data& data, User* &user);
 
+		void	TOPIC(t_parser_data& data, User* &user);
+
 		void	PRIVMSG(t_parser_data& data, User* &user);
 
 		void	try_register(User* &user);

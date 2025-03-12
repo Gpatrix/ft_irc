@@ -21,7 +21,7 @@ class Channel
 		std::string			_Key;
 	
 		bool				_invitationOnly;
-		bool				_protectedTopic;	
+		bool				_protectedTopic;
 		size_t				_userLimit;
 
 	public:

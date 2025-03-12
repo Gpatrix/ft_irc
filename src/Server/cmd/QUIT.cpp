@@ -45,6 +45,8 @@ void	Server::compress_fds(void)
 	static std::vector<pollfd>::iterator it_fd;
 	static std::vector<User *>::iterator it_User;
 	static std::vector<std::string>::iterator it_string;
+	static std::map<std::string, Channel*>::iterator it_Channels;
+
 	
 	it_fd = this->fds.begin() + 1;
 	it_User = this->Users.begin();
@@ -52,16 +54,20 @@ void	Server::compress_fds(void)
 
 	while (it_User != this->Users.end())
 	{
+		it_Channels = this->Channels.begin();
 		if ((*it_fd).fd == -1)
 		{
+			for (; it_Channels != this->Channels.end(); it_Channels++)
+			{
+				(*it_Channels).second->removeOperator((*it_User)->get_id());
+				(*it_Channels).second->removeUser((*it_User)->get_id());
+			}
 			this->fds.erase(it_fd);
 			delete *it_User;
 			this->Users.erase(it_User);
 			this->data_buffer.erase(it_string);
+			continue;
 		}
-
-		if (it_User == this->Users.end())
-			break;
 
 		it_fd++;
 		it_User++;

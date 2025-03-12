@@ -6,7 +6,7 @@
 #    By: lchauvet <lchauvet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/06 10:15:47 by max               #+#    #+#              #
-#    Updated: 2025/03/11 15:43:11 by lchauvet         ###   ########.fr        #
+#    Updated: 2025/03/12 14:50:54 by lchauvet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME        = ircserv
 INCLUDE     = include
 
 TMP 	   = .tmp/
+
 CC          = c++
+
 CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O0
 
 RM          = rm -f
@@ -48,7 +50,7 @@ TERM_CLEAR_LINE     =   \033[2K\r
 # **************************************************************************** #
 
 
-SRC = ./src/Server/cmd/CAP.cpp ./src/Server/cmd/USER.cpp ./src/Server/cmd/PING.cpp ./src/Server/cmd/JOIN.cpp ./src/Server/cmd/NICK.cpp ./src/Server/cmd/PASS.cpp ./src/Server/cmd/PRIVMSG.cpp ./src/Server/cmd/QUIT.cpp ./src/Server/cmd/MODE.cpp ./src/Server/cmd/KICK.cpp ./src/Server/parser.cpp ./src/Server/Server.cpp ./src/Server/exec.cpp ./src/Server/utils.cpp ./src/Channel/Channel.cpp ./src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp ./src/Numerics/_421_ERR_UNKNOWNCOMMAND.cpp ./src/Numerics/_464_ERR_PASSWDMISMATCH.cpp ./src/Numerics/_001_RPL_WELCOME.cpp ./src/Numerics/_332_RPL_TOPIC.cpp ./src/Numerics/_353_RPL_NAMREPLY.cpp ./src/Numerics/_366_RPL_ENDOFNAMES.cpp ./src/Numerics/_401_ERR_NOSUCHNICK.cpp ./src/Numerics/_403_ERR_NOSUCHCHANNEL.cpp ./src/Numerics/_404_ERR_CANNOTSENDTOCHAN.cpp ./src/Numerics/_405_ERR_TOOMANYCHANNELS.cpp ./src/Numerics/_412_ERR_NOTEXTTOSEND.cpp ./src/Numerics/_475_ERR_BADCHANNELKEY.cpp ./src/Numerics/_432_ERR_ERRONEUSNICKNAME.cpp ./src/Numerics/_433_ERR_NICKNAMEINUSE.cpp ./src/Numerics/_482_ERR_CHANOPRIVSNEEDED.cpp ./src/Numerics/_441_ERR_USERNOTINCHANNEL.cpp ./src/Numerics/_442_ERR_NOTONCHANNEL.cpp ./src/User/User.cpp ./main.cpp 
+SRC = ./src/Server/cmd/CAP.cpp ./src/Server/cmd/USER.cpp ./src/Server/cmd/PING.cpp ./src/Server/cmd/JOIN.cpp ./src/Server/cmd/PASS.cpp ./src/Server/cmd/QUIT.cpp ./src/Server/cmd/MODE.cpp ./src/Server/cmd/KICK.cpp ./src/Server/cmd/NICK.cpp ./src/Server/cmd/PRIVMSG.cpp ./src/Server/cmd/TOPIC.cpp ./src/Server/parser.cpp ./src/Server/Server.cpp ./src/Server/utils.cpp ./src/Server/exec.cpp ./src/Channel/Channel.cpp ./src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp ./src/Numerics/_421_ERR_UNKNOWNCOMMAND.cpp ./src/Numerics/_464_ERR_PASSWDMISMATCH.cpp ./src/Numerics/_001_RPL_WELCOME.cpp ./src/Numerics/_332_RPL_TOPIC.cpp ./src/Numerics/_353_RPL_NAMREPLY.cpp ./src/Numerics/_366_RPL_ENDOFNAMES.cpp ./src/Numerics/_401_ERR_NOSUCHNICK.cpp ./src/Numerics/_403_ERR_NOSUCHCHANNEL.cpp ./src/Numerics/_405_ERR_TOOMANYCHANNELS.cpp ./src/Numerics/_412_ERR_NOTEXTTOSEND.cpp ./src/Numerics/_475_ERR_BADCHANNELKEY.cpp ./src/Numerics/_432_ERR_ERRONEUSNICKNAME.cpp ./src/Numerics/_404_ERR_CANNOTSENDTOCHAN.cpp ./src/Numerics/_433_ERR_NICKNAMEINUSE.cpp ./src/Numerics/_441_ERR_USERNOTINCHANNEL.cpp ./src/Numerics/_442_ERR_NOTONCHANNEL.cpp ./src/Numerics/_482_ERR_CHANOPRIVSNEEDED.cpp ./src/User/User.cpp ./main.cpp 
 
 
 OBJ_DIR       = $(TMP)obj/
