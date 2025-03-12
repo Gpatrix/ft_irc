@@ -82,10 +82,10 @@ bool Channel::removeUser(const id_t& user)
 		if (_Users[i] == user)
 		{
 			_Users.erase(_Users.begin() + i);
-			return true;
+			return (true);
 		}
 	}
-	return false;
+	return (false);
 }
 
 
