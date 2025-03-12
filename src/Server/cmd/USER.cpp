@@ -12,7 +12,6 @@ void Server::USER(t_parser_data& data, User*& user)
 	if (user->get_is_register())
 	{
 		Numerics::_462_ERR_ALREADYREGISTERED(user->get_nickname(), user->get_fd());
-		std::clog << "ERROR: User already registered\n";
 		return;
 	}
 
