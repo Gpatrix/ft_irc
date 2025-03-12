@@ -23,7 +23,6 @@ class Numerics
 
 		static void _412_ERR_NOTEXTTOSEND(const int& fd);
 
-
 		static void _405_ERR_TOOMANYCHANNELS(const std::string& client, const std::string& channel, const int& fd);
 		static void _432_ERR_ERRONEUSNICKNAME(const std::string& client, const std::string& nickname, const int& fd);
 		static void _433_ERR_NICKNAMEINUSE(const std::string& new_nickname, const int& fd);

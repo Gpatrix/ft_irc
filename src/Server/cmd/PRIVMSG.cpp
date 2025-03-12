@@ -61,7 +61,6 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 	}
 }
 
-
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message)
 {
 	for (size_t i = 0; i < user_list.size(); i++)
