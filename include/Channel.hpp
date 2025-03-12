@@ -41,6 +41,7 @@ class Channel
 		// Setters
 		void	setTopic(std::string topic);
 		void	setKey(std::string Key);
+		void	freeKey(void);
 		void	setInvitationOnly(bool mode);
 		void	setProtectedTopic(bool mode);
 		void	setUserLimit(size_t limit);

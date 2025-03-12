@@ -31,5 +31,8 @@ class Numerics
 		static void _464_ERR_PASSWDMISMATCH(const int& fd);
 		static void _475_ERR_BADCHANNELKEY(const std::string& cmd, const int& fd);
 		static void _482_ERR_CHANOPRIVSNEEDED(const std::string& channel, const int& fd);
+		static void _501_ERR_UMODEUNKNOWNFLAG(const std::string& client, const int& fd);
+		static void _502_ERR_USERSDONTMATCH(const std::string& client, const int& fd);
+
 
 };
