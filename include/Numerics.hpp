@@ -21,6 +21,7 @@ class Numerics
 		static void _403_ERR_NOSUCHCHANNEL(const std::string& channel, const int& fd);
 		static void _404_ERR_CANNOTSENDTOCHAN(const std::string& channel, const int& fd);
 		static void _405_ERR_TOOMANYCHANNELS(const std::string& client, const std::string& channel, const int& fd);
+		static void _409_ERR_NOORIGIN(const std::string& client, const int& fd);
 		static void _412_ERR_NOTEXTTOSEND(const int& fd);
 		static void _421_ERR_UNKNOWNCOMMAND(const std::string& cmd, const int& fd);
 		static void _432_ERR_ERRONEUSNICKNAME(const std::string& client, const std::string& nickname, const int& fd);
