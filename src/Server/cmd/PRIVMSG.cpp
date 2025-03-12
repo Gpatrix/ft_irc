@@ -38,31 +38,27 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 
+			if (!channel->isUser(user->get_id()))
+			{
+				Numerics::_404_ERR_CANNOTSENDTOCHAN(&target[i][index], user->get_fd());
+				continue;
+			}
+
 			sendToAll((*channel).getUser(), msg, user->get_id());
 			std::clog << msg;
 		}
 		else
 		{
-			target_user = find_user(&target[i][index]);
-			if (user == NULL)
+			target_user = find_User(&target[i][index]);
+			if (target_user == NULL)
 			{
 				Numerics::_401_ERR_NOSUCHNICK(&target[i][index], user->get_fd());
 				continue;
 			}
 			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
+			std::clog << msg;
 		}
 	}
-}
-
-User*	Server::find_user(const std::string& user_name)
-{
-	std::vector<User *>::iterator it = this->Users.begin();
-	for (; it != this->Users.end(); it++)
-	{
-		if ((*it)->get_nickname() == user_name)
-			return (*it);
-	}
-	return (NULL);
 }
 
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message)
@@ -82,5 +78,26 @@ void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &me
 			continue;
 
 		send(tmp_user->get_fd(), message.c_str(), message.length(), 0);
+	}
+}
+
+void Server::sendToAll_Users(const std::string &message)
+{
+	size_t	Users_size = this->Users.size();
+
+	for (size_t i = 0; i < Users_size; i++)
+		send(this->Users[i]->get_fd(), message.c_str(), message.length(), 0);
+}
+
+void Server::sendToAll_Users(const std::string &message, const id_t& exeption)
+{
+	size_t	Users_size = this->Users.size();
+
+	for (size_t i = 0; i < Users_size; i++)
+	{
+		if (this->Users[i]->get_id() == exeption)
+			continue;
+
+		send(this->Users[i]->get_id(), message.c_str(), message.length(), 0);
 	}
 }

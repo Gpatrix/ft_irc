@@ -56,15 +56,11 @@ int			User::get_fd() const
 
 std::string	User::get_username() const
 {
-	if (this->_username.empty())
-		return ("unknown");
 	return (this->_username);
 }
 
 std::string	User::get_nickname() const
 {
-	if (this->_nickname.empty())
-		return ("unknown");
 	return (this->_nickname);
 }
 

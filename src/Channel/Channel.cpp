@@ -42,59 +42,59 @@ void Channel::setKey(std::string key)
 		std::cerr << "Key exceeds size limit." << std::endl;
 }
 
-static bool isInVector(const std::vector<id_t>& vec, id_t value)
+bool Channel::isUser(const id_t& user) const
 {
-	for (size_t i = 0; i < vec.size(); i++)
+	for (size_t i = 0; i < this->_Users.size(); i++)
 	{
-		if (vec[i] == value)
+		if (this->_Users[i] == user)
 			return (true);
 	}
 	return (false);
 }
 
-// User management
-bool Channel::addUser(id_t user)
+bool Channel::isOperator(const id_t& user) const
 {
-	if (_Users.size() < _userLimit || this->_userLimit == 0)
+	for (size_t i = 0; i < this->_Operators.size(); i++)
 	{
-		if (!isInVector(_Users, user))
-			_Users.push_back(user);
+		if (this->_Operators[i] == user)
+			return (true);
+	}
+	return (false);
+}
+
+bool Channel::addUser(const id_t& user)
+{
+	if (this->_Users.size() < this->_userLimit || this->_userLimit == 0)
+	{
+		if (!isUser(user))
+			this->_Users.push_back(user);
 		return (false);
 	}
 	return (true);
 }
 
 
-bool Channel::removeUser(id_t user)
+bool Channel::removeUser(const id_t& user)
 {
 	for (size_t i = 0; i < _Users.size(); ++i)
 	{
 		if (_Users[i] == user)
 		{
 			_Users.erase(_Users.begin() + i);
-			return true;
+			return (true);
 		}
 	}
-	return false;
+	return (false);
 }
 
-bool Channel::isOperator(id_t user) const
-{
-	for (size_t i = 0; i < _Operators.size(); ++i)
-	{
-		if (_Operators[i] == user)
-			return true;
-	}
-	return false;
-}
 
-void Channel::addOperator(id_t user)
+void Channel::addOperator(const id_t& user)
 {
 	if (!isOperator(user))
 		_Operators.push_back(user);
 }
 
-void Channel::removeOperator(id_t user)
+void Channel::removeOperator(const id_t& user)
 {
 	for (size_t i = 0; i < _Operators.size(); ++i)
 	{

@@ -74,26 +74,37 @@ class Server
 
 		void	ERROR(std::string msg, const int& fd) const;
 
-		void	CAP(t_parser_data& data,User* &user);
-		void	NICK(t_parser_data& data,User* &user);
-		void	USER(t_parser_data& data,User* &user);
-		void	PASS(t_parser_data& data,User* &user);
-		void	PING(t_parser_data& data,User* &user);
-		void	JOIN(t_parser_data& data,User* &user);
+		void	CAP (t_parser_data& data, User* &user);
+		void	NICK(t_parser_data& data, User* &user);
+		void	USER(t_parser_data& data, User* &user);
+		void	PASS(t_parser_data& data, User* &user);
+		void	PING(t_parser_data& data, User* &user);
+		void	JOIN(t_parser_data& data, User* &user);
+		void	QUIT(t_parser_data& data, User* &user);
+		void	MODE(t_parser_data& data, User* &user);
+		void	KICK(t_parser_data& data, User* &user);
+
 		void	PRIVMSG(t_parser_data& data, User* &user);
-		void	QUIT(t_parser_data& data,User* &user);
 
 		void	try_register(User* &user);
 
 		void	sendToAll(const std::vector<id_t> &user_list, const std::string &message);
 		void 	sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption);
+		void	sendToAll_Users(const std::string &message);
+		void	sendToAll_Users(const std::string &message, const id_t& exeption);
 
-		User*	find_user(const std::string& user_name);
+
+		User*	find_User(const std::string& user_name);
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
 		bool 	isValidNickname(const std::string &nickname);
 		bool	isNicknameTaken(const std::string &nickname);
+
+		void	ChannelMode(t_parser_data& data,User* &user);
+		void	UserMode(t_parser_data& data,User* &user);
+		
+
 		
 	public:
 		Server(void);
