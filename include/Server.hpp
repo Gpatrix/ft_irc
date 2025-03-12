@@ -89,6 +89,9 @@ class Server
 
 		void	sendToAll(const std::vector<id_t> &user_list, const std::string &message);
 		void 	sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption);
+		void	sendToAll_Users(const std::string &message);
+		void	sendToAll_Users(const std::string &message, const id_t& exeption);
+
 
 		User*	find_User(const std::string& user_name);
 

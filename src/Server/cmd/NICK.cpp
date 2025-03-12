@@ -8,7 +8,7 @@ void Server::NICK(t_parser_data& data, User* &user)
 		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
 		return;
 	}
-	std::string new_nickname = data.cmd[1];
+	std::string& new_nickname = data.cmd[1];
 
 	if (!isValidNickname(new_nickname))
 	{
@@ -17,15 +17,16 @@ void Server::NICK(t_parser_data& data, User* &user)
 	}
 	if (isNicknameTaken(new_nickname))
 	{
-		Numerics::_433_ERR_NICKNAMEINUSE(user->get_nickname(), new_nickname, user->get_fd());
+		Numerics::_433_ERR_NICKNAMEINUSE(new_nickname, user->get_fd());
 		return;
 	}
 	if (user->get_nickname().empty())
 		user->set_nickname(new_nickname);
 	else
 	{
-		std::string message = ":" + user->get_nickname() + " NICK " + new_nickname + "\r\n";
-		//TODO remplacer par PRIVMSG
+		std::string msg = ":" + user->get_nickname() + " NICK " + new_nickname + "\r\n";
 		user->set_nickname(new_nickname);
+		this->sendToAll_Users(msg);
+		std::clog << msg;
 	}
 }

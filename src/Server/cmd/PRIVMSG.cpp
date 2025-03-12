@@ -50,6 +50,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
+			std::clog << msg;
 		}
 	}
 }
@@ -72,5 +73,26 @@ void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &me
 			continue;
 
 		send(tmp_user->get_fd(), message.c_str(), message.length(), 0);
+	}
+}
+
+void Server::sendToAll_Users(const std::string &message)
+{
+	size_t	Users_size = this->Users.size();
+
+	for (size_t i = 0; i < Users_size; i++)
+		send(this->Users[i]->get_fd(), message.c_str(), message.length(), 0);
+}
+
+void Server::sendToAll_Users(const std::string &message, const id_t& exeption)
+{
+	size_t	Users_size = this->Users.size();
+
+	for (size_t i = 0; i < Users_size; i++)
+	{
+		if (this->Users[i]->get_id() == exeption)
+			continue;
+
+		send(this->Users[i]->get_id(), message.c_str(), message.length(), 0);
 	}
 }
