@@ -11,7 +11,7 @@
 		},
 		"problemMatcher": ["$gcc"],
 		"detail": "Generated task for building with make"
-	  }
+	  },
 	]
   }
   

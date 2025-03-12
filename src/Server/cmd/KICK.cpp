@@ -1,7 +1,5 @@
 #include "Server.hpp"
 
-#define DEFAULT_MSG "You have been kick from the channel"
-
 // https://modern.ircdocs.horse/#kick-message
 void Server::KICK(t_parser_data& data, User* &user)
 {
@@ -36,20 +34,19 @@ void Server::KICK(t_parser_data& data, User* &user)
 	for (size_t i = 0; i < targets_nbs; i++)
 	{
 		target_user = find_User(targets[i]);
-		if (!target_user || !channel->isUser(target_user->get_fd()))
+		if (!target_user || !channel->isUser(target_user->get_id()))
 		{
 			Numerics::_441_ERR_USERNOTINCHANNEL(data.cmd[1], targets[i], user->get_fd());
 			continue;
 		}
 
-		msg = ':' + user->get_nickname() + " KICK " + channel->getName() + targets[i];
-		if (data.cmd.size() != 4)
-			msg += " " DEFAULT_MSG "\r\n";
-		else
-			msg += " " + data.cmd[3] + "\r\n";
+		msg = ':' + user->get_nickname() + " KICK " + channel->getName() + " " + targets[i];
+		if (data.cmd.size() == 4 && !data.cmd[3].empty())
+			msg += " " + data.cmd[3];
+		msg += "\r\n";
 
+		this->sendToAll(channel->getUser(), msg);
 		channel->removeOperator(target_user->get_id());
 		channel->removeUser(target_user->get_id());
-		this->sendToAll(channel->getUser(), msg);
 	}
 }

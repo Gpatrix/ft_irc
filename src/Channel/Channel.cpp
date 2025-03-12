@@ -62,7 +62,6 @@ bool Channel::isOperator(const id_t& user) const
 	return (false);
 }
 
-// User management
 bool Channel::addUser(const id_t& user)
 {
 	if (this->_Users.size() < this->_userLimit || this->_userLimit == 0)
