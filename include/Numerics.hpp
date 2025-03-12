@@ -29,6 +29,7 @@ class Numerics
 		static void	_464_ERR_PASSWDMISMATCH(const int& fd);
 		static void	_461_ERR_NEEDMOREPARAMS(const std::string& cmd, const int& fd);
 		static void	_421_ERR_UNKNOWNCOMMAND(const std::string& cmd, const int& fd);
-		static void _475_ERR_BADCHANNELKEY(const std::string& cmd, const int& fd);
+		static void	_475_ERR_BADCHANNELKEY(const std::string& cmd, const int& fd);
+		static void	_482_ERR_CHANOPRIVSNEEDED(const std::string& channel, const int& fd);
 
 };
