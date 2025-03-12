@@ -4,7 +4,6 @@ void Server::PING(t_parser_data& data, User*& user)
 {
 	if (data.cmd.size() != 2)
 	{
-		// Remplacement par l'erreur correcte (409 ERR_NOORIGIN)
 		Numerics::_409_ERR_NOORIGIN(user->get_nickname(), user->get_fd());
 		return;
 	}
