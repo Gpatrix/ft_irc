@@ -43,7 +43,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 		}
 		else
 		{
-			target_user = find_user(&target[i][index]);
+			target_user = find_User(&target[i][index]);
 			if (user == NULL)
 			{
 				Numerics::_401_ERR_NOSUCHNICK(&target[i][index], user->get_fd());
@@ -54,16 +54,6 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 	}
 }
 
-User*	Server::find_user(const std::string& user_name)
-{
-	std::vector<User *>::iterator it = this->Users.begin();
-	for (; it != this->Users.end(); it++)
-	{
-		if ((*it)->get_nickname() == user_name)
-			return (*it);
-	}
-	return (NULL);
-}
 
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message)
 {

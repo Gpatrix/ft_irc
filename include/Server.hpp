@@ -90,7 +90,7 @@ class Server
 		void	sendToAll(const std::vector<id_t> &user_list, const std::string &message);
 		void 	sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption);
 
-		User*	find_user(const std::string& user_name);
+		User*	find_User(const std::string& user_name);
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
