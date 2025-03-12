@@ -38,13 +38,19 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 
+			if (!channel->isUser(user->get_id()))
+			{
+				Numerics::_404_ERR_CANNOTSENDTOCHAN(&target[i][index], user->get_fd());
+				continue;
+			}
+
 			sendToAll((*channel).getUser(), msg, user->get_id());
 			std::clog << msg;
 		}
 		else
 		{
 			target_user = find_User(&target[i][index]);
-			if (user == NULL)
+			if (target_user == NULL)
 			{
 				Numerics::_401_ERR_NOSUCHNICK(&target[i][index], user->get_fd());
 				continue;
