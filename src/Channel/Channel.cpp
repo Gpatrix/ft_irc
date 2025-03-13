@@ -46,10 +46,9 @@ void Channel::setKey(const std::string& key)
 		std::cerr << "Key exceeds size limit." << std::endl;
 }
 
-void Channel::freeKey()
+void Channel::clearKey()
 {
-	std::string tmp;
-	_Key = tmp;
+	this->_Key.clear();
 }
 
 bool Channel::isUser(const id_t& user) const

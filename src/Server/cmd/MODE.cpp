@@ -55,7 +55,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 				if (addMode)
 					channel->setKey(data.cmd[argIndex++]);
 				else
-					channel->freeKey();
+					channel->clearKey();
 				break;
 			case 'o':
 				if (argIndex >= data.cmd.size())
