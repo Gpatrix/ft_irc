@@ -4,5 +4,5 @@ void	Numerics::_432_ERR_ERRONEUSNICKNAME(const std::string& client, const std::s
 {
 	std::string msg = ":" SERVER_NAME " 432 " + client + " " + nickname + " :Erroneous nickname\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
-	std::clog <<  msg;
+	logError(msg);
 }

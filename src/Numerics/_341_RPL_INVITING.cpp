@@ -4,5 +4,5 @@ void Numerics::_341_RPL_INVITING(const std::string& client, const std::string& n
 {
     std::string msg = ":" SERVER_NAME " 341 " + client + " " + nick + " " + channel + "\r\n";
     send(fd, msg.c_str(), msg.size(), 0);
-	std::clog << msg;
+	log(msg);
 }

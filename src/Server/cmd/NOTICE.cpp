@@ -5,7 +5,7 @@ void Server::NOTICE(t_parser_data& data, User*& user)
 {
     if (data.cmd.size() < 3)
     {
-        std::clog << "ERROR: NOTICE requires at least a target and a message\n";
+        logError("ERROR: NOTICE requires at least a target and a message\n");
         return;
     }
 
@@ -14,7 +14,7 @@ void Server::NOTICE(t_parser_data& data, User*& user)
 
     if (message.empty())
     {
-        std::clog << "ERROR: NOTICE message is empty\n";
+       logError("ERROR: NOTICE message is empty\n");
         return;
     }
 

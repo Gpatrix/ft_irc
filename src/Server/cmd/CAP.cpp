@@ -4,7 +4,7 @@ void Server::CAP(t_parser_data& data, User*& user)
 {
     if (data.cmd.size() < 2)
     {
-        std::clog << "ERROR: CAP requires at least a subcommand\n";
+        logError("CAP requires at least a subcommand\n");
         return;
     }
 
@@ -20,7 +20,7 @@ void Server::CAP(t_parser_data& data, User*& user)
     {
         if (data.cmd.size() < 3)
         {
-            std::clog << "ERROR: CAP REQ requires a capability list\n";
+           logError("CAP REQ requires a capability list\n");
             return;
         }
         std::string requested_caps = data.cmd[2];
@@ -28,7 +28,7 @@ void Server::CAP(t_parser_data& data, User*& user)
         send(user->get_fd(), response.c_str(), response.size(), 0);
     }
     else if (subcommand == "END")
-        std::clog << "CAP negotiation ended for " << user->get_nickname() << "\n";
+        log("CAP negotiation ended for " + user->get_nickname() + "\n");
     else
-        std::clog << "ERROR: Unknown CAP subcommand: " << subcommand << "\n";
+       logError("ERROR: Unknown CAP subcommand: " + subcommand + "\n");
 }

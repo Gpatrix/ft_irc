@@ -32,6 +32,9 @@
 // static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
 
 #define SERVER_NAME "chorizo.42"
+#define TAG_SIZE_LIMIT 4094 
+#define COMBINED_TAG_SIZE_LIMIT 8191
+#define MESSAGE_SIZE_LIMIT 512
 
 #include <errno.h>
 
@@ -97,6 +100,7 @@ class Server
 
 
 		User*	find_User(const std::string& user_name);
+		User*	find_User(const id_t& user_id);
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
@@ -105,6 +109,7 @@ class Server
 
 		void	ChannelMode(t_parser_data& data,User* &user);
 		void	UserMode(t_parser_data& data,User* &user);
+		void 	removeUser(User* user);
 		
 
 		
@@ -116,3 +121,6 @@ class Server
 		void	run(void);
 };
 
+void logError(const std::string& msg);
+void logPerror(const std::string& msg);
+void log(const std::string& msg) ;
