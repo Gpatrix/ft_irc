@@ -27,9 +27,6 @@ void log(const std::string& msg)
 }
 
 void logPerror(const std::string& msg) {
-    // Get the error message from perror
     std::string error_msg = strerror(errno);
-
-    // Log the error with a formatted message
     logError(msg + ": " + error_msg);
 }
