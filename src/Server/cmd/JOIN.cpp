@@ -22,40 +22,58 @@ void Server::JOIN(t_parser_data& data, User* &user)
 
 		Channel &channel = *Channels[channelName];
 
+		if (channel.isInvited(user->get_id()))
+		{
+			this->joinChannel(channel, channelName, user);
+			continue;
+		}
+
 		if (channel.getPasword() != key)
 		{
 			Numerics::_475_ERR_BADCHANNELKEY(user->get_nickname(), channelName, user->get_fd());
 			continue;
 		}
 
-		if (channel.addUser(user->get_id()))
+		if (channel.isInvitationOnly())
 		{
-			Numerics::_405_ERR_TOOMANYCHANNELS(user->get_nickname(),channelName, user->get_fd());
+			Numerics::_473_ERR_INVITEONLYCHAN(user->get_nickname(), channelName, user->get_fd());
 			continue;
 		}
 
-		sendToAll(channel.getUsers(), ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
+		this->joinChannel(channel, channelName, user);
+	}
+}
 
-		if (!channel.getTopic().empty())
-		{
-			Numerics::_332_RPL_TOPIC(	user->get_nickname(),
-										channelName,
-										channel.getTopic(),
-										user->get_fd());
+void	Server::joinChannel(Channel &channel, const std::string& channelName, User* &user)
+{
+	if (channel.addUser(user->get_id()))
+	{
+		Numerics::_471_ERR_CHANNELISFULL(user->get_nickname(), channelName, user->get_fd());
+		return;
+	}
+	channel.removeInvitation(user->get_id());
 
-			Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(),
-											channel.getName(),
-											channel.getTopic_modif_user(),
-											channel.getTopic_modif_time(),
-											user->get_fd());
-		}
+	sendToAll(channel.getUsers(), ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
-		Numerics::_353_RPL_NAMREPLY(user->get_nickname(), \
-									channel.getChannelSymbol(), \
-									channelName, \
-									channel.getUserList(this->Users), \
+	if (!channel.getTopic().empty())
+	{
+		Numerics::_332_RPL_TOPIC(	user->get_nickname(),
+									channelName,
+									channel.getTopic(),
 									user->get_fd());
 
-		Numerics::_366_RPL_ENDOFNAMES(user->get_nickname(), channelName, user->get_fd());
+		Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(),
+										channel.getName(),
+										channel.getTopic_modif_user(),
+										channel.getTopic_modif_time(),
+										user->get_fd());
 	}
+
+	Numerics::_353_RPL_NAMREPLY(user->get_nickname(), \
+								channel.getChannelSymbol(), \
+								channelName, \
+								channel.getUserList(this->Users), \
+								user->get_fd());
+
+	Numerics::_366_RPL_ENDOFNAMES(user->get_nickname(), channelName, user->get_fd());
 }

@@ -31,6 +31,13 @@ std::vector<id_t>	Channel::getUsers(void)				const	{return (this->_Users);}
 std::vector<id_t>	Channel::getOperators(void)			const	{return (this->_Operators);}
 std::vector<id_t>	Channel::getInvitation(void)		const	{return (this->_Invitation);}
 
+bool	Channel::isFull(void) const
+{
+	if (this->_Users.size() == this->_userLimit && this->_userLimit != 0)
+		return (true);
+	return (false);
+}
+
 // Setters
 void	Channel::setTopic(const std::string& topic)	{this->_Topic = topic;}
 void	Channel::setTopicModifUser(const std::string& topic_modif_user) {this->_Topic_modif_user = topic_modif_user;}

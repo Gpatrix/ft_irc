@@ -42,6 +42,7 @@ class Channel
 		std::vector<id_t>	getInvitation(void) const;
 		bool				isInvitationOnly(void) const;
 		bool				isProtectedTopic(void) const;
+		bool				isFull(void) const;
 		size_t				getUserLimit(void) const;
 
 		// Setters

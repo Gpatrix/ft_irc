@@ -19,7 +19,6 @@ void	Server::QUIT(t_parser_data& data, User* &user)
 	this->ERROR("QUIT", user->get_fd());
 }
 
-
 void	Server::close_connection(const int& fd)
 {
 	close(fd);
