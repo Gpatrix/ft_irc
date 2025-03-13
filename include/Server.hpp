@@ -5,7 +5,7 @@
 #include "User.hpp"
 #include "Channel.hpp"
 #include "Numerics.hpp"
-#include "log.h"
+#include "log.hpp"
 
 #include <vector>
 #include <map>
@@ -102,6 +102,7 @@ class Server
 		void	sendToAll_Users(const std::string &message);
 		void	sendToAll_Users(const std::string &message, const id_t& exeption);
 
+		void	joinChannel(Channel &channel, const std::string& channelName, User* &user);
 
 		User*	find_User(const std::string& user_name);
 		User*	find_User(const id_t& user_id);
@@ -113,8 +114,7 @@ class Server
 
 		void	ChannelMode(t_parser_data& data,User* &user);
 		void	UserMode(t_parser_data& data,User* &user);
-		void 	removeUser(User* user);
-		
+
 	public:
 		Server(void);
 		~Server(void);

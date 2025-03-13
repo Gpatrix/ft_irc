@@ -43,7 +43,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 
-			sendToAll((*channel).getUser(), msg, user->get_id());
+			sendToAll((*channel).getUsers(), msg, user->get_id());
 			std::clog << msg;
 		}
 		else

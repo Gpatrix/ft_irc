@@ -17,9 +17,7 @@ void	Server::QUIT(t_parser_data& data, User* &user)
 
 	this->close_connection(user->get_fd());
 	this->ERROR("QUIT", user->get_fd());
-	throw std::runtime_error("User quit");
 }
-
 
 void	Server::close_connection(const int& fd)
 {

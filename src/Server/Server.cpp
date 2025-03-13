@@ -170,6 +170,11 @@ inline void	Server::recv_data(short& index)
 			{
 				parser(this->data_buffer[index - 1], this->Users[index - 1]);
 			}
+			catch(const std::bad_alloc& e)
+			{
+				std::cerr << e.what() << '\n';
+				throw;
+			}
 			catch(const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
