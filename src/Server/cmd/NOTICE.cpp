@@ -27,7 +27,7 @@ void Server::NOTICE(t_parser_data& data, User*& user)
 			std::map<std::string, Channel*>::iterator it = this->Channels.find(target);
 			if (it != this->Channels.end())
 			{
-				sendToAll(it->second->getUser(),":" + user->get_nickname() + " NOTICE " + target + " :" + message + "\r\n");
+				sendToAll(it->second->getUsers(),":" + user->get_nickname() + " NOTICE " + target + " :" + message + "\r\n");
 			}
 		}
 		else

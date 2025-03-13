@@ -27,8 +27,8 @@ std::string			Channel::getPasword(void) const				{return (this->_Key);}
 bool				Channel::isInvitationOnly(void) const		{return (this->_invitationOnly);}
 bool				Channel::isProtectedTopic(void) const		{return (this->_protectedTopic);}
 size_t				Channel::getUserLimit(void) const			{return (this->_userLimit);}
-std::vector<id_t>	Channel::getUser(void) const				{return (this->_Users);}
-std::vector<id_t>	Channel::getUserOP(void) const				{return (this->_Operators);}
+std::vector<id_t>	Channel::getUsers(void) const				{return (this->_Users);}
+std::vector<id_t>	Channel::getOperators(void) const				{return (this->_Operators);}
 
 // Setters
 void	Channel::setTopic(const std::string& topic)	{this->_Topic = topic;}

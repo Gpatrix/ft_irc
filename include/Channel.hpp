@@ -20,6 +20,7 @@ class Channel
 		std::time_t			_Topic_modif_time;
 		std::vector<id_t>	_Users;
 		std::vector<id_t>	_Operators;
+		std::vector<id_t>	_Invitation;
 		std::string			_Key;
 	
 		bool				_invitationOnly;
@@ -36,9 +37,9 @@ class Channel
 		std::string			getTopic(void) const;
 		std::string			getTopic_modif_user(void) const;
 		std::time_t			getTopic_modif_time(void) const;
-		std::string 		getPasword(void) const;
-		std::vector<id_t> 	getUser(void) const;
-		std::vector<id_t> 	getUserOP(void) const;
+		std::string		getPasword(void) const;
+		std::vector<id_t>	getUsers(void) const;
+		std::vector<id_t>	getOperators(void) const;
 		bool				isInvitationOnly(void) const;
 		bool				isProtectedTopic(void) const;
 		bool				getIsEmpty() const { return _isempty;}
@@ -63,7 +64,6 @@ class Channel
 		void	addOperator(const id_t& user);
 		void	removeOperator(const id_t& user);
 
-		bool 	isMember(const id_t& user);
 		std::string getChannelSymbol() const;
 		std::vector<std::string> getUserList(std::vector<User*>& user);
 };

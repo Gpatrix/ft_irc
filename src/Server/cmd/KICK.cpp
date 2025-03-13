@@ -45,7 +45,7 @@ void Server::KICK(t_parser_data& data, User* &user)
 			msg += " " + data.cmd[3];
 		msg += "\r\n";
 
-		this->sendToAll(channel->getUser(), msg);
+		this->sendToAll(channel->getUsers(), msg);
 		channel->removeOperator(target_user->get_id());
 		channel->removeUser(target_user->get_id());
 	}

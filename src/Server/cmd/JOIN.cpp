@@ -34,7 +34,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 			continue;
 		}
 
-		sendToAll(channel.getUser(), ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
+		sendToAll(channel.getUsers(), ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
 		if (!channel.getTopic().empty())
 		{

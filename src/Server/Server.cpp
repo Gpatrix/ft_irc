@@ -173,6 +173,7 @@ inline void	Server::recv_data(short& index)
 			catch(const std::exception& e)
 			{
 				std::cerr << e.what() << '\n';
+				throw;
 			}
 			break;
 		}

@@ -87,7 +87,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 
 	// Annonce aux utilisateurs du channel
 	std::string msg = ":" + user->get_nickname() + " MODE " + channel->getName() + " " + modeString + "\r\n";
-	this->sendToAll(channel->getUser(),msg);
+	this->sendToAll(channel->getUsers(),msg);
 	std::clog << msg;
 }
 

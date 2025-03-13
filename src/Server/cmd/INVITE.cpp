@@ -19,11 +19,6 @@ void Server::INVITE(t_parser_data& data, User*& user)
 		return;
 	}
 
-	if (channel->isUser(user->get_id()))
-	{
-		Numerics::_442_ERR_NOTONCHANNEL(user->get_nickname(), target_channel, user->get_fd());
-		return;
-	}
 	if (!channel->isUser(user->get_id()))
 	{
 		Numerics::_442_ERR_NOTONCHANNEL(user->get_nickname(), target_channel, user->get_fd());

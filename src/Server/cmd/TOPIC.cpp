@@ -44,7 +44,7 @@ void	Server::TOPIC(t_parser_data& data, User* &user)
 			channel->setTopicModifTime(std::time(NULL));
 
 			std::string msg = ":" + user->get_nickname() + " TOPIC " + channel->getName() + " :" + data.cmd[2] + "\r\n";
-			sendToAll(channel->getUser(), msg);
+			sendToAll(channel->getUsers(), msg);
 			log(msg);
 		}
 	}
