@@ -145,7 +145,7 @@ inline void	Server::recv_data(short& index)
 
 	while (true)
 	{
-		rc = recv(this->fds[index].fd, buffer, sizeof(buffer), 0);
+		rc = recv(this->fds[index].fd, buffer, sizeof(buffer), MSG_NOSIGNAL);
 		if (rc < 0)
 		{
 			if (errno != EWOULDBLOCK)
