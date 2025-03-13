@@ -79,7 +79,7 @@ void Server::run(void)
 		if (rc < 0)
 		{
 			if (errno != EINTR)
-				perror("poll() failed");
+				logPerror("poll() failed");
 			break;
 		}
 
@@ -118,7 +118,7 @@ inline void	Server::accept_new_user(void)
 		{
 			if (errno != EWOULDBLOCK)
 			{
-				perror("\taccept() failed");
+				logPerror("\taccept() failed");
 			}
 			break;
 		}
@@ -152,7 +152,7 @@ inline void	Server::recv_data(short& index)
 		{
 			if (errno != EWOULDBLOCK)
 			{
-				perror("\trecv() failed");
+				logPerror("\trecv() failed");
 				close_conn = true;
 			}
 			break;
