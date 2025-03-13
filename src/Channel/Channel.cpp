@@ -217,17 +217,15 @@ std::string Channel::getModeString() const
 
 std::string Channel::getModeArgs() const
 {
-    std::string args = "";
-
-    if (!_Key.empty()) {
-        args += " " + _Key;
-    }
-    if (_userLimit > 0) {
-        std::ostringstream oss;
-        oss << _userLimit;
-        args += " " + oss.str();
-    }
-
-    return args; // Return by value
+	std::string args;
+	if (!_Key.empty()) {
+		args += " " + _Key;
+	}
+	if (_userLimit > 0) {
+		std::ostringstream oss;
+		oss << _userLimit;
+		args += " " + oss.str();
+	}
+	return args;
 }
 

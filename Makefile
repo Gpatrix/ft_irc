@@ -51,7 +51,9 @@ TERM_CLEAR_LINE     =   \033[2K\r
 
 
 
+
 SRC = ./main.cpp ./src/Channel/Channel.cpp ./src/Numerics/_366_RPL_ENDOFNAMES.cpp ./src/Numerics/_401_ERR_NOSUCHNICK.cpp ./src/Numerics/_403_ERR_NOSUCHCHANNEL.cpp ./src/Numerics/_404_ERR_CANNOTSENDTOCHAN.cpp ./src/Numerics/_405_ERR_TOOMANYCHANNELS.cpp ./src/Numerics/_409_ERR_NOORIGIN.cpp ./src/Numerics/_412_ERR_NOTEXTTOSEND.cpp ./src/Numerics/_421_ERR_UNKNOWNCOMMAND.cpp ./src/Numerics/_432_ERR_ERRONEUSNICKNAME.cpp ./src/Numerics/_433_ERR_NICKNAMEINUSE.cpp ./src/Numerics/_441_ERR_USERNOTINCHANNEL.cpp ./src/Numerics/_442_ERR_NOTONCHANNEL.cpp ./src/Numerics/_461_ERR_NEEDMOREPARAMS.cpp ./src/Numerics/_462_ERR_ALREADYREGISTERED.cpp ./src/Numerics/_464_ERR_PASSWDMISMATCH.cpp ./src/Numerics/_475_ERR_BADCHANNELKEY.cpp ./src/Numerics/_482_ERR_CHANOPRIVSNEEDED.cpp ./src/Numerics/_501_ERR_UMODEUNKNOWNFLAG.cpp ./src/Numerics/_502_ERR_USERSDONTMATCH.cpp ./src/Numerics/_473_ERR_INVITEONLYCHAN.cpp ./src/Numerics/_001_RPL_WELCOME.cpp ./src/Numerics/_331_RPL_NOTOPIC.cpp ./src/Numerics/_332_RPL_TOPIC.cpp ./src/Numerics/_333_RPL_TOPICWHOTIME.cpp ./src/Numerics/_341_RPL_INVITING.cpp ./src/Numerics/_353_RPL_NAMREPLY.cpp ./src/Numerics/_443_ERR_USERONCHANNEL.cpp ./src/Numerics/_471_ERR_CHANNELISFULL.cpp ./src/Numerics/_324_RPL_CHANNELMODEIS.cpp ./src/Server/cmd/NICK.cpp ./src/Server/cmd/PASS.cpp ./src/Server/cmd/PING.cpp ./src/Server/cmd/USER.cpp ./src/Server/cmd/INVITE.cpp ./src/Server/cmd/MODE.cpp ./src/Server/cmd/TOPIC.cpp ./src/Server/cmd/CAP.cpp ./src/Server/cmd/JOIN.cpp ./src/Server/cmd/KICK.cpp ./src/Server/cmd/NOTICE.cpp ./src/Server/cmd/PART.cpp ./src/Server/cmd/PRIVMSG.cpp ./src/Server/cmd/QUIT.cpp ./src/Server/parser.cpp ./src/Server/Server.cpp ./src/Server/exec.cpp ./src/Server/utils.cpp ./src/User/User.cpp ./src/log/log.cpp 
+
 
 OBJ_DIR       = $(TMP)obj/
 OBJ           = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRC))

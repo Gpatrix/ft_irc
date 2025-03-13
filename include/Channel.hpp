@@ -33,7 +33,8 @@ class Channel
 
 		// Getters
 		std::string 		getModeString() const;
-	   	std::string 		getModeArgs() const;
+	  std::string 		getModeArgs() const;
+
 
 		const std::string&			getName(void) const;
 		const std::string&			getTopic(void) const;
