@@ -19,17 +19,17 @@ Channel::Channel(std::string Name, id_t owner)
 Channel::~Channel(void) {}
 
 // Getters
-std::string			Channel::getName(void)				const	{return (this->_Name);}
-std::string			Channel::getTopic(void)				const	{return (this->_Topic);}
-std::string			Channel::getTopic_modif_user(void)	const	{return (this->_Topic_modif_user);};
-std::time_t			Channel::getTopic_modif_time(void)	const	{return (this->_Topic_modif_time);};
-std::string			Channel::getPasword(void)			const	{return (this->_Key);}
-bool				Channel::isInvitationOnly(void)		const	{return (this->_invitationOnly);}
-bool				Channel::isProtectedTopic(void)		const	{return (this->_protectedTopic);}
-size_t				Channel::getUserLimit(void)			const	{return (this->_userLimit);}
-std::vector<id_t>	Channel::getUsers(void)				const	{return (this->_Users);}
-std::vector<id_t>	Channel::getOperators(void)			const	{return (this->_Operators);}
-std::vector<id_t>	Channel::getInvitation(void)		const	{return (this->_Invitation);}
+const std::string&			Channel::getName(void)				const	{return (this->_Name);}
+const std::string&			Channel::getTopic(void)				const	{return (this->_Topic);}
+const std::string&			Channel::getTopic_modif_user(void)	const	{return (this->_Topic_modif_user);};
+const std::time_t&			Channel::getTopic_modif_time(void)	const	{return (this->_Topic_modif_time);};
+const std::string&			Channel::getPasword(void)			const	{return (this->_Key);}
+const bool&				Channel::isInvitationOnly(void)		const	{return (this->_invitationOnly);}
+const bool&				Channel::isProtectedTopic(void)		const	{return (this->_protectedTopic);}
+const size_t&				Channel::getUserLimit(void)			const	{return (this->_userLimit);}
+const std::vector<id_t>&	Channel::getUsers(void)				const	{return (this->_Users);}
+const std::vector<id_t>&	Channel::getOperators(void)			const	{return (this->_Operators);}
+const std::vector<id_t>&	Channel::getInvitation(void)		const	{return (this->_Invitation);}
 
 bool	Channel::isFull(void) const
 {

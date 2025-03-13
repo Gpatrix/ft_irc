@@ -7,9 +7,9 @@ void Server::JOIN(t_parser_data& data, User* &user)
 		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
-	// Séparer les canaux et les clés
-	std::vector<std::string> channels = this->split(data.cmd[1]);
-	std::vector<std::string> keys = (data.cmd.size() > 2) ? split(data.cmd[2]) : std::vector<std::string>();
+
+	std::vector<std::string> channels = this->ft_split(data.cmd[1]);
+	std::vector<std::string> keys = (data.cmd.size() > 2) ? ft_split(data.cmd[2]) : std::vector<std::string>();
 	std::string channelName, key;
 	
 	for (size_t i = 0; i < channels.size(); i++)

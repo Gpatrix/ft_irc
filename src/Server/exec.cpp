@@ -21,10 +21,11 @@ void Server::exec_cmd(t_parser_data& data, User* &user)
 		commandMap["QUIT"] = &Server::QUIT;
 		commandMap["MODE"] = &Server::MODE;
 		commandMap["KICK"] = &Server::KICK;
+		commandMap["PART"] = &Server::PART;
 		commandMap["TOPIC"] = &Server::TOPIC;
-		commandMap["PRIVMSG"] = &Server::PRIVMSG;
 		commandMap["INVITE"]= &Server::INVITE;
 		commandMap["NOTICE"]= &Server::NOTICE;
+		commandMap["PRIVMSG"] = &Server::PRIVMSG;
 	}
 
  	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);

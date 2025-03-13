@@ -32,20 +32,22 @@ class Channel
 		~Channel(void);
 
 		// Getters
-		std::string			getName(void) const;
-		std::string			getTopic(void) const;
-		std::string			getTopic_modif_user(void) const;
-		std::time_t			getTopic_modif_time(void) const;
-		std::string			getPasword(void) const;
-		std::string 		getModeString() const;
-		std::string 		getModeArgs() const;
-		std::vector<id_t>	getUsers(void) const;
-		std::vector<id_t>	getOperators(void) const;
-		std::vector<id_t>	getInvitation(void) const;
-		bool				isInvitationOnly(void) const;
-		bool				isProtectedTopic(void) const;
+		const std::string& 		getModeString() const;
+	  const std::string& 		getModeArgs() const;
+
+		const std::string&			getName(void) const;
+		const std::string&			getTopic(void) const;
+		const std::string&			getTopic_modif_user(void) const;
+		const std::time_t&			getTopic_modif_time(void) const;
+		const std::string&			getPasword(void) const;
+		const std::vector<id_t>&	getUsers(void) const;
+		const std::vector<id_t>&	getOperators(void) const;
+		const std::vector<id_t>&	getInvitation(void) const;
+		const bool&				isInvitationOnly(void) const;
+		const bool&				isProtectedTopic(void) const;
+		const size_t&				getUserLimit(void) const;
+
 		bool				isFull(void) const;
-		size_t				getUserLimit(void) const;
 
 		// Setters
 		void	setTopic(const std::string& topic);
