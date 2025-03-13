@@ -46,7 +46,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 			case 't': 
 				channel->setProtectedTopic(addMode);
 				break;
-			case 'k': // Mot de passe
+			case 'k':
 				if (argIndex >= data.cmd.size())
 				{
 					Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "MODE", user->get_fd());
@@ -114,7 +114,7 @@ void Server::UserMode(t_parser_data& data, User* &user)
 				break;
 		}
 	}
-	std::string msg = ":" + user->get_nickname() + " MODE " + user->get_nickname() + " " + modeString;
+	std::string msg = ":" + user->get_nickname() + " MODE " + user->get_nickname() + " " + modeString + "\r\n";
 	this->sendToAll_Users(msg);
 	std::clog << msg;
 }
