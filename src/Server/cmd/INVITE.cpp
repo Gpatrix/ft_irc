@@ -44,6 +44,8 @@ void Server::INVITE(t_parser_data& data, User*& user)
 
 	Numerics::_341_RPL_INVITING(user->get_nickname(), target_nickname, target_channel, user->get_fd());
 
+	channel->addInvitation(target_user->get_id());
+
 	std::string msg = ":" + user->get_nickname() + " INVITE " + target_nickname + " " + target_channel + "\r\n";
 	send(target_user->get_fd(), msg.c_str(), msg.size(), 0);
 	log(msg);
