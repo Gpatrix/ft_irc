@@ -41,8 +41,7 @@ void	Server::try_register(User* &user)
 	
 	if (user->get_nickname().empty())
 	{
-		// TODO https://modern.ircdocs.horse/#errnonicknamegiven-431
-		log("Nick not set\n");
+		Numerics::_431_ERR_NONICKNAMEGIVEN(user->get_nickname(), user->get_fd());
 		return;
 	}
 

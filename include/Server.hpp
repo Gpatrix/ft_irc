@@ -26,14 +26,6 @@
 #include <signal.h>
 #include <ctime>
 
-#include "time.h" // TODO for testing to remove
-#include <iomanip> // TODO for testing to remove
-
-// clock_t	_start_time = clock();
-
-// std::cout << std::fixed << std::setprecision(10) <<
-// static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
-
 #define SERVER_NAME "chorizo.42"
 #define TAG_SIZE_LIMIT 4094 
 #define COMBINED_TAG_SIZE_LIMIT 8191

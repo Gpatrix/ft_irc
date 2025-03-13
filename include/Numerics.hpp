@@ -28,6 +28,7 @@ class Numerics
 		static void _405_ERR_TOOMANYCHANNELS(const std::string& client, const std::string& channel, const int& fd);
 		static void _412_ERR_NOTEXTTOSEND(const std::string& client, const int& fd);
 		static void _421_ERR_UNKNOWNCOMMAND(const std::string& client, const std::string& cmd, const int& fd);
+		static void _431_ERR_NONICKNAMEGIVEN(const std::string& client, const int& fd);
 		static void _432_ERR_ERRONEUSNICKNAME(const std::string& nickname, const int& fd);
 		static void _433_ERR_NICKNAMEINUSE(const std::string& new_nickname, const int& fd);
 		static void _441_ERR_USERNOTINCHANNEL(const std::string& client, const std::string& channel, const std::string& nick, const int& fd);
