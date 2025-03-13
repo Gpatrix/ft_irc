@@ -140,7 +140,6 @@ inline void	Server::accept_new_user(void)
 inline void	Server::recv_data(short& index)
 {
 	static char			buffer[500];
-	static bool			close_conn = false;
 	static int			rc;
 
 

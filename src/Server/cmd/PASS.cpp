@@ -5,7 +5,7 @@ void	Server::PASS(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() != 2)
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS("*", data.cmd[0], user->get_fd());
 		return;
 	}
 	

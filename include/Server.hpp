@@ -22,6 +22,7 @@
 #include <unistd.h>
 
 #include <signal.h>
+#include <ctime>
 
 #include "time.h" // TODO for testing to remove
 #include <iomanip> // TODO for testing to remove
@@ -89,6 +90,8 @@ class Server
 		void	INVITE(t_parser_data& data, User*& user);
 		void	NOTICE(t_parser_data& data, User*& user);
 
+		void	TOPIC(t_parser_data& data, User* &user);
+
 		void	PRIVMSG(t_parser_data& data, User* &user);
 
 		void	try_register(User* &user);
@@ -110,8 +113,6 @@ class Server
 		void	ChannelMode(t_parser_data& data,User* &user);
 		void	UserMode(t_parser_data& data,User* &user);
 		void 	removeUser(User* user);
-		
-
 		
 	public:
 		Server(void);

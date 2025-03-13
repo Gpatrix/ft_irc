@@ -5,7 +5,7 @@ void Server::MODE(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() < 2)
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
 	if (data.cmd[1][0] == '#')
@@ -19,7 +19,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 	Channel* channel = this->Channels[data.cmd[1]];
 	if (!channel)
 	{
-		Numerics::_403_ERR_NOSUCHCHANNEL(data.cmd[1], user->get_fd());
+		Numerics::_403_ERR_NOSUCHCHANNEL(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
 	}
 

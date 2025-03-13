@@ -6,9 +6,9 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 	if (data.cmd.size() != 3)
 	{
 		if (data.cmd.size() == 2)
-			Numerics::_412_ERR_NOTEXTTOSEND(user->get_fd());
+			Numerics::_412_ERR_NOTEXTTOSEND(user->get_nickname(), user->get_fd());
 		else
-			Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+			Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 
 		return;
 	}
@@ -34,13 +34,13 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 
 			if (!channel)
 			{
-				Numerics::_403_ERR_NOSUCHCHANNEL(&target[i][index], user->get_fd());
+				Numerics::_403_ERR_NOSUCHCHANNEL(user->get_nickname(), &target[i][index], user->get_fd());
 				continue;
 			}
 
 			if (!channel->isUser(user->get_id()))
 			{
-				Numerics::_404_ERR_CANNOTSENDTOCHAN(&target[i][index], user->get_fd());
+				Numerics::_404_ERR_CANNOTSENDTOCHAN(user->get_nickname(), &target[i][index], user->get_fd());
 				continue;
 			}
 
@@ -52,7 +52,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 			target_user = find_User(&target[i][index]);
 			if (target_user == NULL)
 			{
-				Numerics::_401_ERR_NOSUCHNICK(&target[i][index], user->get_fd());
+				Numerics::_401_ERR_NOSUCHNICK(user->get_nickname(), &target[i][index], user->get_fd());
 				continue;
 			}
 			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
@@ -64,7 +64,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message)
 {
 	for (size_t i = 0; i < user_list.size(); i++)
-		send(this->Users[user_list[i]]->get_fd(), message.c_str(), message.length(), 0);
+		send(find_User(user_list[i])->get_fd(), message.c_str(), message.length(), 0);
 }
 
 void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &message, const id_t& exeption)
@@ -73,7 +73,7 @@ void Server::sendToAll(const std::vector<id_t> &user_list, const std::string &me
 
 	for (size_t i = 0; i < user_list.size(); i++)
 	{
-		tmp_user = this->Users[user_list[i]];
+		tmp_user = find_User(user_list[i]);
 		if (tmp_user->get_id() == exeption)
 			continue;
 

@@ -4,7 +4,7 @@ void Server::USER(t_parser_data& data, User*& user)
 {
 	if (data.cmd.size() != 5)
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS("*", data.cmd[0], user->get_fd());
 		std::clog << "ERROR: Need more parameters\n";
 		return;
 	}

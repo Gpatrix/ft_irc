@@ -89,4 +89,3 @@ void Server::removeUser(User* user)
     delete user;
     user = NULL;
 }
-

@@ -66,6 +66,9 @@
 		"__split_buffer": "cpp",
 		"__tree": "cpp",
 		"queue": "cpp",
+		"__functional_03": "cpp",
+		"target": "cpp",
+		"__bit_reference": "cpp",
 		"cinttypes": "cpp"
 	}
 }
