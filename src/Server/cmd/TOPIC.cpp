@@ -27,7 +27,7 @@ void	Server::TOPIC(t_parser_data& data, User* &user)
 	{
 		if (!channel->getTopic().empty())
 		{
-			Numerics::_332_RPL_TOPIC(data.cmd[1], channel->getTopic(), user->get_fd());
+			Numerics::_332_RPL_TOPIC( user->get_nickname(), data.cmd[1], channel->getTopic(), user->get_fd());
 			Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(), channel->getName(), channel->getTopic_modif_user(), channel->getTopic_modif_time(), user->get_fd());
 		}
 		else

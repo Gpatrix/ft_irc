@@ -39,8 +39,9 @@ void Server::JOIN(t_parser_data& data, User* &user)
 
 		if (!channel.getTopic().empty())
 		{
-			Numerics::_332_RPL_TOPIC(	channelName, \
-										channel.getTopic(), \
+			Numerics::_332_RPL_TOPIC(	user->get_nickname(),
+										channelName,
+										channel.getTopic(),
 										user->get_fd());
 
 			Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(),

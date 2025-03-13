@@ -13,7 +13,7 @@ void Numerics::_333_RPL_TOPICWHOTIME
 	stream.clear();
 	stream << time;
 
-	std::string msg = ":" SERVER_NAME " 332 " + client + " " + channel + " " + nick + " " + stream.str() + "\r\n";
+	std::string msg = ":" SERVER_NAME " 333 " + client + " " + channel + " " + nick + " " + stream.str() + "\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
 	std::clog << msg;
 }
