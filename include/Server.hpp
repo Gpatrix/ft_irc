@@ -97,6 +97,7 @@ class Server
 
 
 		User*	find_User(const std::string& user_name);
+		User*	find_User(const id_t& user_id);
 
 		std::vector<std::string> split(const std::string &str, char delimiter = ',');
 
@@ -105,6 +106,7 @@ class Server
 
 		void	ChannelMode(t_parser_data& data,User* &user);
 		void	UserMode(t_parser_data& data,User* &user);
+		void 	removeUser(User* user);
 		
 
 		

@@ -21,7 +21,8 @@ class Channel
 		std::string			_Key;
 	
 		bool				_invitationOnly;
-		bool				_protectedTopic;	
+		bool				_protectedTopic;
+		bool				_isvid;	
 		size_t				_userLimit;
 
 	public:
@@ -36,6 +37,7 @@ class Channel
 		std::vector<id_t> 	getUserOP(void) const;
 		bool				isInvitationOnly(void) const;
 		bool				isProtectedTopic(void) const;
+		bool				getIsVid() const { return _isvid; }
 		size_t				getUserLimit(void) const;
 
 		// Setters
@@ -55,6 +57,7 @@ class Channel
 		void	addOperator(const id_t& user);
 		void	removeOperator(const id_t& user);
 
+		bool 	isMember(const id_t& user);
 		std::string getChannelSymbol() const;
 		std::vector<std::string> getUserList(std::vector<User*>& user);
 };
