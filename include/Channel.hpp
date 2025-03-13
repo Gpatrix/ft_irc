@@ -5,17 +5,18 @@
 #include <vector>
 #include <sstream> 
 #include <map>
+#include <ctime>
 
 #define CHANNEL_KEY_SIZE_LIMIT 50
 #define CHANNEL_NAME_SIZE_LIMIT 200
-
-
 
 class Channel
 {
 	private:
 		std::string			_Name;
 		std::string			_Topic;
+		std::string			_Topic_modif_user;
+		std::time_t			_Topic_modif_time;
 		std::vector<id_t>	_Users;
 		std::vector<id_t>	_Operators;
 		std::string			_Key;
@@ -31,6 +32,8 @@ class Channel
 		// Getters
 		std::string			getName(void) const;
 		std::string			getTopic(void) const;
+		std::string			getTopic_modif_user(void) const;
+		std::time_t			getTopic_modif_time(void) const;
 		std::string 		getPasword(void) const;
 		std::vector<id_t> 	getUser(void) const;
 		std::vector<id_t> 	getUserOP(void) const;
@@ -39,8 +42,10 @@ class Channel
 		size_t				getUserLimit(void) const;
 
 		// Setters
-		void	setTopic(std::string topic);
-		void	setKey(std::string Key);
+		void	setTopic(const std::string& topic);
+		void	setTopicModifUser(const std::string& topic_modif_user);
+		void	setTopicModifTime(const std::time_t& topic_modif_time);
+		void	setKey(const std::string& Key);
 		void	setInvitationOnly(bool mode);
 		void	setProtectedTopic(bool mode);
 		void	setUserLimit(size_t limit);

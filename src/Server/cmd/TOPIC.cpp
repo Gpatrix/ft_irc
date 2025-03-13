@@ -11,29 +11,41 @@ void	Server::TOPIC(t_parser_data& data, User* &user)
 
 	Channel*	channel = this->Channels[data.cmd[1]];
 
-	// verif access
-
 	if (!channel)
 	{
 		Numerics::_403_ERR_NOSUCHCHANNEL(data.cmd[1], user->get_fd());
 		return;
 	}
+
+	if (!channel->isUser(user->get_id()))
+	{
+		Numerics::_442_ERR_NOTONCHANNEL(data.cmd[1], user->get_fd());
+		return;
+	}
+
 	if (data.cmd.size() == 2)
 	{
 		if (!channel->getTopic().empty())
+		{
 			Numerics::_332_RPL_TOPIC(data.cmd[1], channel->getTopic(), user->get_fd());
+			Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(), channel->getName(), channel->getTopic_modif_user(), channel->getTopic_modif_time(), user->get_fd());
+		}
 		else
 			Numerics::_331_RPL_NOTOPIC(data.cmd[1], user->get_fd());
 	}
-	else if (data.cmd[2].empty())
-	{
-		//   TOPIC #test :                   ; Clearing the topic on "#test"
-	}
 	else
 	{
-		//  TOPIC #test :New topic          ; Setting the topic on "#test" to
-        //                           "New topic".
+		if (channel->isProtectedTopic() && !channel->isOperator(user->get_id()))
+			Numerics::_482_ERR_CHANOPRIVSNEEDED(channel->getName(), user->get_fd());
+		else
+		{
+			channel->setTopic(data.cmd[2]);
+			channel->setTopicModifUser(user->get_nickname());
+			channel->setTopicModifTime(std::time(NULL));
+
+			std::string msg = ":" + user->get_nickname() + " TOPIC " + channel->getName() + " :" + data.cmd[2] + "\r\n";
+			sendToAll(channel->getUser(), msg);
+			std::clog << msg;
+		}
 	}
-	
-	
 }

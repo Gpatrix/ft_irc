@@ -20,21 +20,26 @@ Channel::Channel(std::string Name, id_t owner)
 Channel::~Channel(void) {}
 
 // Getters
-std::string			Channel::getName(void) const			{return (this->_Name);}
-std::string			Channel::getTopic(void) const			{return (this->_Topic);}
-std::string			Channel::getPasword(void) const			{return (this->_Key);}
-bool				Channel::isInvitationOnly(void) const	{return (this->_invitationOnly);}
-bool				Channel::isProtectedTopic(void) const	{return (this->_protectedTopic);}
-size_t				Channel::getUserLimit(void) const		{return (this->_userLimit);}
-std::vector<id_t>	Channel::getUser(void) const			{return (this->_Users);}
-std::vector<id_t>	Channel::getUserOP(void) const			{return (this->_Operators);}
+std::string			Channel::getName(void) const				{return (this->_Name);}
+std::string			Channel::getTopic(void) const				{return (this->_Topic);}
+std::string			Channel::getTopic_modif_user(void) const	{return (this->_Topic_modif_user);};
+std::time_t			Channel::getTopic_modif_time(void) const	{return (this->_Topic_modif_time);};
+std::string			Channel::getPasword(void) const				{return (this->_Key);}
+bool				Channel::isInvitationOnly(void) const		{return (this->_invitationOnly);}
+bool				Channel::isProtectedTopic(void) const		{return (this->_protectedTopic);}
+size_t				Channel::getUserLimit(void) const			{return (this->_userLimit);}
+std::vector<id_t>	Channel::getUser(void) const				{return (this->_Users);}
+std::vector<id_t>	Channel::getUserOP(void) const				{return (this->_Operators);}
+
 // Setters
-void	Channel::setTopic(std::string topic)	{this->_Topic = topic;}
+void	Channel::setTopic(const std::string& topic)	{this->_Topic = topic;}
+void	Channel::setTopicModifUser(const std::string& topic_modif_user) {this->_Topic_modif_user = topic_modif_user;}
+void	Channel::setTopicModifTime(const std::time_t& topic_modif_time) {this->_Topic_modif_time = topic_modif_time;}
 void	Channel::setInvitationOnly(bool mode)	{this->_invitationOnly = mode;}
 void	Channel::setProtectedTopic(bool mode)	{this->_protectedTopic = mode;}
 void	Channel::setUserLimit(size_t limit)		{this->_userLimit = limit;}
 
-void Channel::setKey(std::string key)
+void Channel::setKey(const std::string& key)
 {
 	if (key.size() <= CHANNEL_KEY_SIZE_LIMIT)
 		_Key = key;
@@ -73,7 +78,6 @@ bool Channel::addUser(const id_t& user)
 	return (true);
 }
 
-
 bool Channel::removeUser(const id_t& user)
 {
 	for (size_t i = 0; i < _Users.size(); ++i)
@@ -86,7 +90,6 @@ bool Channel::removeUser(const id_t& user)
 	}
 	return (false);
 }
-
 
 void Channel::addOperator(const id_t& user)
 {

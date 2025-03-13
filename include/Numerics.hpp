@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <ctime>
 #include <sys/socket.h>
 #include "Server.hpp"
 
@@ -15,6 +16,7 @@ class Numerics
 
 		static void _331_RPL_NOTOPIC(const std::string& channel, const int& fd);
 		static void _332_RPL_TOPIC(const std::string& channel, const std::string& topic, const int& fd);
+		static void _333_RPL_TOPICWHOTIME(const std::string& client, const std::string& channel, const std::string& nick, const std::time_t& time, const int& fd);
 		static void _353_RPL_NAMREPLY(const std::string& client, const std::string& symbol, const std::string& channel, const std::vector<std::string>& users, const int& fd);
 		static void _366_RPL_ENDOFNAMES(const std::string& client, const std::string& channel, const int& fd);
 		

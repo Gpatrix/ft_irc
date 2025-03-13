@@ -22,6 +22,7 @@
 #include <unistd.h>
 
 #include <signal.h>
+#include <ctime>
 
 #include "time.h" // TODO for testing to remove
 #include <iomanip> // TODO for testing to remove

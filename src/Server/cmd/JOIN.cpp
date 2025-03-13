@@ -38,10 +38,17 @@ void Server::JOIN(t_parser_data& data, User* &user)
 		sendToAll(channel.getUser(), ":" + user->get_nickname() + " JOIN " + channelName + "\r\n");
 
 		if (!channel.getTopic().empty())
-			Numerics::_332_RPL_TOPIC(user->get_nickname(), \
-										channelName, \
+		{
+			Numerics::_332_RPL_TOPIC(	channelName, \
 										channel.getTopic(), \
 										user->get_fd());
+
+			Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(),
+											channel.getName(),
+											channel.getTopic_modif_user(),
+											channel.getTopic_modif_time(),
+											user->get_fd());
+		}
 
 		Numerics::_353_RPL_NAMREPLY(user->get_nickname(), \
 									channel.getChannelSymbol(), \
