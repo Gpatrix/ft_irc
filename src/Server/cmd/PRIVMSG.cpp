@@ -29,7 +29,6 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 
 		if (target[i][index] == '#')
 		{
-			// TODO if no acces to chanel https://modern.ircdocs.horse/#errcannotsendtochan-404
 			Channel* channel = this->Channels[&target[i][index]];
 
 			if (!channel)

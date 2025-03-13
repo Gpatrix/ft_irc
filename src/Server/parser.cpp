@@ -3,8 +3,6 @@
 
 static void get_source(s_parser_data& source, std::string& data)
 {
-	// TODO only work when perfect data
-
 	size_t	pos1;
 	size_t	pos2;
 
@@ -126,7 +124,6 @@ void	Server::parser(std::string& str, User* &user)
 	if (pos_end == std::string::npos)
 		return;
 
-	// TODO only work on perfect separator not single '\r' or '\n'
 	while (1)
 	{
 		clear_data(data);

@@ -3,23 +3,17 @@
 // https://modern.ircdocs.horse/#quit-message
 void	Server::QUIT(t_parser_data& data, User* &user)
 {
-	// Vérifier le nombre de paramètres
 	if (data.cmd.size() > 2)
 	{
 		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
 
-	// Gérer le message de départ (optionnel)
 	std::string msg = (data.cmd.size() == 1) ? "" : data.cmd[1];
 	std::string quit_msg = ":" + user->get_nickname() + " QUIT :" + msg + "\r\n";
 
-	// Envoyer le message à tous les utilisateurs
 	for (std::vector<User*>::iterator it = this->Users.begin(); it != this->Users.end(); ++it)
 		send((*it)->get_fd(), quit_msg.c_str(), quit_msg.length(), 0);
-
-	// Supprimer l'utilisateur de la liste
-	this->removeUser(user);
 
 	this->close_connection(user->get_fd());
 	this->ERROR("QUIT", user->get_fd());

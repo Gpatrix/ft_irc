@@ -16,7 +16,6 @@ Channel::Channel(std::string Name, id_t owner)
 }
 
 // Destructeur
-// TODO voir ci besoi d'informer les User de la fermeure du Channel
 Channel::~Channel(void) {}
 
 // Getters
