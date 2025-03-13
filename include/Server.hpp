@@ -88,6 +88,7 @@ class Server
 		void	QUIT(t_parser_data& data, User* &user);
 		void	MODE(t_parser_data& data, User* &user);
 		void	KICK(t_parser_data& data, User* &user);
+		void	PART(t_parser_data& data, User*& user);
 		void	INVITE(t_parser_data& data, User*& user);
 		void	NOTICE(t_parser_data& data, User*& user);
 
@@ -107,7 +108,7 @@ class Server
 		User*	find_User(const std::string& user_name);
 		User*	find_User(const id_t& user_id);
 
-		std::vector<std::string> split(const std::string &str, char delimiter = ',');
+		std::vector<std::string> ft_split(const std::string &str, char delimiter = ',');
 
 		bool 	isValidNickname(const std::string &nickname);
 		bool	isNicknameTaken(const std::string &nickname);

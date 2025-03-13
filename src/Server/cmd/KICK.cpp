@@ -27,7 +27,7 @@ void Server::KICK(t_parser_data& data, User* &user)
 		return;
 	}
 
-	std::vector<std::string> targets = split(data.cmd[2], ',');
+	std::vector<std::string> targets = ft_split(data.cmd[2], ',');
 	size_t		targets_nbs = targets.size();
 	User*		target_user;
 	std::string	msg;

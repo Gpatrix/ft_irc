@@ -16,7 +16,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 	int	index;
 	User*	target_user;
 	std::string	msg;
-	std::vector<std::string>	target = this->split(data.cmd[1]);
+	std::vector<std::string>	target = this->ft_split(data.cmd[1]);
 	for (size_t i = 0; i < target.size(); i++)
 	{
 		index = 0;
