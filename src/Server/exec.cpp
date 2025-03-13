@@ -2,8 +2,14 @@
 
 void Server::exec_cmd(t_parser_data& data, User* &user)
 {
-	// TODO refuse action if not connceted exeption: CAP NICK USER PASS
-
+	static std::set<std::string> CommandsNoRegister ;
+	if (CommandsNoRegister.empty()) {
+		CommandsNoRegister.insert("CAP");
+		CommandsNoRegister.insert("NICK");
+		CommandsNoRegister.insert("USER");
+		CommandsNoRegister.insert("PASS");
+		CommandsNoRegister.insert("PING");
+	}
 	static std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)> commandMap;
 	if (commandMap.empty()) {
 		commandMap["CAP"] = &Server::CAP;
@@ -21,13 +27,12 @@ void Server::exec_cmd(t_parser_data& data, User* &user)
 		commandMap["NOTICE"]= &Server::NOTICE;
 	}
 
-	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);
+ 	std::map<std::string, void (Server::*)(t_parser_data& data, User* &user)>::iterator it = commandMap.find(data.cmd[0]);
 
-	if (it != commandMap.end()) {
+	if (it != commandMap.end() && (user->get_is_register() || CommandsNoRegister.count(data.cmd[0]) > 0))
 		(this->*(it->second))(data, user);
-	} else {
+	else 
 		Numerics::_421_ERR_UNKNOWNCOMMAND("*", data.cmd[0], user->get_fd());
-	}
 }
 
 void	Server::try_register(User* &user)
@@ -36,7 +41,7 @@ void	Server::try_register(User* &user)
 	if (user->get_nickname().empty())
 	{
 		// TODO https://modern.ircdocs.horse/#errnonicknamegiven-431
-		std::clog << "Nick not set\n";
+		log("Nick not set\n");
 		return;
 	}
 
