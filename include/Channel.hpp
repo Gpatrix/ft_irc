@@ -32,8 +32,8 @@ class Channel
 		~Channel(void);
 
 		// Getters
-		const std::string& 		getModeString() const;
-	  const std::string& 		getModeArgs() const;
+		std::string 		getModeString() const;
+	   	std::string 		getModeArgs() const;
 
 		const std::string&			getName(void) const;
 		const std::string&			getTopic(void) const;
