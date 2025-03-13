@@ -52,61 +52,63 @@ void Channel::clearKey()
 	this->_Key.clear();
 }
 
-bool Channel::isUser(const id_t& user) const
+bool Channel::isUser(const id_t& user_id) const
 {
 	for (size_t i = 0; i < this->_Users.size(); i++)
 	{
-		if (this->_Users[i] == user)
+		if (this->_Users[i] == user_id)
 			return (true);
 	}
 	return (false);
 }
 
-bool Channel::isOperator(const id_t& user) const
+bool Channel::isOperator(const id_t& user_id) const
 {
 	for (size_t i = 0; i < this->_Operators.size(); i++)
 	{
-		if (this->_Operators[i] == user)
+		if (this->_Operators[i] == user_id)
 			return (true);
 	}
 	return (false);
 }
 
-bool Channel::addUser(const id_t& user)
+bool Channel::addUser(const id_t& user_id)
 {
 	if (this->_Users.size() < this->_userLimit || this->_userLimit == 0)
 	{
-		if (!isUser(user))
-			this->_Users.push_back(user);
+		if (!isUser(user_id))
+			this->_Users.push_back(user_id);
 		return (false);
 	}
 	return (true);
 }
 
-bool Channel::removeUser(const id_t& user)
+bool Channel::removeUser(const id_t& user_id)
 {
-	for (size_t i = 0; i < _Users.size(); ++i)
+	const size_t size = this->_Users.size();
+
+	for (size_t i = 0; i < size; ++i)
 	{
-		if (_Users[i] == user)
+		if (this->_Users[i] == user_id)
 		{
-			_Users.erase(_Users.begin() + i);
+			this->_Users.erase(this->_Users.begin() + i);
 			return (true);
 		}
 	}
 	return (false);
 }
 
-void Channel::addOperator(const id_t& user)
+void Channel::addOperator(const id_t& user_id)
 {
-	if (!isOperator(user))
-		_Operators.push_back(user);
+	if (!isOperator(user_id))
+		_Operators.push_back(user_id);
 }
 
-void Channel::removeOperator(const id_t& user)
+void Channel::removeOperator(const id_t& user_id)
 {
 	for (size_t i = 0; i < _Operators.size(); ++i)
 	{
-		if (_Operators[i] == user)
+		if (_Operators[i] == user_id)
 		{
 			_Operators.erase(_Operators.begin() + i);
 			return;
@@ -114,19 +116,36 @@ void Channel::removeOperator(const id_t& user)
 	}
 }
 
-bool	Channel::isInvited(const id_t& user) const
+bool	Channel::isInvited(const id_t& user_id) const
 {
-	
+	const size_t size = this->_Invitation.size();
+
+	for (size_t index = 0; index < size; index++)
+	{
+		if (this->_Invitation[index] == user_id)
+			return (true);
+	}
+	return (false);
 }
 
-void	Channel::addInvitation(const id_t& user)
+void	Channel::addInvitation(const id_t& user_id)
 {
-	
+	if (!this->isInvited(user_id))
+		this->_Invitation.push_back(user_id);
 }
 
-void	Channel::removeInvitation(const id_t& user)
+void	Channel::removeInvitation(const id_t& user_id)
 {
+	const size_t size = this->_Invitation.size();
 
+	for (size_t index = 0; index < size; index++)
+	{
+		if (this->_Invitation[index] == user_id)
+		{
+			this->_Invitation.erase(this->_Invitation.begin() + index);
+			return;
+		}
+	}
 }
 
 std::string Channel::getChannelSymbol() const
