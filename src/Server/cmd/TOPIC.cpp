@@ -31,7 +31,7 @@ void	Server::TOPIC(t_parser_data& data, User* &user)
 			Numerics::_333_RPL_TOPICWHOTIME(user->get_nickname(), channel->getName(), channel->getTopic_modif_user(), channel->getTopic_modif_time(), user->get_fd());
 		}
 		else
-			Numerics::_331_RPL_NOTOPIC(data.cmd[1], user->get_fd());
+			Numerics::_331_RPL_NOTOPIC(user->get_nickname(), data.cmd[1], user->get_fd());
 	}
 	else
 	{

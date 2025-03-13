@@ -1,8 +1,8 @@
 #include "Numerics.hpp"
 
-void Numerics::_331_RPL_NOTOPIC(const std::string& channel, const int& fd)
+void Numerics::_331_RPL_NOTOPIC(const std::string& client, const std::string& channel, const int& fd)
 {
-	std::string msg = ":" SERVER_NAME " 332 " + channel + " :No topic is set\r\n";
+	std::string msg = ":" SERVER_NAME " 332 " + client + " " + channel + " :No topic is set\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
 	std::clog << msg;
 }
