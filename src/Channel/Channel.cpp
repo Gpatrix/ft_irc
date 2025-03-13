@@ -200,7 +200,7 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 }
 
 
-std::string Channel::getModeString() const
+const std::string& Channel::getModeString() const
 {
 	std::string modes;
 
