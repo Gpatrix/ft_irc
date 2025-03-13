@@ -13,10 +13,15 @@ void Server::JOIN(t_parser_data& data, User* &user)
 	std::string channelName, key;
 	
 	for (size_t i = 0; i < channels.size(); i++)
-	{
+	{	
+		
 		channelName = channels[i];
 		key = (i < keys.size()) ? keys[i] : "";
-
+		if (channelName[0] != '#')
+		{
+			Numerics::_473_ERR_INVITEONLYCHAN(user->get_nickname(), channelName, user->get_fd());
+			continue;
+		}
 		if (Channels.find(channelName) == Channels.end())
 			Channels[channelName] = new Channel(channelName, user->get_id());
 
