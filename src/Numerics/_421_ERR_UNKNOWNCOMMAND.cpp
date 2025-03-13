@@ -4,5 +4,5 @@ void	Numerics::_421_ERR_UNKNOWNCOMMAND(const std::string& client, const std::str
 {
 	std::string msg = ":" SERVER_NAME " 421 " + client + " " + cmd + " :Unknown command\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
-	logError("Unknown command\n");
+	logError(msg);
 }

@@ -1,4 +1,4 @@
-#include "Server.hpp"
+#include "log.hpp"
 
 static char* _get_time(void)
 {
@@ -23,7 +23,5 @@ void	log(const std::string& msg)
 
 void	logPerror(const std::string& msg)
 {
-	std::string error_msg = strerror(errno);
-
-	std::clog << RED << "[" << _get_time() << "] [SERVER ERROR] " << msg + ": " + error_msg << END << '\n';
+	std::clog << RED << "[" << _get_time() << "] [SERVER ERROR] " << msg << END << '\n';
 }

@@ -77,7 +77,7 @@ void Server::removeUser(User* user)
     {
         it->second->removeUser(user->get_id());
 
-        if (it->second->getIsVid())
+        if (it->second->getIsEmpty())
         {
             delete it->second;
             Channels.erase(it);

@@ -45,7 +45,7 @@ void	Server::TOPIC(t_parser_data& data, User* &user)
 
 			std::string msg = ":" + user->get_nickname() + " TOPIC " + channel->getName() + " :" + data.cmd[2] + "\r\n";
 			sendToAll(channel->getUser(), msg);
-			std::clog << msg;
+			log(msg);
 		}
 	}
 }

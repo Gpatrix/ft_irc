@@ -91,7 +91,7 @@ bool Channel::removeUser(const id_t& user)
 		{
 			_Users.erase(_Users.begin() + i);
 			if (_Users.empty())
-				_isvid = true;
+				_isempty = true;
 			return (true);
 		}
 	}

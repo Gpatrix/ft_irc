@@ -1,4 +1,5 @@
 #pragma once
+
 #include "User.hpp"
 #include <iostream>
 #include <sys/types.h>
@@ -23,7 +24,7 @@ class Channel
 	
 		bool				_invitationOnly;
 		bool				_protectedTopic;
-		bool				_isvid;	
+		bool				_isempty;
 		size_t				_userLimit;
 
 	public:
@@ -40,7 +41,7 @@ class Channel
 		std::vector<id_t> 	getUserOP(void) const;
 		bool				isInvitationOnly(void) const;
 		bool				isProtectedTopic(void) const;
-		bool				getIsVid() const { return _isvid; }
+		bool				getIsEmpty() const { return _isempty;}
 		size_t				getUserLimit(void) const;
 
 		// Setters
