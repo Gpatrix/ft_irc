@@ -215,7 +215,7 @@ const std::string& Channel::getModeString() const
 	return modes;
 }
 
-std::string Channel::getModeArgs() const
+const std::string& Channel::getModeArgs() const
 {
     std::string args;
     if (!_Key.empty()) {
