@@ -32,6 +32,9 @@ class Channel
 		~Channel(void);
 
 		// Getters
+		const std::string& 		getModeString() const;
+	  const std::string& 		getModeArgs() const;
+
 		const std::string&			getName(void) const;
 		const std::string&			getTopic(void) const;
 		const std::string&			getTopic_modif_user(void) const;
@@ -43,6 +46,7 @@ class Channel
 		const bool&				isInvitationOnly(void) const;
 		const bool&				isProtectedTopic(void) const;
 		const size_t&				getUserLimit(void) const;
+
 		bool				isFull(void) const;
 
 		// Setters

@@ -29,7 +29,10 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 		Numerics::_482_ERR_CHANOPRIVSNEEDED(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
 	}
-
+	if (data.cmd.size() > 2)
+	{
+		Numerics::_324_RPL_CHANNELMODEIS(user->get_nickname(), channel->getName(), channel->getModeString(), channel->getModeArgs(), user->get_fd());
+	}
 	std::string modeString = data.cmd[2];
 	bool addMode = (modeString[0] == '+');
 	size_t argIndex = 3;

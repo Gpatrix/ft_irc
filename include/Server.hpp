@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <map>
+#include <set>
 
 #include <sys/poll.h>
 #include <sys/socket.h>
