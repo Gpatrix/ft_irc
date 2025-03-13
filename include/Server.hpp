@@ -5,7 +5,7 @@
 #include "User.hpp"
 #include "Channel.hpp"
 #include "Numerics.hpp"
-#include "log.h"
+#include "log.hpp"
 
 #include <vector>
 #include <map>
