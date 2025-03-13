@@ -6,7 +6,7 @@
 #    By: lchauvet <lchauvet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/06 10:15:47 by max               #+#    #+#              #
-#    Updated: 2025/03/12 14:50:54 by lchauvet         ###   ########.fr        #
+#    Updated: 2025/03/13 17:14:12 by lchauvet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ TMP 	   = .tmp/
 
 CC          = c++
 
-CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O0
+CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O0 -fsanitize=address
 
 RM          = rm -f
 MKDIR       = mkdir
