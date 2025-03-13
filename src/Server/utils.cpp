@@ -1,6 +1,6 @@
 #include "Server.hpp"
 
-std::vector<std::string> Server::split(const std::string &str, char delimiter)
+std::vector<std::string> Server::ft_split(const std::string &str, char delimiter)
 {
 	std::vector<std::string> result;
 	size_t pos_begin = 0, pos_end = 0;

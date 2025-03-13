@@ -9,7 +9,7 @@ void Server::NOTICE(t_parser_data& data, User*& user)
 		return;
 	}
 
-	std::vector<std::string> targets = split(data.cmd[1], ',');
+	std::vector<std::string> targets = ft_split(data.cmd[1], ',');
 	std::string message = data.cmd[2];
 
 	if (message.empty())
