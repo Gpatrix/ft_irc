@@ -57,7 +57,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 				else
 					channel->freeKey();
 				break;
-			case 'o': // Donner/retirer l'opérateur à un user
+			case 'o':
 				if (argIndex >= data.cmd.size())
 				{
 					Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "MODE", user->get_fd());

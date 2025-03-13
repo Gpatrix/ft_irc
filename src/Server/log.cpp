@@ -1,32 +1,29 @@
 #include "Server.hpp"
 
-#include <ctime>
-#include <cstring>
-#include <iomanip>
-#include <sstream>
-
-void logError(const std::string& msg) 
+static char* _get_time(void)
 {
-    std::time_t t = std::time(0);
-    std::tm* tm_info = std::localtime(&t);
+	static char timestamp[20];
 
-    char timestamp[20];
-    std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
-    std::clog << "[" << timestamp << "] [ERROR] " << msg << std::endl;
+	std::time_t t = std::time(0);
+	std::tm* tm_info = std::localtime(&t);
+
+	std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
+	return (timestamp);
 }
 
-void log(const std::string& msg) 
+void	logError(const std::string& msg)
 {
-    std::time_t t = std::time(0);
-    std::tm* tm_info = std::localtime(&t);
-
-    char timestamp[20];
-    std::strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
-
-    std::clog << "[" << timestamp << "]" << msg << std::endl;
+	std::clog << BLUE << "[" << _get_time() << "] [ERROR] " << msg << END;
 }
 
-void logPerror(const std::string& msg) {
-    std::string error_msg = strerror(errno);
-    logError(msg + ": " + error_msg);
+void	log(const std::string& msg) 
+{
+	std::clog << GREEN <<"[" << _get_time() << "] " << msg << END;
+}
+
+void	logPerror(const std::string& msg)
+{
+	std::string error_msg = strerror(errno);
+
+	std::clog << RED << "[" << _get_time() << "] [SERVER ERROR] " << msg + ": " + error_msg << END << '\n';
 }

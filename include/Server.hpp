@@ -5,6 +5,7 @@
 #include "User.hpp"
 #include "Channel.hpp"
 #include "Numerics.hpp"
+#include "log.h"
 
 #include <vector>
 #include <map>
@@ -121,7 +122,3 @@ class Server
 		void	init(char* port, char* password);
 		void	run(void);
 };
-
-void logError(const std::string& msg);
-void logPerror(const std::string& msg);
-void log(const std::string& msg) ;
