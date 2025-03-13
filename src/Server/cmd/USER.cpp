@@ -1,31 +1,34 @@
 #include "Server.hpp"
 
-// https://modern.ircdocs.horse/#nick-message
-void	Server::USER(t_parser_data& data, User* &user)
+void Server::USER(t_parser_data& data, User*& user)
 {
-
 	if (data.cmd.size() != 5)
 	{
 		Numerics::_461_ERR_NEEDMOREPARAMS("*", data.cmd[0], user->get_fd());
-		std::clog << "ERROR: need mor param" << '\n';
+		std::clog << "ERROR: Need more parameters\n";
+		return;
 	}
-	else if (user->get_is_register() == true)
+	
+	if (user->get_is_register())
 	{
-		// https://modern.ircdocs.horse/#erralreadyregistered-462
-		std::clog << "ERROR: already registered" << '\n';
+		Numerics::_462_ERR_ALREADYREGISTERED(user->get_nickname(), user->get_fd());
+		return;
 	}
-	else 
-	{
-		// The maximum length of <username> may be specified by the USERLEN RPL_ISUPPORT parameter
-		if (data.cmd[1].size() < 1)
-		{
-			// https://modern.ircdocs.horse/#errneedmoreparams-461
-			std::clog <<  "nick too short\n";
-			return;
-		}
-		user->set_username("~" + data.cmd[1]);
-		user->set_realname(data.cmd[3]);
 
-		try_register(user);
+	if (data.cmd[1].empty())
+	{
+		Numerics::_461_ERR_NEEDMOREPARAMS("USER", user->get_fd());
+		std::clog << "ERROR: Username too short\n";
+		return;
 	}
+	std::string username = "~" + data.cmd[1];
+	user->set_username(username);
+	if (data.cmd[3].empty())
+	{
+		Numerics::_461_ERR_NEEDMOREPARAMS("USER", user->get_fd());
+		std::clog << "ERROR: Realname is required\n";
+		return;
+	}
+	user->set_realname(data.cmd[3]);
+	try_register(user);
 }

@@ -4,5 +4,5 @@ void Numerics::_475_ERR_BADCHANNELKEY(const std::string& client, const std::stri
 {
 	std::string msg = ":" SERVER_NAME " 475 " + client + " " + cmd + " :Cannot join channel (+k)\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
-	std::clog << msg;
+	logError(msg);
 }

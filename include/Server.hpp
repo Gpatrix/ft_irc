@@ -33,6 +33,9 @@
 // static_cast<double>(clock() - _start_time) / CLOCKS_PER_SEC << '\n';
 
 #define SERVER_NAME "chorizo.42"
+#define TAG_SIZE_LIMIT 4094 
+#define COMBINED_TAG_SIZE_LIMIT 8191
+#define MESSAGE_SIZE_LIMIT 512
 
 #include <errno.h>
 
@@ -84,6 +87,8 @@ class Server
 		void	QUIT(t_parser_data& data, User* &user);
 		void	MODE(t_parser_data& data, User* &user);
 		void	KICK(t_parser_data& data, User* &user);
+		void	INVITE(t_parser_data& data, User*& user);
+		void	NOTICE(t_parser_data& data, User*& user);
 
 		void	TOPIC(t_parser_data& data, User* &user);
 
@@ -107,6 +112,7 @@ class Server
 
 		void	ChannelMode(t_parser_data& data,User* &user);
 		void	UserMode(t_parser_data& data,User* &user);
+		void 	removeUser(User* user);
 		
 	public:
 		Server(void);
@@ -116,3 +122,6 @@ class Server
 		void	run(void);
 };
 
+void logError(const std::string& msg);
+void logPerror(const std::string& msg);
+void log(const std::string& msg) ;

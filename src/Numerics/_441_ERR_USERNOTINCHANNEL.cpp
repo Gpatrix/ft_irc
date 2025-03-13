@@ -4,5 +4,5 @@ void Numerics::_441_ERR_USERNOTINCHANNEL(const std::string& client, const std::s
 {
 	std::string msg = ":" SERVER_NAME " 441 " + client + " " + nick + " " + channel + " :They aren't on that channel\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
-	std::clog << msg;
+	logError(msg);
 }

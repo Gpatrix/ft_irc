@@ -69,6 +69,6 @@
 		"__functional_03": "cpp",
 		"target": "cpp",
 		"__bit_reference": "cpp",
-		"__locale": "cpp"
+		"cinttypes": "cpp"
 	}
 }

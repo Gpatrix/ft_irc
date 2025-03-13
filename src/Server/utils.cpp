@@ -61,3 +61,31 @@ User*	Server::find_User(const id_t& user_id)
 	}
 	return (NULL);
 }
+
+void Server::removeUser(User* user)
+{
+    for (std::vector<User*>::iterator it = Users.begin(); it != Users.end(); ++it)
+    {
+        if (*it == user)
+        {
+            Users.erase(it);
+            break;
+        }
+    }
+
+    for (std::map<std::string, Channel*>::iterator it = Channels.begin(); it != Channels.end();)
+    {
+        it->second->removeUser(user->get_id());
+
+        if (it->second->getIsVid())
+        {
+            delete it->second;
+            Channels.erase(it);
+		}
+        else
+            ++it;
+    }
+
+    delete user;
+    user = NULL;
+}

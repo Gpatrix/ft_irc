@@ -17,6 +17,7 @@ class Numerics
 		static void _331_RPL_NOTOPIC(const std::string& client, const std::string& channel, const int& fd);
 		static void _332_RPL_TOPIC(const std::string& client, const std::string& channel, const std::string& topic, const int& fd);
 		static void _333_RPL_TOPICWHOTIME(const std::string& client, const std::string& channel, const std::string& nick, const std::time_t& time, const int& fd);
+		static void _341_RPL_INVITING(const std::string& client, const std::string& nick, const std::string& channel, const int& fd);
 		static void _353_RPL_NAMREPLY(const std::string& client, const std::string& symbol, const std::string& channel, const std::vector<std::string>& users, const int& fd);
 		static void _366_RPL_ENDOFNAMES(const std::string& client, const std::string& channel, const int& fd);
 		
@@ -34,5 +35,10 @@ class Numerics
 		static void _464_ERR_PASSWDMISMATCH(const std::string& client, const int& fd);
 		static void _475_ERR_BADCHANNELKEY(const std::string& client, const std::string& cmd, const int& fd);
 		static void _482_ERR_CHANOPRIVSNEEDED(const std::string& client, const std::string& channel, const int& fd);
+		static void _409_ERR_NOORIGIN(const std::string& client, const int& fd);
+		static void _443_ERR_USERONCHANNEL(const std::string& client, const std::string& nick, const std::string& channel, const int& fd);
+		static void _464_ERR_PASSWDMISMATCH(const int& fd);
+		static void _501_ERR_UMODEUNKNOWNFLAG(const std::string& client, const int& fd);
+		static void _502_ERR_USERSDONTMATCH(const std::string& client, const int& fd);
 
 };

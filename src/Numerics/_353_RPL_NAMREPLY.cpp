@@ -12,5 +12,5 @@ void Numerics::_353_RPL_NAMREPLY(const std::string& client, const std::string& s
 	}
 	std::string msg = ":" SERVER_NAME " 353 " + client + " " + symbol + " " + channel + " :" + userList + "\r\n";
 	send(fd, msg.c_str(), msg.size(), 0);
-	std::clog << msg;
+	log(msg);
 }
