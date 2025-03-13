@@ -70,7 +70,7 @@ inline void	get_data(t_parser_data& data, std::string& str)
 
 
 	if (str.empty())
-		throw std::runtime_error("Empty input string");
+		return;
 	index = skip_space(index, str);
 	if (index < size && str[index] == '@') 
 	{
@@ -84,7 +84,7 @@ inline void	get_data(t_parser_data& data, std::string& str)
 	{
 		pos = str.find(' ', index);
 		if (pos == std::string::npos)
-			throw std::runtime_error("Syntax error: Missing space after source");
+			return;
 		std::string cut = str.substr(index + 1, pos - index - 1);
 		get_source(data, cut);
 		index += pos + 1;
@@ -93,7 +93,7 @@ inline void	get_data(t_parser_data& data, std::string& str)
 	if (index < str.size()) 
 		get_cmd(data.cmd, str.substr(index));
 	else
-		throw std::runtime_error("Syntax error: Missing command");
+		return;
 }
 
 static	void clear_data(t_parser_data& data)
@@ -112,14 +112,14 @@ static	void clear_data(t_parser_data& data)
 
 void	Server::parser(std::string& str, User* &user)
 {
-	static t_parser_data data;
+	static t_parser_data	data;
 	static std::vector<std::string>::iterator it;
 
 
 	size_t	pos_begin = 0;
 	size_t	pos_end   = 0;
 
-	std::string	tmp_str;
+	static std::string		command;
 	pos_end = str.find_first_of("\r\n", pos_begin);
 	if (pos_end == std::string::npos)
 		return;
@@ -135,25 +135,12 @@ void	Server::parser(std::string& str, User* &user)
 			break;
 		}
 
-		tmp_str = str.substr(pos_begin, pos_end - pos_begin);
+		command = str.substr(pos_begin, pos_end - pos_begin);
 
-		get_data(data, tmp_str);
+		get_data(data, command);
 
 		pos_begin = pos_end + ((str[pos_end] == '\r' || str[pos_end] == '\n') && str[pos_end + 1] != '\n' ? 1 : 2);
 
-		// if (!data.nickname.empty())
-		// {
-		// 	std::cout
-		// 	<< "nickname: " << data.nickname << '\n'
-		// 	<< "user    : " << data.user << '\n'
-		// 	<< "host    : " << data.host << '\n';
-		// }
-
-		// std::cout << "cmd: " << data.cmd[0] << '\n';
-		// for (std::vector<std::string>::iterator it = data.cmd.begin() + 1; it < data.cmd.end(); it++)
-		// {
-		// 	std::cout << "option: " << '\'' << *it << "\'\n";
-		// }
 		if (data.cmd.size() != 0)
 			exec_cmd(data, user);
 	}
