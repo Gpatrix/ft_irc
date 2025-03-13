@@ -11,7 +11,7 @@ std::vector<std::string> Server::ft_split(const std::string &str, char delimiter
 		pos_begin = pos_end + 1;
 	}
 	result.push_back(str.substr(pos_begin));
-	return result; 	
+	return result;
 }
 
 bool Server::isValidNickname(const std::string &nickname)
