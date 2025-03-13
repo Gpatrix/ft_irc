@@ -143,7 +143,6 @@ inline void	Server::recv_data(short& index)
 	static int			rc;
 
 
-	this->data_buffer[index - 1].clear();
 	while (true)
 	{
 		rc = recv(this->fds[index].fd, buffer, sizeof(buffer), 0);
