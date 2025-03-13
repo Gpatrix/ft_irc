@@ -188,12 +188,11 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 		{
 			if ((*it)->get_id() == this->_Users[i])
 			{
+				user << (*it)->get_nickname();
 				userList.push_back(user.str());
 				break;
 			}
 		}
-
-		userList.push_back(user.str());
 	}
 
 	return (userList);
@@ -202,17 +201,18 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 
 std::string Channel::getModeString() const
 {
-	std::string modes;
+    std::string modes = "";
 
-	if (_invitationOnly)
-		modes += "i";
-	if (_protectedTopic)
-		modes += "t";
-	if (!_Key.empty())
-		modes += "k";
-	if (_userLimit > 0)
-		modes += "l";
-	return modes;
+    if (_invitationOnly)
+        modes += "i";
+    if (_protectedTopic)
+        modes += "t";
+    if (!_Key.empty())
+        modes += "k";
+    if (_userLimit > 0)
+        modes += "l";
+
+    return modes;
 }
 
 std::string Channel::getModeArgs() const
@@ -228,3 +228,4 @@ std::string Channel::getModeArgs() const
 	}
 	return args;
 }
+
