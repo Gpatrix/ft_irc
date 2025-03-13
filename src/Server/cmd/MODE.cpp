@@ -24,14 +24,14 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 	}
 
 	// Vérifier si l'utilisateur est opérateur du channel
+	if (data.cmd.size() == 2)
+	{
+		Numerics::_324_RPL_CHANNELMODEIS(user->get_nickname(), channel->getName(), channel->getModeString(), channel->getModeArgs(), user->get_fd());
+	}
 	if (!channel->isOperator(user->get_id()))
 	{
 		Numerics::_482_ERR_CHANOPRIVSNEEDED(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
-	}
-	if (data.cmd.size() > 2)
-	{
-		Numerics::_324_RPL_CHANNELMODEIS(user->get_nickname(), channel->getName(), channel->getModeString(), channel->getModeArgs(), user->get_fd());
 	}
 	std::string modeString = data.cmd[2];
 	bool addMode = (modeString[0] == '+');
@@ -96,7 +96,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 	// Annonce aux utilisateurs du channel
 	std::string msg = ":" + user->get_nickname() + " MODE " + channel->getName() + " " + modeString + "\r\n";
 	this->sendToAll(channel->getUsers(),msg);
-	std::clog << msg;
+	log(msg);
 }
 
 void Server::UserMode(t_parser_data& data, User* &user)
