@@ -13,7 +13,8 @@ class Numerics
 
 	public:
 		static void _001_RPL_WELCOME(const std::string& client, const int& fd);
-
+		
+		static void _324_RPL_CHANNELMODEIS(const std::string& client, const std::string& channel, const std::string& modeString, const std::string& modeArgs, const int& fd);
 		static void _331_RPL_NOTOPIC(const std::string& client, const std::string& channel, const int& fd);
 		static void _332_RPL_TOPIC(const std::string& client, const std::string& channel, const std::string& topic, const int& fd);
 		static void _333_RPL_TOPICWHOTIME(const std::string& client, const std::string& channel, const std::string& nick, const std::time_t& time, const int& fd);

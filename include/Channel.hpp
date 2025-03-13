@@ -37,6 +37,8 @@ class Channel
 		std::string			getTopic_modif_user(void) const;
 		std::time_t			getTopic_modif_time(void) const;
 		std::string			getPasword(void) const;
+		std::string 		getModeString() const;
+		std::string 		getModeArgs() const;
 		std::vector<id_t>	getUsers(void) const;
 		std::vector<id_t>	getOperators(void) const;
 		std::vector<id_t>	getInvitation(void) const;

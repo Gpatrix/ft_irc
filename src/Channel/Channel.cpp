@@ -200,3 +200,31 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 }
 
 
+std::string Channel::getModeString() const
+{
+	std::string modes;
+
+	if (_invitationOnly)
+		modes += "i";
+	if (_protectedTopic)
+		modes += "t";
+	if (!_Key.empty())
+		modes += "k";
+	if (_userLimit > 0)
+		modes += "l";
+	return modes;
+}
+
+std::string Channel::getModeArgs() const
+{
+    std::string args;
+    if (!_Key.empty()) {
+        args += " " + _Key;
+    }
+    if (_userLimit > 0) {
+        std::ostringstream oss;
+        oss << _userLimit;
+        args += " " + oss.str();
+    }
+    return args;
+}
