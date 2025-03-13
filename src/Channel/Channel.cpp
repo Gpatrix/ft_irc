@@ -19,16 +19,17 @@ Channel::Channel(std::string Name, id_t owner)
 Channel::~Channel(void) {}
 
 // Getters
-std::string			Channel::getName(void) const				{return (this->_Name);}
-std::string			Channel::getTopic(void) const				{return (this->_Topic);}
-std::string			Channel::getTopic_modif_user(void) const	{return (this->_Topic_modif_user);};
-std::time_t			Channel::getTopic_modif_time(void) const	{return (this->_Topic_modif_time);};
-std::string			Channel::getPasword(void) const				{return (this->_Key);}
-bool				Channel::isInvitationOnly(void) const		{return (this->_invitationOnly);}
-bool				Channel::isProtectedTopic(void) const		{return (this->_protectedTopic);}
-size_t				Channel::getUserLimit(void) const			{return (this->_userLimit);}
-std::vector<id_t>	Channel::getUsers(void) const				{return (this->_Users);}
-std::vector<id_t>	Channel::getOperators(void) const				{return (this->_Operators);}
+std::string			Channel::getName(void)				const	{return (this->_Name);}
+std::string			Channel::getTopic(void)				const	{return (this->_Topic);}
+std::string			Channel::getTopic_modif_user(void)	const	{return (this->_Topic_modif_user);};
+std::time_t			Channel::getTopic_modif_time(void)	const	{return (this->_Topic_modif_time);};
+std::string			Channel::getPasword(void)			const	{return (this->_Key);}
+bool				Channel::isInvitationOnly(void)		const	{return (this->_invitationOnly);}
+bool				Channel::isProtectedTopic(void)		const	{return (this->_protectedTopic);}
+size_t				Channel::getUserLimit(void)			const	{return (this->_userLimit);}
+std::vector<id_t>	Channel::getUsers(void)				const	{return (this->_Users);}
+std::vector<id_t>	Channel::getOperators(void)			const	{return (this->_Operators);}
+std::vector<id_t>	Channel::getInvitation(void)		const	{return (this->_Invitation);}
 
 // Setters
 void	Channel::setTopic(const std::string& topic)	{this->_Topic = topic;}
@@ -89,8 +90,6 @@ bool Channel::removeUser(const id_t& user)
 		if (_Users[i] == user)
 		{
 			_Users.erase(_Users.begin() + i);
-			if (_Users.empty())
-				_isempty = true;
 			return (true);
 		}
 	}
@@ -113,6 +112,21 @@ void Channel::removeOperator(const id_t& user)
 			return;
 		}
 	}
+}
+
+bool	Channel::isInvited(const id_t& user) const
+{
+	
+}
+
+void	Channel::addInvitation(const id_t& user)
+{
+	
+}
+
+void	Channel::removeInvitation(const id_t& user)
+{
+
 }
 
 std::string Channel::getChannelSymbol() const
