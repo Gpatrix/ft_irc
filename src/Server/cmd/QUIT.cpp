@@ -6,7 +6,7 @@ void	Server::QUIT(t_parser_data& data, User* &user)
 	std::string	msg;
 	if (data.cmd.size() > 2)
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
 	

@@ -4,7 +4,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() < 2)
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
 	// Séparer les canaux et les clés
@@ -24,7 +24,7 @@ void Server::JOIN(t_parser_data& data, User* &user)
 
 		if (channel.getPasword() != key)
 		{
-			Numerics::_475_ERR_BADCHANNELKEY(channelName, user->get_fd());
+			Numerics::_475_ERR_BADCHANNELKEY(user->get_nickname(), channelName, user->get_fd());
 			continue;
 		}
 

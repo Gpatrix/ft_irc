@@ -6,7 +6,7 @@ void	Server::PING(t_parser_data& data,User* &user)
 	if (data.cmd.size() != 2)
 	{
 		// TODO replace with https://modern.ircdocs.horse/#errnoorigin-409
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
 	else

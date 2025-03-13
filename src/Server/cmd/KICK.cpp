@@ -5,7 +5,7 @@ void Server::KICK(t_parser_data& data, User* &user)
 {
 	if (data.cmd.size() < 3 || data.cmd.size() > 4)
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(data.cmd[0], user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
 		return;
 	}
 
@@ -13,17 +13,17 @@ void Server::KICK(t_parser_data& data, User* &user)
 
 	if (!channel)
 	{
-		Numerics::_403_ERR_NOSUCHCHANNEL(data.cmd[1], user->get_fd());
+		Numerics::_403_ERR_NOSUCHCHANNEL(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
 	}
 	if (!channel->isUser(user->get_id()))
 	{
-		Numerics::_442_ERR_NOTONCHANNEL(data.cmd[1], user->get_fd());
+		Numerics::_442_ERR_NOTONCHANNEL(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
 	}
 	if (!channel->isOperator(user->get_id()))
 	{
-		Numerics::_482_ERR_CHANOPRIVSNEEDED(data.cmd[1], user->get_fd());
+		Numerics::_482_ERR_CHANOPRIVSNEEDED(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
 	}
 
@@ -36,7 +36,7 @@ void Server::KICK(t_parser_data& data, User* &user)
 		target_user = find_User(targets[i]);
 		if (!target_user || !channel->isUser(target_user->get_id()))
 		{
-			Numerics::_441_ERR_USERNOTINCHANNEL(data.cmd[1], targets[i], user->get_fd());
+			Numerics::_441_ERR_USERNOTINCHANNEL(user->get_nickname(), data.cmd[1], targets[i], user->get_fd());
 			continue;
 		}
 
