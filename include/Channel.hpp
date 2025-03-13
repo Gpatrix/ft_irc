@@ -48,7 +48,6 @@ class Channel
 		void	setTopicModifUser(const std::string& topic_modif_user);
 		void	setTopicModifTime(const std::time_t& topic_modif_time);
 		void	setKey(const std::string& Key);
-		void	setTopic(std::string topic);
 		void	freeKey(void);
 		void	setInvitationOnly(bool mode);
 		void	setProtectedTopic(bool mode);

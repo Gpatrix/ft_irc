@@ -150,10 +150,7 @@ inline void	Server::recv_data(short& index)
 		if (rc < 0)
 		{
 			if (errno != EWOULDBLOCK)
-			{
 				logPerror("\trecv() failed");
-				close_conn = true;
-			}
 			break;
 		}
 

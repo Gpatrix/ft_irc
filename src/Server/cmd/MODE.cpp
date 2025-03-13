@@ -26,7 +26,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 	// Vérifier si l'utilisateur est opérateur du channel
 	if (!channel->isOperator(user->get_id()))
 	{
-		Numerics::_482_ERR_CHANOPRIVSNEEDED(data.cmd[1], user->get_fd());
+		Numerics::_482_ERR_CHANOPRIVSNEEDED(user->get_nickname(), data.cmd[1], user->get_fd());
 		return;
 	}
 
@@ -49,7 +49,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 			case 'k': // Mot de passe
 				if (argIndex >= data.cmd.size())
 				{
-					Numerics::_461_ERR_NEEDMOREPARAMS("MODE", user->get_fd());
+					Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "MODE", user->get_fd());
 					return;
 				}
 				if (addMode)
@@ -60,7 +60,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 			case 'o': // Donner/retirer l'opérateur à un user
 				if (argIndex >= data.cmd.size())
 				{
-					Numerics::_461_ERR_NEEDMOREPARAMS("MODE", user->get_fd());
+					Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "MODE", user->get_fd());
 					return;
 				}
 				if (User* target = this->find_User(data.cmd[argIndex++]))
@@ -71,7 +71,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 				{
 					if (argIndex >= data.cmd.size())
 					{
-						Numerics::_461_ERR_NEEDMOREPARAMS("MODE", user->get_fd());
+						Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "MODE", user->get_fd());
 						return;
 					}
 					channel->setUserLimit(atoi(data.cmd[argIndex++].c_str()));

@@ -14,5 +14,5 @@ void	Server::PASS(t_parser_data& data, User* &user)
 	user->set_have_valid_password(isValid);
 
 	if (!isValid)
-		Numerics::_464_ERR_PASSWDMISMATCH(user->get_fd());
+		Numerics::_464_ERR_PASSWDMISMATCH("*", user->get_fd());
 }

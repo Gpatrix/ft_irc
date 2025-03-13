@@ -17,7 +17,7 @@ void Server::USER(t_parser_data& data, User*& user)
 
 	if (data.cmd[1].empty())
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS("USER", user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "USER", user->get_fd());
 		std::clog << "ERROR: Username too short\n";
 		return;
 	}
@@ -25,7 +25,7 @@ void Server::USER(t_parser_data& data, User*& user)
 	user->set_username(username);
 	if (data.cmd[3].empty())
 	{
-		Numerics::_461_ERR_NEEDMOREPARAMS("USER", user->get_fd());
+		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), "USER", user->get_fd());
 		std::clog << "ERROR: Realname is required\n";
 		return;
 	}
