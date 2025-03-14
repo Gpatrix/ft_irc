@@ -36,6 +36,9 @@ void Server::PART(t_parser_data& data, User*& user)
 		send(user->get_fd(), msg.c_str(), msg.length(), 0);
 
 		if (channel->getUsers().size() == 0)
+		{
+			delete this->Channels[channel_list[index]];
 			this->Channels.erase(channel_list[index]);
+		}
 	}
 }

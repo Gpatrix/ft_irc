@@ -50,6 +50,7 @@ void	Server::compress_fds(void)
 				(*it_Channels).second->removeUser((*it_User)->get_id());
 				if ((*it_Channels).second->getUsers().size() == 0)
 				{
+					delete (*it_Channels).second;
 					this->Channels.erase(it_Channels);
 					if (this->Channels.size() == 0)
 						break;
