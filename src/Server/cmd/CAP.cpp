@@ -31,5 +31,5 @@ void Server::CAP(t_parser_data& data, User*& user)
 	else if (subcommand == "END")
 		log("CAP negotiation ended for " + user->get_nickname() + "\n");
 	else
-	logError("ERROR: Unknown CAP subcommand: " + subcommand + "\n");
+		logError("ERROR: Unknown CAP subcommand: " + subcommand + "\n");
 }

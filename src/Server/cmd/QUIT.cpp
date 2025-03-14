@@ -29,10 +29,11 @@ void	Server::close_connection(const int& fd)
 
 void	Server::compress_fds(void)
 {
-	static std::vector<pollfd>::iterator it_fd;
-	static std::vector<User *>::iterator it_User;
-	static std::vector<std::string>::iterator it_string;
+	static std::vector<pollfd>::iterator		it_fd;
+	static std::vector<User *>::iterator		it_User;
+	static std::vector<std::string>::iterator	it_string;
 	static std::map<std::string, Channel*>::iterator it_Channels;
+	static size_t	channel_index;
 
 	
 	it_fd = this->fds.begin() + 1;
@@ -41,19 +42,22 @@ void	Server::compress_fds(void)
 
 	while (it_User != this->Users.end())
 	{
-		it_Channels = this->Channels.begin();
 		if ((*it_fd).fd == -1)
 		{
-			while (it_Channels != this->Channels.end())
+			it_Channels = this->Channels.begin();
+			channel_index = 0;
+			for (; it_Channels != this->Channels.end(); it_Channels++)
 			{
+				channel_index++;
 				(*it_Channels).second->removeOperator((*it_User)->get_id());
 				(*it_Channels).second->removeUser((*it_User)->get_id());
 				if ((*it_Channels).second->getUsers().size() == 0)
 				{
+					delete (*it_Channels).second;
 					this->Channels.erase(it_Channels);
-					continue;
+					if (channel_index >= this->Channels.size())
+						break;
 				}
-				it_Channels++;
 			}
 			this->fds.erase(it_fd);
 			delete *it_User;
