@@ -41,9 +41,9 @@ void	Server::compress_fds(void)
 
 	while (it_User != this->Users.end())
 	{
-		it_Channels = this->Channels.begin();
 		if ((*it_fd).fd == -1)
 		{
+			it_Channels = this->Channels.begin();
 			while (it_Channels != this->Channels.end())
 			{
 				(*it_Channels).second->removeOperator((*it_User)->get_id());
@@ -51,9 +51,10 @@ void	Server::compress_fds(void)
 				if ((*it_Channels).second->getUsers().size() == 0)
 				{
 					this->Channels.erase(it_Channels);
-					continue;
+					if (this->Channels.size() == 0)
+						break;
 				}
-				it_Channels++;
+				++it_Channels;
 			}
 			this->fds.erase(it_fd);
 			delete *it_User;
