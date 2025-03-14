@@ -68,10 +68,13 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 				}
 				if (User* target = this->find_User(data.cmd[argIndex++]))
 				{
-					if (addMode)
+					if (channel->isUser(target->get_id()))
+					{
+						if (addMode)
 							channel->addOperator(target->get_id());
-					else
-						channel->removeOperator(target->get_id());
+						else
+							channel->removeOperator(target->get_id());
+					}
 				}
 				break;
 			case 'l':
