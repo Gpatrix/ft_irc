@@ -26,6 +26,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 	if (data.cmd.size() == 2)
 	{
 		Numerics::_324_RPL_CHANNELMODEIS(user->get_nickname(), channel->getName(), channel->getModeString(), channel->getModeArgs(), user->get_fd());
+		return;
 	}
 	if (!channel->isOperator(user->get_id()))
 	{
