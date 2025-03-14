@@ -19,7 +19,6 @@
 
 #include <cstring>
 #include <cstdlib>
-#include <cstdio> // for debug perror
 
 #include <unistd.h>
 
@@ -27,9 +26,6 @@
 #include <ctime>
 
 #define SERVER_NAME "chorizo.42"
-#define TAG_SIZE_LIMIT 4094 
-#define COMBINED_TAG_SIZE_LIMIT 8191
-#define MESSAGE_SIZE_LIMIT 512
 
 #include <errno.h>
 

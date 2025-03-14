@@ -54,5 +54,3 @@ void	Server::try_register(User* &user)
 	user->set_is_register(true);
 	Numerics::_001_RPL_WELCOME(user->get_nickname(), user->get_fd());
 }
-
-// https://ircv3.net/specs/extensions/capability-negotiation.html

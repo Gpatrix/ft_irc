@@ -3,6 +3,8 @@
 // https://www.ibm.com/docs/fr/i/7.5?topic=designs-using-poll-instead-select
 // https://tala-informatique.fr/index.php?title=C_socket
 
+Server::Server(void): Users_id(0), need_compress_fds(false) {}
+
 void	Server::init_socket(char* &port)
 {
 	int		rc;
@@ -24,7 +26,7 @@ void	Server::init_socket(char* &port)
 	memcpy(&addr.sin6_addr, &in6addr_any, sizeof(in6addr_any));
 
 	char*	end;
-	long	port_nb = strtol(port, &end, 10);
+	long	port_nb = std::strtol(port, &end, 10);
 	if (*end != '\0' || port_nb < 0)
 		throw std::runtime_error("Error: bad port");
 
@@ -50,8 +52,6 @@ void sigint_handler(int)
 {
 	std::cout << '\n' << "closing Server" << '\n';
 }
-
-Server::Server(void): Users_id(0), need_compress_fds(false) {}
 
 void Server::init(char* port, char* password)
 {
@@ -164,7 +164,7 @@ inline void	Server::recv_data(short& index)
 
 		if (rc < static_cast<int>(sizeof(buffer)))
 		{
-			std::cout << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
+			std::clog << this->fds[index].fd << ": " << this->data_buffer[index - 1].c_str() << '\n';
 			try
 			{
 				parser(this->data_buffer[index - 1], this->Users[index - 1]);

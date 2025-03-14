@@ -60,8 +60,6 @@ void get_cmd(std::vector<std::string>& cmd, const std::string& str)
 	}
 }
 
-
-
 inline void	get_data(t_parser_data& data, std::string& str)
 {
 	size_t	pos = 0;

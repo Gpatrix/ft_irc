@@ -13,7 +13,7 @@ class User
 		std::string	_realname;
 
 		bool		is_register;
-		bool		is_invisible; // Not shown in searches /WHO
+		bool		is_invisible;
 		bool		have_valid_password;
 
 

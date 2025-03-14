@@ -44,7 +44,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 			}
 
 			sendToAll((*channel).getUsers(), msg, user->get_id());
-			std::clog << msg;
+			log(msg);
 		}
 		else
 		{
@@ -55,7 +55,7 @@ void Server::PRIVMSG(t_parser_data& data, User* &user)
 				continue;
 			}
 			send(target_user->get_fd(), msg.c_str(), msg.length(), 0);
-			std::clog << msg;
+			log(msg);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 #    By: lchauvet <lchauvet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/06 10:15:47 by max               #+#    #+#              #
-#    Updated: 2025/03/13 17:30:08 by lchauvet         ###   ########.fr        #
+#    Updated: 2025/03/14 08:59:07 by lchauvet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ TMP 	   = .tmp/
 
 CC          = c++
 
-CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O0
+CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O3
 
 RM          = rm -f
 MKDIR       = mkdir

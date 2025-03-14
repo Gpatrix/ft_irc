@@ -14,7 +14,7 @@ void Server::NOTICE(t_parser_data& data, User*& user)
 
 	if (message.empty())
 	{
-	logError("ERROR: NOTICE message is empty\n");
+		logError("ERROR: NOTICE message is empty\n");
 		return;
 	}
 

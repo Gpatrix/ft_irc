@@ -24,8 +24,8 @@ const std::string&			Channel::getTopic(void)				const	{return (this->_Topic);}
 const std::string&			Channel::getTopic_modif_user(void)	const	{return (this->_Topic_modif_user);};
 const std::time_t&			Channel::getTopic_modif_time(void)	const	{return (this->_Topic_modif_time);};
 const std::string&			Channel::getPasword(void)			const	{return (this->_Key);}
-const bool&				Channel::isInvitationOnly(void)		const	{return (this->_invitationOnly);}
-const bool&				Channel::isProtectedTopic(void)		const	{return (this->_protectedTopic);}
+const bool&					Channel::isInvitationOnly(void)		const	{return (this->_invitationOnly);}
+const bool&					Channel::isProtectedTopic(void)		const	{return (this->_protectedTopic);}
 const size_t&				Channel::getUserLimit(void)			const	{return (this->_userLimit);}
 const std::vector<id_t>&	Channel::getUsers(void)				const	{return (this->_Users);}
 const std::vector<id_t>&	Channel::getOperators(void)			const	{return (this->_Operators);}
@@ -197,7 +197,6 @@ std::vector<std::string> Channel::getUserList(std::vector<User*>& Vuser)
 
 	return (userList);
 }
-
 
 std::string Channel::getModeString() const
 {

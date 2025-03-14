@@ -23,7 +23,6 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 		return;
 	}
 
-	// Vérifier si l'utilisateur est opérateur du channel
 	if (data.cmd.size() == 2)
 	{
 		Numerics::_324_RPL_CHANNELMODEIS(user->get_nickname(), channel->getName(), channel->getModeString(), channel->getModeArgs(), user->get_fd());
@@ -93,7 +92,6 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 		}
 	}
 
-	// Annonce aux utilisateurs du channel
 	std::string msg = ":" + user->get_nickname() + " MODE " + channel->getName() + " " + modeString + "\r\n";
 	this->sendToAll(channel->getUsers(),msg);
 	log(msg);
@@ -101,12 +99,12 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 
 void Server::UserMode(t_parser_data& data, User* &user)
 {
-	// Vérifier si c'est l'utilisateur lui-même qui change son mode
 	if (data.cmd[1] != user->get_nickname())
 	{
 		Numerics::_502_ERR_USERSDONTMATCH(user->get_nickname(), user->get_fd());
 		return;
 	}
+
 	std::string modeString = data.cmd[2];
 	bool addMode = (modeString[0] == '+');
 	for (size_t i = 1; i < modeString.length(); i++)

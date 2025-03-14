@@ -3,12 +3,6 @@
 // https://modern.ircdocs.horse/#quit-message
 void	Server::QUIT(t_parser_data& data, User* &user)
 {
-	if (data.cmd.size() > 2)
-	{
-		Numerics::_461_ERR_NEEDMOREPARAMS(user->get_nickname(), data.cmd[0], user->get_fd());
-		return;
-	}
-
 	std::string msg = (data.cmd.size() == 1) ? "" : data.cmd[1];
 	std::string quit_msg = ":" + user->get_nickname() + " QUIT :" + msg + "\r\n";
 

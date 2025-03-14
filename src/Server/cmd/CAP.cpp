@@ -1,5 +1,6 @@
 #include "Server.hpp"
 
+// https://ircv3.net/specs/extensions/capability-negotiation.html
 void Server::CAP(t_parser_data& data, User*& user)
 {
 	if (data.cmd.size() < 2)
