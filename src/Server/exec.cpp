@@ -45,7 +45,7 @@ void	Server::try_register(User* &user)
 		return;
 	}
 
-	if (!user->get_have_valid_password())
+	if (!user->get_have_valid_password() && !this->Password.empty())
 	{
 		Numerics::_464_ERR_PASSWDMISMATCH(user->get_nickname(), user->get_fd());
 		return;

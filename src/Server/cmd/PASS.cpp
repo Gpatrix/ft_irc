@@ -10,7 +10,7 @@ void	Server::PASS(t_parser_data& data, User* &user)
 	}
 	
 	const std::string& providedPassword = data.cmd[1];
-	bool isValid = (this->Password == providedPassword);
+	bool isValid = (this->Password == providedPassword || this->Password.empty());
 	user->set_have_valid_password(isValid);
 
 	if (!isValid)
