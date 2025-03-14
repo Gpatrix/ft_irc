@@ -4,7 +4,7 @@
 	  {
 		"label": "Build with Makefile",
 		"type": "shell",
-		"command": "make CC=g++",
+		"command": "make fclean && make -j CC=g++",
 		"group": {
 		  "kind": "build",
 		  "isDefault": true
