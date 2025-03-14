@@ -36,6 +36,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 	std::string modeString = data.cmd[2];
 	bool addMode = (modeString[0] == '+');
 	size_t argIndex = 3;
+	std::string	target_str;
 
 	for (size_t i = 1; i < modeString.length(); i++)
 	{
@@ -70,6 +71,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 				{
 					if (channel->isUser(target->get_id()))
 					{
+						target_str = " " + target->get_nickname();
 						if (addMode)
 							channel->addOperator(target->get_id());
 						else
@@ -96,7 +98,7 @@ void Server::ChannelMode(t_parser_data& data, User* &user)
 		}
 	}
 
-	std::string msg = ":" + user->get_nickname() + " MODE " + channel->getName() + " " + modeString + "\r\n";
+	std::string msg = ":" + user->get_nickname() + " MODE " + channel->getName() + " " + modeString + target_str +"\r\n";
 	this->sendToAll(channel->getUsers(),msg);
 	log(msg);
 }
