@@ -13,7 +13,7 @@ void Server::CAP(t_parser_data& data, User*& user)
 
 	if (subcommand == "LS")
 	{
-		std::string cap_list = "multi-prefix sasl";
+		std::string cap_list = "";
 		std::string response = ":server CAP " + user->get_nickname() + " LS :" + cap_list + "\r\n";
 		send(user->get_fd(), response.c_str(), response.size(), 0);
 	}
