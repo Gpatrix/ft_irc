@@ -9,7 +9,7 @@ TMP 	   = .tmp/
 
 CC          = c++
 
-CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O0
+CFLAGS      = -Wall -Wextra -Werror -std=c++98 -g3 -O3
 
 RM          = rm -f
 MKDIR       = mkdir

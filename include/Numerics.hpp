@@ -37,7 +37,7 @@ class Numerics
 		static void _462_ERR_ALREADYREGISTERED(const std::string& client, const int& fd);
 		static void _464_ERR_PASSWDMISMATCH(const std::string& client, const int& fd);
 		static void _471_ERR_CHANNELISFULL(const std::string& client, const std::string& channel, const int& fd);
-		static void	_473_ERR_INVITEONLYCHAN(const std::string& client, const std::string& channel, const int& fd);
+		static void _473_ERR_INVITEONLYCHAN(const std::string& client, const std::string& channel, const int& fd);
 		static void _475_ERR_BADCHANNELKEY(const std::string& client, const std::string& cmd, const int& fd);
 		static void _482_ERR_CHANOPRIVSNEEDED(const std::string& client, const std::string& channel, const int& fd);
 		static void _409_ERR_NOORIGIN(const std::string& client, const int& fd);
